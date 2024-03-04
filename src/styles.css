@@ -1,1 +1,91 @@
-/* You can add global styles to this file, and also import other style files */
+/* General Styling */
+:root{
+    --font-size-sm: clamp(0.8rem, 0.19vw + 0.75rem, 0.94rem);
+    --font-size-base: clamp(1rem, 0.35vw + 0.91rem, 1.25rem);
+    --font-size-md: clamp(1.25rem, 0.59vw + 1.1rem, 1.67rem);
+    --font-size-lg: clamp(1.56rem, 0.93vw + 1.33rem, 2.22rem);
+    --font-size-xl: clamp(1.95rem, 1.42vw + 1.6rem, 2.96rem);
+    --font-size-xxl: clamp(2.44rem, 2.12vw + 1.91rem, 3.95rem);
+    --font-size-xxxl: clamp(3.05rem, 3.11vw + 2.27rem, 5.26rem);
+}
+
+@font-face {
+    font-family: 'Quicksand';
+    src: url('assets/font/Quicksand-Regular.ttf');
+}
+
+body{
+    margin: 0;
+    font-family: 'Quicksand';
+    background-color: #002122;
+    font-size: var(--font-size-base);
+    /* height: 1000vh; This is just to make the page scrollable */
+}
+
+.wrapper{
+    max-width: 1500px;
+}
+
+/* Utility CSS */
+.flex-container{
+    display: flex;
+    justify-content: var(--justify-content);
+    align-items: var(--align-items);
+    flex-direction: var(--flex-direction);
+}
+
+.m-auto{
+    margin: auto;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+/* UI Components */
+.lib-invalid{
+    border: 1px solid red  !important;
+}
+
+.lib-input{
+    all: unset;
+    box-sizing: border-box;
+    background-color: #d9d9d9;
+    padding: 0.2rem 1rem;
+    border-radius: 0.5rem;
+    width: 100%;
+}
+
+.lib-button{
+    all: unset;
+    box-sizing: border-box;
+    background-color: #002122;
+    color: #fff;
+    cursor: pointer;
+    padding: .2rem;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 1s;
+}
+.lib-button:hover{
+    background-color: #f48b6b;
+}
+
+/* CSS Hiding */
+/* For Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* For all browsers, just in case */
+input[type="number"]::-webkit-clear-button,
+input[type="number"]::-webkit-credentials-auto-fill-button {
+  display: none;
+  -webkit-appearance: none;
+  margin: 0;
+}

@@ -1,0 +1,41 @@
+.menu{
+  position: fixed;
+  top: 0;
+  background-color: #fafafa;
+  width: 100%;
+  height: 64px;
+  gap: 2rem;
+}
+
+.menu__search{
+  gap: 1rem;
+  width: 30%;
+}
+.mobile__search{
+  display: none;
+}
+.menu__logo{
+  background-image: url('/assets/img/LogoHorizontal.svg');
+  background-size: cover;
+  min-width: 190px;
+  width: 190px;
+  height: 60px;
+}
+.menu__nav{
+  gap: 1rem;
+}
+.lib-button{
+  border-radius: 50%;
+}
+
+@media (max-width: 830px){
+
+  .menu__search{
+    display: none;
+  }
+  .mobile__search{
+    display: flex;
+    gap: 1rem;
+  }
+
+}

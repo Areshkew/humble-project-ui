@@ -1,0 +1,24 @@
+<div class="menu flex-container" style="--justify-content: space-around; --align-items: center;">
+    <div class="menu__logo pointer" routerLink="/inicio"> </div>
+
+    <div class="menu__search flex-container">
+        <input class="lib-input" type="text" placeholder="Busqueda de Libros ">
+        <button class="lib-button">
+            <app-icon icon="search" [size]=28></app-icon>
+        </button>
+    </div>
+
+    <div class="menu__nav flex-container">
+        <button class="lib-button mobile__search">
+            <app-icon icon="search" [size]=28></app-icon>
+        </button>
+
+        <button class="lib-button" routerLink="/ingreso">
+            <app-icon icon="person" [size]=28></app-icon>
+        </button>
+        
+        <button class="lib-button">
+            <app-icon icon="shopping_cart" [size]=28></app-icon>
+        </button>
+    </div>
+</div>

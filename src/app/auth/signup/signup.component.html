@@ -1,0 +1,87 @@
+<div class="signup flex-container">
+    
+    <div class="signup__content flex-container" style="--justify-content: center; --align-items: center;">
+        <form class="signup__form">
+            <div class="form__logo">
+                <img src="/assets/img/LogoHorizontal.svg" alt="Logo" >
+            </div>
+
+            <div class="form__title">
+                <h1>Registro</h1>
+            </div>
+
+            <div class="form__group flex-container">
+                <div class="form__data flex-container" style="--flex-direction: column;">
+                    <div class="input__group">
+                        <label>Ingresa tu DNI</label>
+                        <input  class="lib-input" type="number"  placeholder="DNI" required>
+                    </div>
+                    <div class="input__group">
+                        <label>Ingresa tus Nombres</label>
+                        <input  class="lib-input" type="text"  placeholder="Nombres" required>
+                    </div>
+                    <div class="input__group">
+                        <label>Ingresa tus Apellidos</label>
+                        <input  class="lib-input" type="text"  placeholder="Apellidos" required>
+                    </div>
+                    <div class="input__group">
+                        <label>Ingresa tu Nacimiento</label>
+                        <input  class="lib-input" type="date" required>
+                    </div>
+                    <div class="input__group">
+                        <label>Ingresa tu Ciudad de Nacimiento</label>
+                        <input  class="lib-input" type="text"  placeholder="Ciudad" required>
+                    </div>
+                </div>
+
+                <div class="form__data flex-container" style="--flex-direction: column;">
+                    <div class="input__group">
+                        <label>Ingresa tu Dirección</label>
+                        <input  class="lib-input" type="text"  placeholder="Dirección" required>
+                    </div>
+                    
+                    <div class="input__group">
+                        <label>Ingresa tu Género</label>
+                        <select class="lib-input">
+                            <option value="" disabled selected>Selecciona tu género</option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                            <option value="R">Ruiz</option>
+                            <option value="O">Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="input__group">
+                        <label>Ingresa tu Correo Electrónico</label>
+                        <input  class="lib-input" type="email"  placeholder="Email" required>
+                    </div>
+
+
+                    <div class="input__group">
+                        <label>Ingresa tu Usuario</label>
+                        <input  class="lib-input" type="text"  placeholder="Usuario" required>
+                    </div>
+
+                    <div class="input__group">
+                        <label>Ingresa tu Contraseña</label>
+                        <input  class="lib-input" type="password"  placeholder="Contraseña" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form__preference">
+                <div class="input__group">
+                    <label>Temas literarios de preferencia ( Separados por coma ',' )</label>
+                    <input  class="lib-input" type="email"  placeholder="Preferencias" required>
+                </div>
+            </div>
+
+            <div class="form__submit flex-container" style="--flex-direction: column;">
+                <button class="lib-button" type="submit">
+                    Registrarse
+                </button>
+                <a routerLink="/ingreso">Ya tienes una cuenta? <strong>Ingresa</strong></a>
+            </div>
+        </form>
+    </div>
+</div>

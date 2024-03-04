@@ -1,0 +1,45 @@
+<div class="login flex-container ">
+    <div class="login__img flex-container" style="--justify-content: center; --align-items: center;" >
+        <img src="/assets/img/loginIcon.png" alt="Login Img" >    
+    </div>
+
+    <div class="login__content flex-container" style="--justify-content: center; --align-items: center;">
+        <form class="login__form flex-container" style="--flex-direction: column;" [formGroup]="userLogin" (ngSubmit)="onSubmit()">
+            <div class="form__logo">
+                <img src="/assets/img/LogoHorizontal.svg" alt="Logo" >
+            </div>
+            <div class="form__title">
+                <h1>Iniciar Sesión</h1>
+            </div>
+
+            <div class="form__group flex-container" style="--align-items: start;">
+                <input type="text" formControlName="email" class="lib-input" placeholder="Usuario / Email" 
+                        [ngClass]="{'lib-invalid': userLogin.get('email')?.touched && userLogin.get('email')?.invalid}">
+
+                @if (userLogin.get('email')?.touched && userLogin.get('email')?.invalid) {
+                    <p class="lib-invalid__message">- El email o usuario es requerido.</p>
+                }
+
+            </div>
+
+            <div class="form__group flex-container" style="--align-items: start;">
+                <input type="password" formControlName="password" class="lib-input" placeholder="Contraseña"
+                        [ngClass]="{'lib-invalid': userLogin.get('password')?.touched && userLogin.get('password')?.invalid}">
+
+                @if (userLogin.get('password')?.touched && userLogin.get('password')?.invalid) {
+                    <p class="lib-invalid__message">- La clave es requerida.</p>
+                }
+
+
+                <a href="">Olvide mi contraseña</a>
+            </div>
+            
+            <div class="form__group flex-container">
+                <button class="lib-button" type="submit">
+                    Iniciar Sesión
+                </button>
+                <a routerLink="/registro">No tienes una cuenta? <strong>Registrate</strong></a>
+            </div>
+        </form>
+    </div>
+</div>

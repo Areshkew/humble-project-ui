@@ -26,6 +26,7 @@
             ],
             "styles": [
               "src/styles.css",
+              "node_modules/material-symbols/rounded.css",
               "node_modules/normalize.css/normalize.css"
             ],
             "scripts": []
@@ -92,5 +93,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
