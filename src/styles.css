@@ -58,6 +58,7 @@ body{
 
 .lib-button{
     all: unset;
+    display: flex;
     box-sizing: border-box;
     background-color: #002122;
     color: #fff;
