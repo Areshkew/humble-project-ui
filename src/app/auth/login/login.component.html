@@ -1,4 +1,5 @@
 <div class="login flex-container ">
+    <p-toast position="bottom-center" key="tc"></p-toast>
     <div class="login__img flex-container" style="--justify-content: center; --align-items: center;" >
         <img src="/assets/img/loginIcon.png" alt="Login Img" >    
     </div>
@@ -13,21 +14,21 @@
             </div>
 
             <div class="form__group flex-container" style="--align-items: start;">
-                <input type="text" formControlName="email" class="lib-input" placeholder="Usuario / Email" 
-                        [ngClass]="{'lib-invalid': userLogin.get('email')?.touched && userLogin.get('email')?.invalid}">
+                <input type="text" formControlName="correo_electronico" pInputText placeholder="Correo Electrónico" 
+                        [ngClass]="{'lib-invalid': userLogin.get('correo_electronico')?.touched && userLogin.get('correo_electronico')?.invalid}">
 
-                @if (userLogin.get('email')?.touched && userLogin.get('email')?.invalid) {
-                    <p class="lib-invalid__message">- El email o usuario es requerido.</p>
+                @if (userLogin.get('correo_electronico')?.touched && userLogin.get('correo_electronico')?.invalid) {
+                    <p class="lib-invalid__message">El email o usuario es requerido.</p>
                 }
 
             </div>
 
             <div class="form__group flex-container" style="--align-items: start;">
-                <input type="password" formControlName="password" class="lib-input" placeholder="Contraseña"
-                        [ngClass]="{'lib-invalid': userLogin.get('password')?.touched && userLogin.get('password')?.invalid}">
+                <input type="password" formControlName="clave" pInputText placeholder="Contraseña"
+                        [ngClass]="{'lib-invalid': userLogin.get('clave')?.touched && userLogin.get('clave')?.invalid}">
 
-                @if (userLogin.get('password')?.touched && userLogin.get('password')?.invalid) {
-                    <p class="lib-invalid__message">- La clave es requerida.</p>
+                @if (userLogin.get('clave')?.touched && userLogin.get('clave')?.invalid) {
+                    <p class="lib-invalid__message">La clave es requerida.</p>
                 }
 
 

@@ -42,6 +42,7 @@ body{
     cursor: pointer;
 }
 
+
 /* UI Components */
 .lib-invalid{
     border: 1px solid red  !important;
@@ -69,6 +70,15 @@ body{
     background-color: #f48b6b;
 }
 
+.p-calendar, .p-multiselect, .p-dropdown{
+    width: 100%;
+}
+p-calendar, p-multiselect, p-dropdown{
+    border-radius: 100px;
+}
+.p-hidden-accessible{
+    display: none;
+}
 /* CSS Hiding */
 /* For Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,

@@ -27,7 +27,8 @@
             "styles": [
               "src/styles.css",
               "node_modules/material-symbols/rounded.css",
-              "node_modules/normalize.css/normalize.css"
+              "node_modules/normalize.css/normalize.css",
+              "src/assets/theme/theme.css"
             ],
             "scripts": []
           },
@@ -59,10 +60,12 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "LibHub-ui:build:production"
+              "buildTarget": "LibHub-ui:build:production",
+              "proxyConfig": "src/proxy.conf.json"
             },
             "development": {
-              "buildTarget": "LibHub-ui:build:development"
+              "buildTarget": "LibHub-ui:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

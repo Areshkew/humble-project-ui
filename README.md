@@ -5,16 +5,17 @@ Todos los cambios serán documentados en este archivo.
 ## [Unreleased]
 
 
-## [0.0.1] - 2014-05-31
+## [0.0.1] - 2024-03
 
-### Fixed
-### Added
-### Removed
-### Changed
+### Arreglado
+### Añadido
+- Vista de Inicio de sesión.
+- Vista de Registro.
+- Autenticación contra el backend.
+- Guard de autenticación.
+- Interceptor para el token. 
 
-- This CHANGELOG file to hopefully serve as an evolving example of a
-  standardized open source project CHANGELOG.
-- CNAME file to enable GitHub Pages custom domain.
-- README now contains answers to common questions about CHANGELOGs.
-- Good examples and basic guidelines, including proper date formatting.
-- Counter-examples: "What makes unicorns cry?".
+### Removido
+### Cambiado
+
+

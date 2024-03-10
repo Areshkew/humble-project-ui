@@ -1,7 +1,7 @@
 <div class="signup flex-container">
-    
+    <p-toast position="bottom-center" key="tc"></p-toast>
     <div class="signup__content flex-container" style="--justify-content: center; --align-items: center;">
-        <form class="signup__form">
+        <form class="signup__form" [formGroup]="registerForm" (ngSubmit)="onSubmit()"> 
             <div class="form__logo">
                 <img src="/assets/img/LogoHorizontal.svg" alt="Logo" >
             </div>
@@ -14,65 +14,84 @@
                 <div class="form__data flex-container" style="--flex-direction: column;">
                     <div class="input__group">
                         <label>Ingresa tu DNI</label>
-                        <input  class="lib-input" type="number"  placeholder="DNI" required>
+                        <input type="number"  placeholder="DNI" pInputText formControlName="DNI" 
+                                [ngClass]="{'lib-invalid': registerForm.get('DNI')?.touched && registerForm.get('DNI')?.invalid}"> 
                     </div>
                     <div class="input__group">
                         <label>Ingresa tus Nombres</label>
-                        <input  class="lib-input" type="text"  placeholder="Nombres" required>
+                        <input  pInputText type="text"  placeholder="Nombres" formControlName="nombre" 
+                                [ngClass]="{'lib-invalid': registerForm.get('nombre')?.touched && registerForm.get('nombre')?.invalid}">
                     </div>
                     <div class="input__group">
                         <label>Ingresa tus Apellidos</label>
-                        <input  class="lib-input" type="text"  placeholder="Apellidos" required>
+                        <input  pInputText type="text"  placeholder="Apellidos" formControlName="apellido"
+                                [ngClass]="{'lib-invalid': registerForm.get('apellido')?.touched && registerForm.get('apellido')?.invalid}">
                     </div>
                     <div class="input__group">
-                        <label>Ingresa tu Nacimiento</label>
-                        <input  class="lib-input" type="date" required>
+                        <label>Ingresa tu País</label>
+                        <p-dropdown [options]="countries" optionLabel="name" placeholder="País"
+                                    [filter]="true" (onChange)="onCountryChange()" formControlName="pais"
+                                    [ngClass]="{'lib-invalid': registerForm.get('pais')?.touched && registerForm.get('pais')?.invalid}"></p-dropdown>
                     </div>
                     <div class="input__group">
-                        <label>Ingresa tu Ciudad de Nacimiento</label>
-                        <input  class="lib-input" type="text"  placeholder="Ciudad" required>
+                        <label>Ingresa tu Estado/Departamento/Distrito</label>
+                        <p-dropdown #stateDropdown [options]="states" optionLabel="name" placeholder="Estado"
+                                    [filter]="true" (onChange)="onStateChange()" formControlName="estado"
+                                    [ngClass]="{'lib-invalid': registerForm.get('estado')?.touched && registerForm.get('estado')?.invalid}"></p-dropdown>
+                    </div>
+                    <div class="input__group">
+                        <label>Ingresa tu Ciudad</label>
+                        <p-dropdown #cityDropdown [options]="cities"  optionLabel="name" placeholder="Ciudad"
+                                     [filter]="true" formControlName="ciudad"
+                                     [ngClass]="{'lib-invalid': registerForm.get('ciudad')?.touched && registerForm.get('ciudad')?.invalid}"></p-dropdown>
                     </div>
                 </div>
 
                 <div class="form__data flex-container" style="--flex-direction: column;">
                     <div class="input__group">
                         <label>Ingresa tu Dirección</label>
-                        <input  class="lib-input" type="text"  placeholder="Dirección" required>
+                        <input  pInputText type="text"  placeholder="Dirección" formControlName="direccion_envio"
+                                [ngClass]="{'lib-invalid': registerForm.get('direccion_envio')?.touched && registerForm.get('direccion_envio')?.invalid}">
                     </div>
                     
                     <div class="input__group">
                         <label>Ingresa tu Género</label>
-                        <select class="lib-input">
-                            <option value="" disabled selected>Selecciona tu género</option>
-                            <option value="M">Masculino</option>
-                            <option value="F">Femenino</option>
-                            <option value="R">Ruiz</option>
-                            <option value="O">Otro</option>
-                        </select>
+                        <p-dropdown [options]="genres" placeholder="Género" formControlName="genero"
+                                    [ngClass]="{'lib-invalid': registerForm.get('genero')?.touched && registerForm.get('genero')?.invalid}"></p-dropdown>
+                    </div>
+
+                    <div class="input__group">
+                        <label>Ingresa tu Nacimiento</label>
+                        <p-calendar formControlName="fecha_nacimiento" [defaultDate]="maxDate" [maxDate]="maxDate" [minDate]="minDate" dateFormat="dd/mm/yy"
+                                    [ngClass]="{'lib-invalid': registerForm.get('fecha_nacimiento')?.touched && registerForm.get('fecha_nacimiento')?.invalid}"></p-calendar>
                     </div>
 
                     <div class="input__group">
                         <label>Ingresa tu Correo Electrónico</label>
-                        <input  class="lib-input" type="email"  placeholder="Email" required>
+                        <input  pInputText type="email"  placeholder="Email" formControlName="correo_electronico" 
+                                [ngClass]="{'lib-invalid': registerForm.get('correo_electronico')?.touched && registerForm.get('correo_electronico')?.invalid}">
                     </div>
 
 
                     <div class="input__group">
                         <label>Ingresa tu Usuario</label>
-                        <input  class="lib-input" type="text"  placeholder="Usuario" required>
+                        <input  pInputText type="text" formControlName="usuario" placeholder="Usuario"
+                                [ngClass]="{'lib-invalid': registerForm.get('usuario')?.touched && registerForm.get('usuario')?.invalid}">
                     </div>
 
                     <div class="input__group">
                         <label>Ingresa tu Contraseña</label>
-                        <input  class="lib-input" type="password"  placeholder="Contraseña" required>
+                        <input  pInputText type="password" formControlName="clave" placeholder="Contraseña" 
+                                [ngClass]="{'lib-invalid': registerForm.get('clave')?.touched && registerForm.get('clave')?.invalid}">
                     </div>
                 </div>
             </div>
 
             <div class="form__preference">
                 <div class="input__group">
-                    <label>Temas literarios de preferencia ( Separados por coma ',' )</label>
-                    <input  class="lib-input" type="email"  placeholder="Preferencias" required>
+                    <label>Temas literarios de preferencia (Máximo 3)</label>
+                    <p-multiSelect display="chip" [selectionLimit]="3" [options]="bookGenres" optionLabel="genero"  placeholder="Preferencias" formControlName="preferencias"
+                                    [ngClass]="{'lib-invalid': registerForm.get('clave')?.touched && registerForm.get('clave')?.invalid}"></p-multiSelect>
                 </div>
             </div>
 
@@ -82,6 +101,6 @@
                 </button>
                 <a routerLink="/ingreso">Ya tienes una cuenta? <strong>Ingresa</strong></a>
             </div>
-        </form>
+        </form> 
     </div>
 </div>
