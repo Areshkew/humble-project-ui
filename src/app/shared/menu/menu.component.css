@@ -12,7 +12,7 @@
   width: 30%;
 }
 .mobile__search{
-  display: none;
+  display: none !important;
 }
 .menu__logo{
   background-image: url('/assets/img/LogoHorizontal.svg');
@@ -26,6 +26,7 @@
 }
 .lib-button{
   border-radius: 50%;
+  display: flex;
 }
 
 @media (max-width: 830px){
@@ -34,7 +35,7 @@
     display: none;
   }
   .mobile__search{
-    display: flex;
+    display: flex !important;
     gap: 1rem;
   }
 

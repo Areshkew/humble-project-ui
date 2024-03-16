@@ -1,40 +1,41 @@
 <div class="login flex-container ">
     <p-toast position="bottom-center" key="tc"></p-toast>
-    <div class="login__img flex-container" style="--justify-content: center; --align-items: center;" >
-        <img src="/assets/img/loginIcon.png" alt="Login Img" >    
+    <div class="login__img flex-container" style="--justify-content: center; --align-items: center;">
+        <img src="/assets/img/loginIcon.png" alt="Login Img">
     </div>
 
     <div class="login__content flex-container" style="--justify-content: center; --align-items: center;">
-        <form class="login__form flex-container" style="--flex-direction: column;" [formGroup]="userLogin" (ngSubmit)="onSubmit()">
+        <form class="login__form flex-container" style="--flex-direction: column;" [formGroup]="userLogin"
+            (ngSubmit)="onSubmit()">
             <div class="form__logo">
-                <img src="/assets/img/LogoHorizontal.svg" alt="Logo" >
+                <img src="/assets/img/LogoHorizontal.svg" alt="Logo">
             </div>
             <div class="form__title">
                 <h1>Iniciar Sesión</h1>
             </div>
 
             <div class="form__group flex-container" style="--align-items: start;">
-                <input type="text" formControlName="correo_electronico" pInputText placeholder="Correo Electrónico" 
-                        [ngClass]="{'lib-invalid': userLogin.get('correo_electronico')?.touched && userLogin.get('correo_electronico')?.invalid}">
+                <input type="text" formControlName="correo_electronico" pInputText placeholder="Correo Electrónico"
+                    [ngClass]="{'lib-invalid': userLogin.get('correo_electronico')?.touched && userLogin.get('correo_electronico')?.invalid}">
 
                 @if (userLogin.get('correo_electronico')?.touched && userLogin.get('correo_electronico')?.invalid) {
-                    <p class="lib-invalid__message">El email o usuario es requerido.</p>
+                <p class="lib-invalid__message">El email o usuario es requerido.</p>
                 }
 
             </div>
 
             <div class="form__group flex-container" style="--align-items: start;">
                 <input type="password" formControlName="clave" pInputText placeholder="Contraseña"
-                        [ngClass]="{'lib-invalid': userLogin.get('clave')?.touched && userLogin.get('clave')?.invalid}">
-
+                    [ngClass]="{'lib-invalid': userLogin.get('clave')?.touched && userLogin.get('clave')?.invalid}">
+                
                 @if (userLogin.get('clave')?.touched && userLogin.get('clave')?.invalid) {
-                    <p class="lib-invalid__message">La clave es requerida.</p>
+                <p class="lib-invalid__message">La clave es requerida.</p>
                 }
 
 
-                <a href="">Olvide mi contraseña</a>
+                <a routerLink="/recuperar-contraseña"><span>Olvide mi contraseña</span></a>
             </div>
-            
+
             <div class="form__group flex-container">
                 <button class="lib-button" type="submit">
                     Iniciar Sesión

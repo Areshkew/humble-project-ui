@@ -20,3 +20,6 @@ class PermissionsService {
 export const authGuard: CanActivateFn = (route, state) => {
   return inject(PermissionsService).canActivate(route, state);
 };
+
+
+//Verifica si el usuario esta logged o si es un visitante

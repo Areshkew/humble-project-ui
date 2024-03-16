@@ -23,6 +23,7 @@
   min-width: 380px;
   max-width: 520px;
   max-height: 600px;
+  min-height: 460px;
   height: 70%;
   background-color: #fafafa;
   border-radius: 10px;
@@ -62,6 +63,18 @@
   width: 100%;
   text-align: center;
 }
+
+input{
+  height: 50px;
+  box-shadow: 0 4px 2px -2px gray;
+}
+
+
+a span:hover,strong:hover{
+  color: #f48b6b;
+}
+
+
 
 @media (max-width: 830px){
   .login__img{

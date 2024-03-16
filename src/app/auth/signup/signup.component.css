@@ -75,8 +75,13 @@
   flex-direction: column;
   gap: 0.5rem;
   width: 70%;
+  
 }
 .input__group label{
   font-size: var(--font-size-sm);
   font-weight: bold;
+}
+
+input, p-dropdown, p-calendar, p-multiselect {
+  box-shadow: 0 4px 2px -2px gray;
 }
