@@ -1,0 +1,30 @@
+.lib-msg{
+    font-size: 1.3em;
+    text-align: center !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .form__group{
+    width: 100%;
+    gap: 0;
+    
+  }
+
+  .lib-button{
+    border-radius: 100px;
+    padding: 1rem;
+    width: 100%;
+    text-align: center;
+  }
+  
+
+  .form__input{
+    box-shadow: 0 4px 2px -2px gray;
+    height: 50px;
+    
+  }
+
+  .container{
+    gap: 2rem;
+  }
+

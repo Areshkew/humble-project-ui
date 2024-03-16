@@ -20,6 +20,12 @@ export const routes: Routes = [
         path: 'recuperar-contraseña', 
         loadComponent: () => import('./auth/recover/recover.component').then(m => m.RecoverComponent),
         data: { Guest: true }, 
-        canActivate: [authGuard] 
+        canActivate: [authGuard],
+        children: [
+            {path: '', redirectTo: 'enviar-correo', pathMatch: 'full' },
+            {path: 'enviar-correo', loadComponent: () => import('./auth/recover/steps/send-email/send-email.component').then(m => m.SendEmailComponent)},
+            {path: 'verificar-codigo', loadComponent: () => import('./auth/recover/steps/put-code/put-code.component').then(m => m.PutCodeComponent)},
+            {path: 'ingresar-contraseña', loadComponent: () => import('./auth/recover/steps/new-password/new-password.component').then(m => m.NewPasswordComponent)}
+        ] 
     },
 ];

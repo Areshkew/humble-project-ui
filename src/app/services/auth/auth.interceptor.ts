@@ -21,3 +21,5 @@ export const authInterceptor: HttpInterceptorFn = (
         return next(cloned);
     } else return next(req);
 };
+
+//Intercepta la solicitud http, la modifica y transcurre al back

@@ -75,8 +75,14 @@
   flex-direction: column;
   gap: 0.5rem;
   width: 70%;
+  
+  
 }
 .input__group label{
   font-size: var(--font-size-sm);
   font-weight: bold;
+}
+
+.input__group > input{
+  box-shadow: 0 4px 2px -2px gray;
 }

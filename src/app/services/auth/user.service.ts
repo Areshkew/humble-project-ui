@@ -39,3 +39,5 @@ export class UserService {
     return throwError(() => new Error(`${error.error.detail}`));
   }
 }
+
+//Comunicacion con el back, donde se envian los datos
