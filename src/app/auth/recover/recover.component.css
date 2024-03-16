@@ -42,6 +42,7 @@
   .form__title{
     font-weight: bolder;
     text-align: center;
+    font-size: 1rem; 
   }
   .form__group{
     width: 70%;
@@ -60,15 +61,7 @@
     text-align: center !important;
   }
 
-  input{
-    box-shadow: 0 4px 2px -2px gray;
-    height: 50px;
-    
-  }
-  
-  h1{
-    font-size: 2rem;
-  }
+
 
   @media (max-width: 830px){
     .recover__img {

@@ -22,11 +22,6 @@
     font-size: 1.5rem;
   } 
 
-  input{
-    box-shadow: 0 4px 2px -2px gray;
-    height: 50px;
-    
-  }
 
   .container{
     gap: 2rem;

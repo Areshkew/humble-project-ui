@@ -64,18 +64,6 @@
   text-align: center;
 }
 
-input{
-  height: 50px;
-  box-shadow: 0 4px 2px -2px gray;
-}
-
-
-a span:hover,strong:hover{
-  color: #f48b6b;
-}
-
-
-
 @media (max-width: 830px){
   .login__img{
     display: none;

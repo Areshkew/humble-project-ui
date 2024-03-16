@@ -15,7 +15,7 @@
             </div>
 
             <div class="form__group flex-container" style="--align-items: start;">
-                <input type="text" formControlName="correo_electronico" pInputText placeholder="Correo Electrónico"
+                <input class="form__input" type="text" formControlName="correo_electronico" pInputText placeholder="Correo Electrónico"
                     [ngClass]="{'lib-invalid': userLogin.get('correo_electronico')?.touched && userLogin.get('correo_electronico')?.invalid}">
 
                 @if (userLogin.get('correo_electronico')?.touched && userLogin.get('correo_electronico')?.invalid) {
@@ -25,7 +25,7 @@
             </div>
 
             <div class="form__group flex-container" style="--align-items: start;">
-                <input type="password" formControlName="clave" pInputText placeholder="Contraseña"
+                <input class="form__input" type="password" formControlName="clave" pInputText placeholder="Contraseña"
                     [ngClass]="{'lib-invalid': userLogin.get('clave')?.touched && userLogin.get('clave')?.invalid}">
                 
                 @if (userLogin.get('clave')?.touched && userLogin.get('clave')?.invalid) {
@@ -33,14 +33,14 @@
                 }
 
 
-                <a routerLink="/recuperar-contraseña"><span>Olvide mi contraseña</span></a>
+                <a routerLink="/recuperar-contraseña"><span class="form__links">Olvide mi contraseña</span></a>
             </div>
 
             <div class="form__group flex-container">
                 <button class="lib-button" type="submit">
                     Iniciar Sesión
                 </button>
-                <a routerLink="/registro">No tienes una cuenta? <strong>Registrate</strong></a>
+                <a routerLink="/registro">No tienes una cuenta? <strong class="form__links">Registrate</strong></a>
             </div>
         </form>
     </div>

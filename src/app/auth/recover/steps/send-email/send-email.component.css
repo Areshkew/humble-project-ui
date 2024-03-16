@@ -18,7 +18,7 @@
   }
   
 
-  input{
+  .form__input{
     box-shadow: 0 4px 2px -2px gray;
     height: 50px;
     
@@ -28,9 +28,3 @@
     gap: 2rem;
   }
 
-
-  @media (max-width: 830px){
-    
-    
-  
-  }
