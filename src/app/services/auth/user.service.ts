@@ -10,9 +10,11 @@ import { User } from '@models/user.model';
 export class UserService {
   private userRegistrationSubject = new BehaviorSubject<any>(null);
   private userLoginSubject = new BehaviorSubject<any>(null);
+  private userRecoverSubject = new BehaviorSubject<any>(null);
 
   userRegistration$ = this.userRegistrationSubject.asObservable();
   userLogin$ = this.userLoginSubject.asObservable();
+  userRecoverSubject$ = this.userRecoverSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -29,6 +31,14 @@ export class UserService {
       tap(response => this.userLoginSubject.next(response)),
       shareReplay(1),
       catchError(error => this.handleError(error, this.userLoginSubject))
+    );
+  }
+
+  recover(data: any): Observable<any> {
+    return this.http.post(`/api/user/recover`, data).pipe(
+      tap(response => this.userRecoverSubject.next(response)),
+      shareReplay(1),
+      catchError(error => this.handleError(error, this.userRecoverSubject))
     );
   }
 
