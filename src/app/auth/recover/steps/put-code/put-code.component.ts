@@ -41,14 +41,9 @@ export class PutCodeComponent {
       return;
     }
 
-    this.userService.recover(this.putCode.value).subscribe({
+    this.userService.verifyRecoveryCode(this.putCode.value).subscribe({
       next: (response) => {
-        if (response.token) {
-          this.cookieService.setCookie("Bearer", response.token, 1);
           this.router.navigate(['recuperar-contraseña','ingresar-contraseña']);
-        } else {
-          console.error('No se encontro el token en la respuesta del servidor.');
-        }
       },
       error: (error) => {
         this.messageService.add({ key: 'tc', severity: 'error', summary: 'Error', detail: error });

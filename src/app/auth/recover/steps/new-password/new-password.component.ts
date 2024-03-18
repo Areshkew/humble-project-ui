@@ -43,14 +43,9 @@ export class NewPasswordComponent {
 
     if(this.newPass.get('contraseña')?.value === this.newPass.get('confirmar-contraseña')?.value) {
       
-        this.userService.recover(this.newPass.value).subscribe({
+        this.userService.resetPassword(this.newPass.value).subscribe({
           next: (response) => {
-            if (response.token) {
-              this.cookieService.setCookie("Bearer", response.token, 1);
-              this.router.navigate(['/inicio']);
-            } else {
-              console.error('No se encontro el token en la respuesta del servidor.');
-            }
+              this.router.navigate(['/inicio']);            
           },
           error: (error) => {
             this.messageService.add({ key: 'tc', severity: 'error', summary: 'Error', detail: error });
@@ -59,7 +54,5 @@ export class NewPasswordComponent {
       }
       
     }
-
-
 
 }

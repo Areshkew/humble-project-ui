@@ -41,14 +41,9 @@ export class SendEmailComponent {
       return;
     }
 
-    this.userService.recover(this.sendEmail.value).subscribe({
+    this.userService.sendRecoveryEmail(this.sendEmail.value).subscribe({
       next: (response) => {
-        if (response.token) {
-          this.cookieService.setCookie("Bearer", response.token, 1);
-          this.router.navigate(['recuperar-contraseña','verificar-codigo']);
-        } else {
-          console.error('No se encontro el token en la respuesta del servidor.');
-        }
+          this.router.navigate(['recuperar-contraseña','verificar-codigo']);       
       },
       error: (error) => {
         this.messageService.add({ key: 'tc', severity: 'error', summary: 'Error', detail: error });
