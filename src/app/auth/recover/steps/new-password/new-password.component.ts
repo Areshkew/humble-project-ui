@@ -45,7 +45,7 @@ export class NewPasswordComponent {
       
         this.userService.resetPassword(this.newPass.value).subscribe({
           next: (response) => {
-              this.router.navigate(['/inicio']);            
+              this.router.navigate(['/ingreso']);            
           },
           error: (error) => {
             this.messageService.add({ key: 'tc', severity: 'error', summary: 'Error', detail: error });
