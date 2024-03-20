@@ -17,7 +17,7 @@
                         [ngClass]="{'lib-invalid': userLogin.get('email')?.touched && userLogin.get('email')?.invalid}">
 
                 @if (userLogin.get('email')?.touched && userLogin.get('email')?.invalid) {
-                    <p class="lib-invalid__message">- El email o usuario es requerido.</p>
+                    <p>- El email o usuario es requerido.</p>
                 }
 
             </div>
@@ -27,7 +27,7 @@
                         [ngClass]="{'lib-invalid': userLogin.get('password')?.touched && userLogin.get('password')?.invalid}">
 
                 @if (userLogin.get('password')?.touched && userLogin.get('password')?.invalid) {
-                    <p class="lib-invalid__message">- La clave es requerida.</p>
+                    <p>- La clave es requerida.</p>
                 }
 
 
