@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
-import { CookieService } from '@services/cookie.service';
 import { UserService } from '@services/auth/user.service';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -21,7 +20,7 @@ export class SendEmailComponent {
   sendEmail!: FormGroup;
 
   constructor(private router: Router, private formbuilder: FormBuilder, private userService: UserService,
-              private cookieService: CookieService, private messageService: MessageService){}
+              private messageService: MessageService){}
 
   ngOnInit(): void {
     this.sendEmail = this.formbuilder.group({

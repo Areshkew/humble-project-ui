@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { InputText, InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { StepsModule } from 'primeng/steps';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { RouterOutlet, Route, Router } from '@angular/router';
-import { SendEmailComponent } from './steps/send-email/send-email.component';
+import { RouterOutlet, Router } from '@angular/router';
 
 @Component({
   selector: 'app-recover',
