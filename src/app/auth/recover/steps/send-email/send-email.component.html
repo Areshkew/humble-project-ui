@@ -1,0 +1,18 @@
+<p-toast position="bottom-center" key="tc"></p-toast>
+<form class="container flex-container" [formGroup]="sendEmail" (ngSubmit)="onSubmit()">
+    <div class="form__group" style="--align-items: center;">
+        <p class="lib-msg">Ingresa tu correo</p>
+        <input class="form__input" formControlName="correo_electronico" id="email" pInputText type="text" placeholder="Correo Electrónico"
+        [ngClass]="{'lib-invalid': sendEmail.get('correo_electronico')?.touched && sendEmail.get('correo_electronico')?.invalid}">
+
+        @if (sendEmail.get('correo_electronico')?.touched && sendEmail.get('correo_electronico')?.invalid) {
+            <p class="lib-invalid__message">El email es requerido.</p>
+            }
+    </div>
+    <div class="form__group">
+        <button class="lib-button" type="submit" >
+            Recuperar
+        </button>
+        
+    </div>  
+</form>

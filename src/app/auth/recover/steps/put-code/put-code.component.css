@@ -1,0 +1,32 @@
+.lib-msg {
+  font-size: 1.3rem;
+  text-align: center !important;
+}
+.form__group {
+  width: 100%;
+  gap: 0;
+}
+
+.lib-button {
+  border-radius: 100px;
+  padding: 1rem;
+  width: 100%;
+  text-align: center;
+}
+
+.lib-msg {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center !important;
+  font-size: 1.5rem;
+}
+
+.container {
+  gap: 2rem;
+}
+
+.lib-invalid__message {
+  font-size: var(--font-size-sm);
+  color: red;
+  margin: 0;
+}

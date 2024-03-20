@@ -42,6 +42,7 @@ body{
     cursor: pointer;
 }
 
+
 /* UI Components */
 .lib-invalid{
     border: 1px solid red  !important;
@@ -69,6 +70,26 @@ body{
     background-color: #f48b6b;
 }
 
+.p-calendar, .p-multiselect, .p-dropdown{
+    width: 100%;
+}
+p-calendar, p-multiselect, p-dropdown{
+    box-shadow: 0 4px 2px -2px gray;
+    border-radius: 100px;
+}
+.p-hidden-accessible{
+    display: none;
+}
+.form__links:hover{
+    color: #f48b6b;
+    text-decoration: underline;
+
+}
+.form__input{
+    height: 50px;
+    box-shadow: 0 4px 2px -2px gray;
+  }
+  
 /* CSS Hiding */
 /* For Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,

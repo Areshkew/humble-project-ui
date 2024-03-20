@@ -20,6 +20,8 @@
     "@angular/router": "^17.0.0",
     "material-symbols": "^0.16.0",
     "normalize.css": "^8.0.1",
+    "primeicons": "^6.0.1",
+    "primeng": "^17.9.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
