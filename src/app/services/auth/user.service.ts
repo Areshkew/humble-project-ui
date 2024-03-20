@@ -10,9 +10,16 @@ import { User } from '@models/user.model';
 export class UserService {
   private userRegistrationSubject = new BehaviorSubject<any>(null);
   private userLoginSubject = new BehaviorSubject<any>(null);
-
+  private emailSubject = new BehaviorSubject<string | null>(null);
+  private codeSubject = new BehaviorSubject<string | null>(null);
+  private passwordSubject = new BehaviorSubject<string | null>(null);
+  
   userRegistration$ = this.userRegistrationSubject.asObservable();
   userLogin$ = this.userLoginSubject.asObservable();
+  email$ = this.emailSubject.asObservable();
+  code$ = this.codeSubject.asObservable();
+  password$ = this.passwordSubject.asObservable();
+  
 
   constructor(private http: HttpClient) { }
 
@@ -29,6 +36,28 @@ export class UserService {
       tap(response => this.userLoginSubject.next(response)),
       shareReplay(1),
       catchError(error => this.handleError(error, this.userLoginSubject))
+    );
+  }
+
+  sendRecoveryEmail(email: string): Observable<any> {
+    return this.http.post(`/api/user/recover/email`, { email }).pipe(
+      tap(response => this.emailSubject.next(email)),
+      catchError(error => this.handleError(error, this.emailSubject))
+    );
+  }
+
+  verifyRecoveryCode(code: string): Observable<any> {
+    return this.http.post(`/api/user/recover/verify-code`, { code }).pipe(
+      tap(response => this.codeSubject.next(code)),
+      catchError(error => this.handleError(error, this.codeSubject))
+    );
+  }
+
+  resetPassword(newPassword: string): Observable<any> {
+    return this.http.post(`/api/user/recover/reset-password`, { newPassword }).pipe(
+      tap(response => this.passwordSubject.next(newPassword)),
+      shareReplay(1),
+      catchError(error => this.handleError(error, this.passwordSubject))
     );
   }
 
