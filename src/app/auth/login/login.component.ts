@@ -1,29 +1,28 @@
-  import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {  Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from '@services/auth/user.service';
 import { CookieService } from '@services/cookie.service';
-import { MessageService } from 'primeng/api';
 import { InputTextModule } from 'primeng/inputtext';
-import { ToastModule } from 'primeng/toast';
+import { AuthShared } from '../auth.shared';
+import { ToastService } from '@services/toast.service';
+
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-    CommonModule, RouterLink, ReactiveFormsModule,
-    InputTextModule, ToastModule
+    InputTextModule, AuthShared
   ],
-  providers: [MessageService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent { 
   userLogin!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private messageService: MessageService,
-              private cookieService: CookieService, private router: Router) {}
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private cookieService: CookieService, 
+              private router: Router, private toastService: ToastService) {}
 
   ngOnInit() {
     this.userLogin = this.formBuilder.group({
@@ -53,7 +52,7 @@ export class LoginComponent {
         }
       },
       error: (error) => {
-        this.messageService.add({ key: 'tc', severity: 'error', summary: 'Error', detail: error });
+        this.toastService.showErrorToast("Error", error);
       }
     })
   }

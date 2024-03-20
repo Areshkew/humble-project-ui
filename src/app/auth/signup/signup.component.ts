@@ -1,25 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { Dropdown, DropdownModule } from 'primeng/dropdown';
 import { GENRES } from '@models/genres';
 import { JsonService } from '@services/json.service';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '@models/user.model';
 import { UserService } from '../../services/auth/user.service';
 import { CookieService } from '@services/cookie.service';
-import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { AuthShared } from '../auth.shared';
+import { ToastService } from '@services/toast.service';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
   imports: [
-    CommonModule, RouterLink, FormsModule, ReactiveFormsModule,
-    CalendarModule, InputTextModule, MultiSelectModule, DropdownModule, ToastModule
+    AuthShared,
+    CalendarModule, InputTextModule, MultiSelectModule, DropdownModule
   ],
   providers: [MessageService],
   templateUrl: './signup.component.html',
@@ -44,9 +45,8 @@ export class SignupComponent implements OnInit{
   @ViewChild('stateDropdown') stateDropdownComponent!: Dropdown;
   @ViewChild('cityDropdown') cityDropdownComponent!: Dropdown;
 
-  constructor(private jsonService: JsonService, private formBuilder: FormBuilder, 
-              private userService: UserService, private cookieService: CookieService,
-              private router: Router, private messageService: MessageService){}
+  constructor(private jsonService: JsonService, private formBuilder: FormBuilder, private userService: UserService, 
+              private cookieService: CookieService, private router: Router, private toastService: ToastService){}
 
   ngOnInit(){
     this.registerForm = this.formBuilder.group({
@@ -135,7 +135,7 @@ export class SignupComponent implements OnInit{
         }
       },
       error: (error) => {
-        this.messageService.add({ key: 'tc', severity: 'error', summary: 'Error', detail: error });
+        this.toastService.showErrorToast("Error", error);
       }
     });
 

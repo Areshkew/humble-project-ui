@@ -1,26 +1,23 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
 import { UserService } from '@services/auth/user.service';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
+import { AuthShared } from '../../../auth.shared';
+import { ToastService } from '@services/toast.service';
 
 @Component({
   selector: 'app-put-code',
   standalone: true,
-  imports: [InputTextModule, RouterOutlet, ButtonModule, CommonModule, ReactiveFormsModule, ToastModule],
-  providers: [MessageService],
+  imports: [InputTextModule, RouterOutlet, ButtonModule, AuthShared],
   templateUrl: './put-code.component.html',
   styleUrl: './put-code.component.css'
 })
 export class PutCodeComponent {
   putCode!: FormGroup;
 
-  constructor(private router: Router, private formbuilder: FormBuilder, private userService: UserService,
-              private messageService: MessageService){}
+  constructor(private router: Router, private formbuilder: FormBuilder, private userService: UserService, private toastService: ToastService){}
 
   ngOnInit(): void {
     this.putCode = this.formbuilder.group({
@@ -45,7 +42,7 @@ export class PutCodeComponent {
           this.router.navigate(['recuperar-contraseña','ingresar-contraseña']);
       },
       error: (error) => {
-        this.messageService.add({ key: 'tc', severity: 'error', summary: 'Error', detail: error });
+        this.toastService.showErrorToast("Error", error);
       }
     })
   }

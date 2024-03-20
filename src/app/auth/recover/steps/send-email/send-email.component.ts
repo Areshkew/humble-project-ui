@@ -5,22 +5,22 @@ import { Router, RouterOutlet } from '@angular/router';
 import { UserService } from '@services/auth/user.service';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
+import { AuthShared } from '../../../auth.shared';
+import { ToastService } from '@services/toast.service';
 
 @Component({
   selector: 'app-send-email',
   standalone: true,
-  imports: [InputTextModule, RouterOutlet, ButtonModule, CommonModule, ReactiveFormsModule, ToastModule],
-  providers: [MessageService],
+  imports: [AuthShared,
+            InputTextModule, RouterOutlet, ButtonModule
+          ],
   templateUrl: './send-email.component.html',
   styleUrl: './send-email.component.css'
 })
 export class SendEmailComponent {
   sendEmail!: FormGroup;
 
-  constructor(private router: Router, private formbuilder: FormBuilder, private userService: UserService,
-              private messageService: MessageService){}
+  constructor(private router: Router, private formbuilder: FormBuilder, private userService: UserService, private toastService: ToastService){}
 
   ngOnInit(): void {
     this.sendEmail = this.formbuilder.group({
@@ -45,7 +45,7 @@ export class SendEmailComponent {
           this.router.navigate(['recuperar-contraseña','verificar-codigo']);       
       },
       error: (error) => {
-        this.messageService.add({ key: 'tc', severity: 'error', summary: 'Error', detail: error });
+        this.toastService.showErrorToast("Error", error);
       }
     })
   }
