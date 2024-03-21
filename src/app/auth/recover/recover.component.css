@@ -10,8 +10,6 @@
 
 }
 .recover__img img{
-  max-width: 100%;
-  min-height: 80%;
   object-fit: cover;
 }
 
@@ -35,7 +33,7 @@
 .form__logo img{
   margin: 0px;
   width: 150px;
-  height: 60px;
+  height: 47px;
 }
 .form__title{
   font-weight: bolder;

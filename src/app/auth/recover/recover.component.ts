@@ -5,11 +5,12 @@ import { StepsModule } from 'primeng/steps';
 import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { RouterOutlet, Router } from '@angular/router';
+import { AuthShared } from '../auth.shared';
 
 @Component({
   selector: 'app-recover',
   standalone: true,
-  imports: [InputTextModule, ToastModule, StepsModule, RouterOutlet],
+  imports: [InputTextModule, ToastModule, StepsModule, AuthShared],
   templateUrl: './recover.component.html',
   styleUrl: './recover.component.css',
 

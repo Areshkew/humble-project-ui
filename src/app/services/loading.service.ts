@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoadingService {
-  private loadingSubject = new Subject<boolean>();
+  private loadingSubject = new BehaviorSubject<boolean>(false);
   public loading$ = this.loadingSubject.asObservable();
 
   constructor(private router: Router) {
     this.router.events.subscribe(event => {
       if(event instanceof NavigationStart)
         this.startLoading();
-      else if(event instanceof NavigationEnd)
+      else if(event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError)
         this.stopLoading();
     })
   }
@@ -21,7 +21,7 @@ export class LoadingService {
   public startLoading(){
     this.loadingSubject.next(true);
   }
-
+  
   public stopLoading(){
     this.loadingSubject.next(false);
   }

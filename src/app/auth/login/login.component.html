@@ -1,13 +1,13 @@
 <div class="login flex-container ">
     <div class="login__img flex-container" style="--justify-content: center; --align-items: center;">
-        <img src="/assets/img/loginIcon.png" alt="Login Img">
+        <img ngSrc="/assets/img/loginIcon.png" alt="Login Img" width="2000" height="2000" priority>
     </div>
 
     <div class="login__content flex-container" style="--justify-content: center; --align-items: center;">
         <form class="login__form flex-container" style="--flex-direction: column;" [formGroup]="userLogin"
             (ngSubmit)="onSubmit()">
             <div class="form__logo">
-                <img src="/assets/img/LogoHorizontal.svg" alt="Logo">
+                <img ngSrc="/assets/img/LogoHorizontal.svg" alt="Logo" width="190" height="60">
             </div>
             <div class="form__title">
                 <h1>Iniciar Sesión</h1>
