@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { Subject, Observable, throwError } from 'rxjs';
 import { catchError, shareReplay, tap } from 'rxjs/operators';
 import { User } from '@models/user.model';
 
@@ -8,11 +8,11 @@ import { User } from '@models/user.model';
   providedIn: 'root'
 })
 export class UserService {
-  private userRegistrationSubject = new BehaviorSubject<any>(null);
-  private userLoginSubject = new BehaviorSubject<any>(null);
-  private emailSubject = new BehaviorSubject<string | null>(null);
-  private codeSubject = new BehaviorSubject<string | null>(null);
-  private passwordSubject = new BehaviorSubject<string | null>(null);
+  private userRegistrationSubject = new Subject<any>();
+  private userLoginSubject = new Subject<any>();
+  private emailSubject = new Subject<string | null>();
+  private codeSubject = new Subject<string | null>();
+  private passwordSubject = new Subject<string | null>();
   
   userRegistration$ = this.userRegistrationSubject.asObservable();
   userLogin$ = this.userLoginSubject.asObservable();
@@ -61,7 +61,7 @@ export class UserService {
     );
   }
 
-  private handleError(error: any, subject: BehaviorSubject<any>): Observable<never> {
+  private handleError(error: any, subject: Subject<any>): Observable<never> {
     subject.error(error);
     subject.next(null);
 
