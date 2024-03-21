@@ -1,0 +1,56 @@
+.father{
+    display: flex;
+    background-color: white;
+    width: 95vw;
+    height: 65vh;
+    border-radius: 15px;
+}
+.sidebar{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    height: 50%;
+    width: 60%;
+    font-size: 25px;
+    padding: 50px;
+    text-align: center;
+    border-right: 1px gray solid;
+    overflow-wrap: break-word;
+}
+.main-content{
+    flex: 2;
+    overflow: auto;
+}
+b:hover{
+    color: #F59B6D;
+}
+@media screen and (max-width: 768px) {
+    .father {
+        flex-direction: column; 
+        height: auto; 
+        padding: 3%;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        padding: 20px; 
+        border-bottom: 1px gray solid;
+        background-color: whitesmoke;
+        border-radius: 15px;
+        margin-bottom: 5px;
+        height: 1%;
+    }
+
+    .main-content {
+        width: 100%;
+        align-content: center;
+        margin-left: 20%;
+    }
+
+    button {
+        width: 65%;
+        margin-top: 10px; 
+    }
+}

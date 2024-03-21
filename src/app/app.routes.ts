@@ -28,4 +28,40 @@ export const routes: Routes = [
             {path: 'ingresar-contraseña', loadComponent: () => import('./auth/recover/steps/new-password/new-password.component').then(m => m.NewPasswordComponent)}
         ] 
     },
+    {
+        path: 'root',
+        loadComponent: () => import('./root/root.component').then(m => m.RootComponent),
+        data: { Guest: true },
+        canActivate: [authGuard],
+        children: [
+            {
+                path: '',
+                redirectTo: 'dashboard',
+                pathMatch: 'full'
+            },
+            {
+                path: 'modify-users/:dni',
+                loadComponent: () => import('./root/modify-users/modify-users.component').then(m => m.ModifyUsersComponent),
+            },
+            {
+                path: 'dashboard',
+                loadComponent: () => import('./root/dashboard/dashboard.component').then(m => m.DashboardComponent),
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'admin-users',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'change-password',
+                        loadComponent: () => import('./root/dashboard/change-password/change-password.component').then(m => m.ChangePasswordComponent)
+                    },
+                    {
+                        path: 'admin-users',
+                        loadComponent: () => import('./root/dashboard/admin-adminusers/admin-adminusers.component').then(m => m.AdminAdminusersComponent)
+                    }
+                ],
+            }
+        ]
+    }
 ];

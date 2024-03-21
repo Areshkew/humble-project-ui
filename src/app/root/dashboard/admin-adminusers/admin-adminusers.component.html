@@ -1,0 +1,17 @@
+<input class="lib-input" placeholder="Buscar por ID o Nombre" #inputValue (input)="filterUsers(inputValue.value)">
+<div>
+  <button class="lib-button" (click)="agregarUsuario('nuevo')" >Agregar +</button>
+  <ul>
+    <li *ngFor="let user of filteredUsers; let i = index">
+      {{ user.name }}
+      <div>
+        <button class="editar" (click)="agregarUsuario(user.dni)">
+          <b>🖊</b>
+        </button>
+        <button class="borrar" (click)="borrarUsuario(user.dni)">
+          X
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>

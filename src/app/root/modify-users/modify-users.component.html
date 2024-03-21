@@ -1,0 +1,91 @@
+<div class="signup flex-container">
+    <p-toast position="bottom-center" key="tc"></p-toast>
+    <div class="signup__content flex-container" style="--justify-content: center; --align-items: center;">
+        <form class="signup__form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">            
+            <div class="form__title">
+                <h1>Registra un Administrador</h1>
+            </div>
+
+            <div class="form__group flex-container">
+                <div class="form__data flex-container" style="--flex-direction: column;">
+                    <div class="input__group">
+                        <label>Ingresa tu DNI</label>
+                        <input type="number"  placeholder="DNI" pInputText formControlName="DNI" 
+                                [ngClass]="{'lib-invalid': registerForm.get('DNI')?.touched && registerForm.get('DNI')?.invalid}"> 
+                    </div>
+                    <div class="input__group">
+                        <label>Ingresa tu Correo Electrónico</label>
+                        <input  pInputText type="email"  placeholder="Email" formControlName="correo_electronico" 
+                                [ngClass]="{'lib-invalid': registerForm.get('correo_electronico')?.touched && registerForm.get('correo_electronico')?.invalid}">
+                    </div>
+
+                    <div class="input__group">
+                        <label>Ingresa tus Nombres</label>
+                        <input  pInputText type="text"  placeholder="Nombres" formControlName="nombre" 
+                                [ngClass]="{'lib-invalid': registerForm.get('nombre')?.touched && registerForm.get('nombre')?.invalid}">
+                    </div>
+                    <div class="input__group">
+                        <label>Ingresa tus Apellidos</label>
+                        <input  pInputText type="text"  placeholder="Apellidos" formControlName="apellido"
+                                [ngClass]="{'lib-invalid': registerForm.get('apellido')?.touched && registerForm.get('apellido')?.invalid}">
+                    </div>
+                    <div class="input__group">
+                        <label>Ingresa tu Nacimiento</label>
+                        <p-calendar formControlName="fecha_nacimiento" [defaultDate]="maxDate" [maxDate]="maxDate" [minDate]="minDate" dateFormat="dd/mm/yy"
+                                    [ngClass]="{'lib-invalid': registerForm.get('fecha_nacimiento')?.touched && registerForm.get('fecha_nacimiento')?.invalid}"></p-calendar>
+                    </div>
+                    <div class="input__group">
+                        <label>Ingresa tu Dirección</label>
+                        <input  pInputText type="text"  placeholder="Dirección" formControlName="direccion_envio"
+                                [ngClass]="{'lib-invalid': registerForm.get('direccion_envio')?.touched && registerForm.get('direccion_envio')?.invalid}">
+                    </div>
+                </div>
+
+                <div class="form__data flex-container" style="--flex-direction: column;">
+                    <div class="input__group">
+                        <label>Ingresa tu Usuario</label>
+                        <input  pInputText type="text" formControlName="usuario" placeholder="Usuario"
+                                [ngClass]="{'lib-invalid': registerForm.get('usuario')?.touched && registerForm.get('usuario')?.invalid}">
+                    </div>
+
+                    <div class="input__group">
+                        <label>Ingresa tu Contraseña</label>
+                        <input  pInputText type="password" formControlName="clave" placeholder="Contraseña" 
+                                [ngClass]="{'lib-invalid': registerForm.get('clave')?.touched && registerForm.get('clave')?.invalid}">
+                    </div>
+
+                    <div class="input__group">
+                        <label>Ingresa tu Género</label>
+                        <p-dropdown [options]="genres" placeholder="Género" formControlName="genero"
+                                    [ngClass]="{'lib-invalid': registerForm.get('genero')?.touched && registerForm.get('genero')?.invalid}"></p-dropdown>
+                    </div>
+                    <div class="input__group">
+                        <label>Ingresa tu País</label>
+                        <p-dropdown [options]="countries" optionLabel="name" placeholder="País"
+                                    [filter]="true" (onChange)="onCountryChange()" formControlName="pais"
+                                    [ngClass]="{'lib-invalid': registerForm.get('pais')?.touched && registerForm.get('pais')?.invalid}"></p-dropdown>
+                    </div>
+                    <div class="input__group">
+                        <label>Ingresa tu Estado/Departamento/Distrito</label>
+                        <p-dropdown #stateDropdown [options]="states" optionLabel="name" placeholder="Estado"
+                                    [filter]="true" (onChange)="onStateChange()" formControlName="estado"
+                                    [ngClass]="{'lib-invalid': registerForm.get('estado')?.touched && registerForm.get('estado')?.invalid}"></p-dropdown>
+                    </div>
+                    <div class="input__group">
+                        <label>Ingresa tu Ciudad</label>
+                        <p-dropdown #cityDropdown [options]="cities"  optionLabel="name" placeholder="Ciudad"
+                                     [filter]="true" formControlName="ciudad"
+                                     [ngClass]="{'lib-invalid': registerForm.get('ciudad')?.touched && registerForm.get('ciudad')?.invalid}"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form__submit flex-container" style="--flex-direction: column;">
+                <button class="lib-button" type="submit">
+                    {{textoBoton}}
+                </button>
+            </div>
+        </form> 
+    </div>
+</div>
