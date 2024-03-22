@@ -10,7 +10,9 @@
 
 }
 .recover__img img{
-  object-fit: cover;
+  max-width: 100%;
+  height: auto;
+  
 }
 
 .recover__content{
@@ -22,16 +24,14 @@
   min-width: 380px;
   max-width: 520px;
   max-height: 600px;
-  min-height: 525px;
-  height: 70%;
+  min-height: 460px;
+  height: 60%;
   background-color: #fafafa;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   gap: 1rem;
-  margin: 150px;
 }
 .form__logo img{
-  margin: 0px;
   width: 150px;
   height: 47px;
 }
@@ -41,7 +41,7 @@
   font-size: 1rem; 
 }
 .form__group{
-  width: 70%;
+  width: 60%;
   gap: 0;
 }
 

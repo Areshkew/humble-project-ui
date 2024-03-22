@@ -19,13 +19,24 @@ import { ToastService } from '@services/toast.service';
 })
 export class NewPasswordComponent {
   newPass!: FormGroup;
+  data!: string;
 
   constructor(private router: Router, private formbuilder: FormBuilder, private userService: UserService, private toastService: ToastService){}
 
   ngOnInit(): void {
+
+    this.userService.getData().subscribe({
+      next: data =>{
+        this.data = data;
+        console.log(this.data);
+           
+      }
+    })
+
     this.newPass = this.formbuilder.group({
-      contraseña: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/)]],
-      'confirmar-contraseña': ['', [Validators.required]]
+      clave: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/)]],
+      claveRepetida: ['', [Validators.required]],
+      correo_electronico: [this.data]
     })
   }
 
@@ -40,7 +51,7 @@ export class NewPasswordComponent {
       return;
     }
 
-    if(this.newPass.get('contraseña')?.value === this.newPass.get('confirmar-contraseña')?.value) {
+    if(this.newPass.get('clave')?.value === this.newPass.get('claveRepetida')?.value) {
       
         this.userService.resetPassword(this.newPass.value).subscribe({
           next: (response) => {
