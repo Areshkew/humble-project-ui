@@ -28,4 +28,8 @@ export const routes: Routes = [
             {path: 'ingresar-contraseña', loadComponent: () => import('./auth/recover/steps/new-password/new-password.component').then(m => m.NewPasswordComponent)}
         ] 
     },
+    {
+        path: 'editar-perfil',
+        loadComponent: () => import('./edit-profile/edit-profile.component').then(m =>m.EditProfileComponent),
+    }
 ];

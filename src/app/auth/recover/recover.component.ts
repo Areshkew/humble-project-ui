@@ -3,8 +3,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { StepsModule } from 'primeng/steps';
 import { MenuItem } from 'primeng/api';
-import { Subscription } from 'rxjs';
-import { RouterOutlet, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { AuthShared } from '../auth.shared';
 
 @Component({
@@ -17,7 +16,6 @@ import { AuthShared } from '../auth.shared';
 })
 export class RecoverComponent implements OnInit {
   items!: MenuItem[];
-  subscription!: Subscription;
 
   constructor(private router: Router) {
     
