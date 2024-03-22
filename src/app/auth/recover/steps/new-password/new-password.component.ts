@@ -28,7 +28,6 @@ export class NewPasswordComponent {
     this.userService.getData().subscribe({
       next: data =>{
         this.data = data;
-        console.log(this.data);
            
       }
     })
