@@ -1,11 +1,8 @@
 <div class="recover flex-container ">
-
     <div class="recover__img flex-container" style="--justify-content: center; --align-items: center;">
-        <img ngSrc="/assets/img/forgotPass.png" alt="Login Img" width="500" height="500" priority>
+        <img ngSrc="/assets/img/forgotPass.png" alt="Login Img" width="1200" height="1200" priority>
     </div>
-
-    <div class="recover__content flex-container" style="--align-items: center;">
-        
+    <div class="recover__content flex-container" style="--justify-content: center; --align-items: center;">
         <div class="recover__form flex-container" style="--flex-direction: column; --align-items: center; --justify-content: center;">
             <div class="form__logo">
                 <img ngSrc="/assets/img/LogoHorizontal.svg" alt="Logo" width="150" height="47" priority>
@@ -14,23 +11,11 @@
                 <h1>Recuperar
                     Contraseña
                 </h1>
-            </div>
- 
-
-            
+            </div>  
             <div class="form__group ">
                 <p-steps [model]="items" [readonly]="true"></p-steps>
                 <router-outlet></router-outlet>
             </div>
-            
-
-            <!-- -------------------------------------------------------------- -->
-
-            <!-- --------------------------------------------------------------------- -->     
-        </div>
-        
-    </div>
-    
+        </div>      
+    </div>   
 </div>
-
-<!--Steps-->

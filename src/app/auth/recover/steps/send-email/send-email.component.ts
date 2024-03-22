@@ -7,12 +7,13 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthShared } from '../../../auth.shared';
 import { ToastService } from '@services/toast.service';
+import { IconComponent } from '../../../../shared/icon/icon.component';
 
 @Component({
   selector: 'app-send-email',
   standalone: true,
   imports: [AuthShared,
-            InputTextModule, RouterOutlet, ButtonModule
+            InputTextModule, RouterOutlet, ButtonModule, IconComponent, 
           ],
   templateUrl: './send-email.component.html',
   styleUrl: './send-email.component.css'
@@ -42,7 +43,10 @@ export class SendEmailComponent {
 
     this.userService.sendRecoveryEmail(this.sendEmail.value).subscribe({
       next: (response) => {
-          this.router.navigate(['recuperar-contraseña','verificar-codigo']);       
+
+        this.userService.setData(this.sendEmail.get('correo_electronico')?.value);
+
+        this.router.navigate(['recuperar-contraseña','verificar-codigo']);       
       },
       error: (error) => {
         this.toastService.showErrorToast("Error", error);

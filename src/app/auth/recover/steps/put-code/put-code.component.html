@@ -1,14 +1,17 @@
 <form class="container flex-container" [formGroup]="putCode" (ngSubmit)="onSubmit()">
     <div class="form__group" style="--align-items: center;">
         <p class="lib-msg">Ingresa el codigo que te enviamos</p>
-        <input class="form__input" formControlName="codigo" id="code" pInputText type="number" placeholder="Codigo"
+        <input class="form__input" formControlName="codigo" id="code" pInputText type="text" placeholder="Codigo"
         [ngClass]="{'lib-invalid': putCode.get('codigo')?.touched && putCode.get('codigo')?.invalid}">
     
         @if (putCode.get('codigo')?.touched && putCode.get('codigo')?.invalid) {
             <p class="lib-invalid__message">El codigo es requerido.</p>
             }
     </div>
-    <div class="form__group">
+    <div class="form__group buttons">
+        <button class="lib-button back" [routerLink]="['/recuperar-contraseña', 'enviar-correo']">
+            <app-icon icon="arrow_back" [size]="28"></app-icon>
+        </button>
         <button class="lib-button" type="submit" >
             Validar
         </button>

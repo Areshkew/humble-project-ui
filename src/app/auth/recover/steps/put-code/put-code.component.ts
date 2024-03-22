@@ -6,22 +6,39 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthShared } from '../../../auth.shared';
 import { ToastService } from '@services/toast.service';
+import { IconComponent } from '../../../../shared/icon/icon.component';
+import { SendEmailComponent } from '../send-email/send-email.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-put-code',
   standalone: true,
-  imports: [InputTextModule, RouterOutlet, ButtonModule, AuthShared],
+  imports: [InputTextModule, RouterOutlet, ButtonModule, AuthShared, IconComponent, SendEmailComponent],
   templateUrl: './put-code.component.html',
   styleUrl: './put-code.component.css'
 })
 export class PutCodeComponent {
   putCode!: FormGroup;
+  data!: string;
 
-  constructor(private router: Router, private formbuilder: FormBuilder, private userService: UserService, private toastService: ToastService){}
+  constructor(private router: Router, private formbuilder: FormBuilder, private userService: UserService, private toastService: ToastService,
+              ){
+
+                
+              }
 
   ngOnInit(): void {
+
+    this.userService.getData().subscribe({
+      next: data =>{
+        this.data = data;
+        
+      }
+    })
+
     this.putCode = this.formbuilder.group({
       codigo: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(32)]],
+      correo_electronico: [this.data]
     })
     
   }
@@ -39,6 +56,7 @@ export class PutCodeComponent {
 
     this.userService.verifyRecoveryCode(this.putCode.value).subscribe({
       next: (response) => {
+        
           this.router.navigate(['recuperar-contraseña','ingresar-contraseña']);
       },
       error: (error) => {

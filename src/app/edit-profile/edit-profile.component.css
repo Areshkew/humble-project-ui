@@ -1,0 +1,36 @@
+.edit-profile{
+    width: 100%;
+    margin:auto;  
+  }
+
+.edit-profile__content{
+    width: 95vw;
+  }
+
+.edit-profile__form {
+  display: grid;
+  align-items: center;
+  gap: 1rem;
+  width: 70%;
+  min-width: 380px;
+  background-color: #fafafa;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 2rem 0;
+  position: relative;
+}
+
+.edit-profile__logo{
+    background-color: #002122;
+    border: solid 2px white;
+    border-radius: 50%;
+    position: absolute;
+    top: -50px; 
+    left: 15%; 
+    transform: translateX(-50%);
+}
+
+.form__title{
+    font-weight: bolder;
+    justify-self: center;  
+  }
