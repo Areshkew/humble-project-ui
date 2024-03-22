@@ -14,7 +14,8 @@
                 <app-icon icon="search" [size]=28></app-icon>
             </button>
 
-            <button class="lib-button" routerLink="/ingreso">
+            <button class="lib-button" (click)="toggleMenu(menu, $event)">
+                <p-menu #menu [model]="items" [popup]="true" [ngClass]="authenticated ? '' : 'p-hidden-accessible'"></p-menu>
                 <app-icon icon="person" [size]=28></app-icon>
             </button>
             

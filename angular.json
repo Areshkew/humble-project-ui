@@ -28,6 +28,7 @@
               "src/styles.css",
               "node_modules/material-symbols/rounded.css",
               "node_modules/normalize.css/normalize.css",
+              "node_modules/primeicons/primeicons.css",
               "src/assets/theme/theme.css"
             ],
             "scripts": []

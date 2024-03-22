@@ -7,6 +7,7 @@ import { CookieService } from '@services/cookie.service';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthShared } from '../auth.shared';
 import { ToastService } from '@services/toast.service';
+import { AuthService } from '@services/auth/auth.service';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class LoginComponent {
   userLogin!: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private cookieService: CookieService, 
-              private router: Router, private toastService: ToastService) {}
+              private router: Router, private toastService: ToastService, private authService: AuthService) {}
 
   ngOnInit() {
     this.userLogin = this.formBuilder.group({
@@ -46,6 +47,7 @@ export class LoginComponent {
       next: (response) => {
         if (response.token) {
           this.cookieService.setCookie("Bearer", response.token, 1);
+          this.authService.isAuthenticated();
           this.router.navigate(['/inicio']);
         } else {
           console.error('No se encontro el token en la respuesta del servidor.');

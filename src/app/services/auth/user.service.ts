@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Subject, Observable, throwError } from 'rxjs';
 import { catchError, shareReplay, tap } from 'rxjs/operators';
 import { User } from '@models/user.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,9 @@ export class UserService {
   password$ = this.passwordSubject.asObservable();
   
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }  
 
+  // EndPoint Access
   register(data: User): Observable<any> {
     return this.http.post(`/api/user/signup`, data).pipe(
       tap(response => this.userRegistrationSubject.next(response)),
