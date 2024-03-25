@@ -1,6 +1,8 @@
 .lib-msg {
-  font-size: 1.3rem;
   text-align: center !important;
+  font-size: var(--font-size-md);
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .form__group {
   width: 100%;
@@ -15,13 +17,6 @@
   position: absolute;
   top: 0;
   right: 0;
-}
-
-.lib-msg {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  text-align: center !important;
-  font-size: 1.5rem;
 }
 
 .container {

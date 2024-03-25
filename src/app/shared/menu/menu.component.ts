@@ -14,8 +14,11 @@ import { AuthService } from '@services/auth/auth.service';
   selector: 'app-menu',
   standalone: true,
   imports: [
-    CommonModule, IconComponent, RouterLink,
-    ProgressBarModule, MenuModule
+    CommonModule,
+    IconComponent,
+    RouterLink,
+    ProgressBarModule,
+    MenuModule,
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css',
@@ -27,45 +30,46 @@ export class MenuComponent implements OnInit, OnDestroy {
   authenticated!: boolean;
   items: MenuItem[] | undefined;
 
-  constructor(private loadingService: LoadingService, private authService: AuthService, private router: Router){}
+  constructor(
+    private loadingService: LoadingService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void{
-    this.authenticationSuscription = this.authService.isAuthenticated$.subscribe(
-      (isAuthenticated) => {
+  ngOnInit(): void {
+    this.authenticationSuscription =
+      this.authService.isAuthenticated$.subscribe((isAuthenticated) => {
         this.authenticated = isAuthenticated;
-      }
-    );
+      });
 
     this.items = [
       {
-        label: "Configuración",
+        label: 'Configuración',
         icon: PrimeIcons.COG,
-        command: () =>{
-
-        }
+        routerLink: 'editar-perfil',
       },
       {
-        label: "Cerrar Sesión",
+        label: 'Cerrar Sesión',
         icon: PrimeIcons.SIGN_OUT,
-        command: () => {
-          this.authService.logout();
-        }
-      }
-    ]
+        command: () => this.authService.logout()
+      },
+    ];
 
     this.loadingSuscription = this.loadingService.loading$.subscribe(
       (isLoading: boolean) => {
         this.loading = isLoading;
-    });
+      }
+    );
   }
 
-  ngOnDestroy(): void{
-    if(this.loadingSuscription) this.loadingSuscription.unsubscribe();
-    if(this.authenticationSuscription) this.authenticationSuscription.unsubscribe();
+  ngOnDestroy(): void {
+    if (this.loadingSuscription) this.loadingSuscription.unsubscribe();
+    if (this.authenticationSuscription)
+      this.authenticationSuscription.unsubscribe();
   }
 
   toggleMenu(menu: any, event: Event) {
-    if(!this.authenticated) this.router.navigate(["/ingreso"]);
+    if (!this.authenticated) this.router.navigate(['/ingreso']);
     else menu.toggle(event);
   }
 }
