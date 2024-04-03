@@ -1,18 +1,21 @@
 <div class="edit-profile flex-container">
     <div class="edit-profile__content flex-container " style="--justify-content: center; --align-items: center;">
-        <form class="edit-profile__form">
-            <div class="edit-profile__logo">
-                <app-icon icon="person" [size]="156" color="white"></app-icon>
-            </div>
-            <div class="form__title"> 
-                <h1>HOLA RUIZSEÑOR</h1>
+        <div class="edit-profile__form">
+
+            <div class="edit-profile__logo flex-container">
+                <app-icon class="test" icon="person" [size]="iconSize" color="white"></app-icon>
             </div>
 
-            <div class="form__group flex-container">
-                <p-steps [model]="items" [readonly]="false"></p-steps> 
+
+            <div class="form__title"> 
+                <h1>HOLA RUIZSEÑOR sdsadsadasdasdasda</h1>
+            </div>
+
+            <div class="form__group">
+                <p-tabMenu [model]="items" ></p-tabMenu>
                 <router-outlet></router-outlet>
             </div>
-        </form>
+        </div>
     </div>
     
 </div>

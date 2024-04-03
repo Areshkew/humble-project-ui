@@ -36,7 +36,9 @@
             </div>
 
             <div class="form__group flex-container">
-                <button class="lib-button" type="submit">
+                <button class="lib-button" type="submit"
+                [ngClass]="{'lib-button-disabled': !userLogin.valid}" 
+            [disabled]="!userLogin.valid">
                     Iniciar Sesión
                 </button>
                 <a routerLink="/registro">No tienes una cuenta? <strong class="form__links">Registrate</strong></a>

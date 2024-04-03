@@ -14,16 +14,19 @@ export class UserService {
   private emailSubject = new BehaviorSubject<any>(null);
   private codeSubject = new Subject<string | null>();
   private passwordSubject = new Subject<string | null>();
+  private editInfoSubject = new Subject<any>();
+  private editPasswordSubject = new Subject<any>();
   
   userRegistration$ = this.userRegistrationSubject.asObservable();
   userLogin$ = this.userLoginSubject.asObservable();
   email$ = this.emailSubject.asObservable();
   code$ = this.codeSubject.asObservable();
   password$ = this.passwordSubject.asObservable();
+  editInfo$ = this.editInfoSubject.asObservable();
+  editPassword$ = this.editPasswordSubject.asObservable();
   
-
+  
   constructor(private http: HttpClient, private authService: AuthService) { }  
-
   // EndPoint Access
   register(data: User): Observable<any> {
     return this.http.post(`/api/user/signup`, data).pipe(
@@ -69,6 +72,22 @@ export class UserService {
       tap(response => this.passwordSubject.next(newPassword)),
       shareReplay(1),
       catchError(error => this.handleError(error, this.passwordSubject))
+    );
+  }
+
+  editPersonalInfo(data: User): Observable<any> {
+    return this.http.post(`/api/user/editPersonalInfo`, data).pipe(
+      tap(response => this.editInfoSubject.next(response)),
+      shareReplay(1),
+      catchError(error => this.handleError(error, this.editInfoSubject))
+    );
+  }
+  
+  editPassword(data: any): Observable<any> {
+    return this.http.post(`/api/user/editPasssword`, data).pipe(
+      tap(response => this.editPasswordSubject.next(response)),
+      shareReplay(1),
+      catchError(error => this.handleError(error, this.editPasswordSubject))
     );
   }
 

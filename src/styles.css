@@ -70,6 +70,13 @@ body{
     background-color: #f48b6b;
 }
 
+.lib-button-disabled {
+    background-color: #ccc; /* Color de fondo para el botón desactivado */
+    color: #666; /* Color del texto para el botón desactivado */
+    cursor: not-allowed; /* Cambia el puntero para indicar que el botón está desactivado */
+  }
+  
+
 .p-calendar, .p-multiselect, .p-dropdown{
     width: 100%;
 }

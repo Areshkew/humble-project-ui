@@ -40,9 +40,7 @@ export class MenuComponent implements OnInit, OnDestroy {
       {
         label: "Configuración",
         icon: PrimeIcons.COG,
-        command: () =>{
-
-        }
+        routerLink: 'editar-perfil'
       },
       {
         label: "Cerrar Sesión",

@@ -1,30 +1,49 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener} from '@angular/core';
 import { IconComponent } from '../shared/icon/icon.component';
-import { StepsModule } from 'primeng/steps';
+import { TabMenuModule } from 'primeng/tabmenu';
 import { MenuItem } from 'primeng/api';
-import { Router, RouterLink } from '@angular/router';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
-  imports: [IconComponent, StepsModule],
+  imports: [IconComponent, TabMenuModule],
   templateUrl: './edit-profile.component.html',
-  styleUrl: './edit-profile.component.css'
+  styleUrl: './edit-profile.component.css',
 })
-export class EditProfileComponent {
+export class EditProfileComponent  {
   items!: MenuItem[];
+  iconSize = 156;
 
-  constructor(private router: Router){}
+  constructor(private router: Router) {
+    this.updateIconSize(window.innerWidth);
+  }
 
   ngOnInit(): void {
-    {
-      label: 'Gestion de Informacion';
-      RouterLink: 'informacion-personal'
+    this.items = [
+      {
+        label: 'Informacion',
+        icon:  'pi pi-fw pi-pencil',
+        routerLink: 'informacion-personal',
+      },
+      {
+        label: 'Financiera',
+        icon:  'pi pi-fw pi-wallet',
+        routerLink: 'gestion-financiera',
+      },
+    ];
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.updateIconSize((event.target as Window).innerWidth);
+  }
+
+  private updateIconSize(width: number) {
+    if (width < 900) {
+      this.iconSize = 100;
+    } else {
+      this.iconSize = 156;
     }
-    {
-      label: 'Gestion Financiera';
-      RouterLink; 'gestion-financiera'
-    }
-    
   }
 }
