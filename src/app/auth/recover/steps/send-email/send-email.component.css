@@ -1,8 +1,8 @@
 .lib-msg {
-  font-size: 1.3em;
   text-align: center !important;
   margin-top: 10px;
   margin-bottom: 10px;
+  font-size: var(--font-size-md);
 }
 .form__group {
   width: 100%;
