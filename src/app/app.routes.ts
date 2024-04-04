@@ -31,5 +31,12 @@ export const routes: Routes = [
     {
         path: 'editar-perfil',
         loadComponent: () => import('./edit-profile/edit-profile.component').then(m =>m.EditProfileComponent),
+        data: { Guest: false }, 
+        canActivate: [authGuard],
+        children: [
+            {path: '', redirectTo: 'informacion-personal', pathMatch: 'full'},
+            {path: 'informacion-personal', loadComponent: () => import('./edit-profile/tabs/personal-info/personal-info.component').then(m => m.PersonalInfoComponent)},
+            {path: 'gestion-financiera', loadComponent: () => import('./edit-profile/tabs/financial-info/financial-info.component').then(m => m.FinancialInfoComponent)}
+        ]
     }
 ];

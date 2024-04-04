@@ -13,13 +13,14 @@ import { CookieService } from '@services/cookie.service';
 import { MessageService } from 'primeng/api';
 import { AuthShared } from '../auth.shared';
 import { ToastService } from '@services/toast.service';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
   imports: [
     AuthShared,
-    CalendarModule, InputTextModule, MultiSelectModule, DropdownModule
+    CalendarModule, InputTextModule, MultiSelectModule, DropdownModule, InputSwitchModule
   ],
   providers: [MessageService],
   templateUrl: './signup.component.html',
@@ -62,7 +63,7 @@ export class SignupComponent implements OnInit{
       'usuario': ['', [Validators.required, Validators.maxLength(32)]],
       'clave': ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/)]],
       'preferencias': ['', [Validators.required]],
-      'suscrito_noticias': [false]
+      'suscrito_noticias': [false, Validators.required]
     });
 
     // Limites de fecha
@@ -123,6 +124,9 @@ export class SignupComponent implements OnInit{
     formData.pais = country;
     formData.estado = state;
     formData.ciudad = city;
+
+    console.log(formData);
+    
 
     this.userService.register(formData).subscribe({
       next: (response) => {

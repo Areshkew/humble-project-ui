@@ -1,15 +1,14 @@
-.edit-profile{
-    width: 100%;
-    margin:auto;  
-  }
+.edit-profile {
+  width: 100%;
+  margin: 5rem 0;
+}
 
-.edit-profile__content{
-    width: 95vw;
-  }
+.edit-profile__content {
+  width: 95vw;
+}
 
 .edit-profile__form {
   display: grid;
-  align-items: center;
   gap: 1rem;
   width: 70%;
   min-width: 380px;
@@ -20,17 +19,59 @@
   position: relative;
 }
 
-.edit-profile__logo{
-    background-color: #002122;
-    border: solid 2px white;
-    border-radius: 50%;
-    position: absolute;
-    top: -50px; 
-    left: 15%; 
-    transform: translateX(-50%);
+.edit-profile__logo {
+  background-color: #002122;
+  border: solid 2px white;
+  border-radius: 50%;
+  position: absolute;
+  top: -50px;
+  left: 15%;
+  transform: translateX(-50%);
+  transition: transform 1s ease;
 }
 
-.form__title{
-    font-weight: bolder;
-    justify-self: center;  
+.form__title {
+  width: 80%;
+  justify-self: right;
+  font-weight: bolder;
+  text-align: center;
+  transition: transform 1s ease;
+  font-size: var(--font-size-base);
+}
+
+.form__title > h1{
+  min-width: 304px;
+}
+
+.form__group {
+  width: 90%;
+  margin-top: 1em;
+  justify-self: center;
+}
+
+:host ::ng-deep .p-tabmenu-nav {
+  font-size: var(--font-size-md);
+  display: flex;
+  justify-content: center;
+  gap: 10em;
+}
+:host ::ng-deep .p-menuitem-link {
+  color: #002122;
+}
+:host ::ng-deep .p-highlight .p-menuitem-link {
+  border-color: #f48b6b;
+}
+
+@media (max-width: 900px){
+  .form__title {
+    font-size: var(--font-size-sm);
+   
   }
+  .edit-profile__logo{
+    transform: translate(-50px, 20px);
+  }
+  :host ::ng-deep .p-tabmenu-nav {
+    gap: 0;
+  }
+}
+

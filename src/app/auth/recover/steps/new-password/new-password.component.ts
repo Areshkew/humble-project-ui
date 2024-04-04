@@ -53,7 +53,7 @@ export class NewPasswordComponent {
     if(this.newPass.get('clave')?.value === this.newPass.get('claveRepetida')?.value) {
       
         this.userService.resetPassword(this.newPass.value).subscribe({
-          next: (response) => {
+          next: () => {
               this.router.navigate(['/ingreso']);            
           },
           error: (error) => {

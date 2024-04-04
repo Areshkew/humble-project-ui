@@ -61,13 +61,16 @@
   gap: 1rem;
 }
 .form__preference{
-  justify-self: center;
-  width: 50%;
+  width: 70%;
   min-width: 300px;
+  margin-bottom: 20px;;
 }
-.form__preference .input__group{
-  width: 100%;
+.form__news{
+  width: 30%;
+  min-width: 300px;
+  gap: 1rem;
 }
+
 
 
 .input__group{
@@ -75,14 +78,32 @@
   flex-direction: column;
   gap: 0.5rem;
   width: 70%;
-  
-  
 }
+
+.input__group-preference{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 80%;
+}
+
 .input__group label{
+  font-size: var(--font-size-sm);
+  font-weight: bold;
+}
+
+.input__group-preference label{
   font-size: var(--font-size-sm);
   font-weight: bold;
 }
 
 .input__group > input{
   box-shadow: 0 4px 2px -2px gray;
+}
+
+:host ::ng-deep .p-inputswitch .p-inputswitch-slider:before{
+  background: #002122;
+}
+:host ::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider{
+  background: #f48b6b;;
 }
