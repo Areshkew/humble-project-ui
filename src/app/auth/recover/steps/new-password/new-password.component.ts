@@ -28,7 +28,7 @@ export class NewPasswordComponent {
     this.userService.getData().subscribe({
       next: data =>{
         this.data = data;
-           
+        this.newPass.get("correo_electronico")?.setValue(this.data);
       }
     })
 

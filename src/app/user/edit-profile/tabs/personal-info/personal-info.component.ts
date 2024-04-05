@@ -11,6 +11,10 @@ import { UserService } from '@services/auth/user.service';
 import { User } from '@models/user.model';
 import { ToastService } from '@services/toast.service';
 import { CookieService } from '@services/cookie.service';
+import { tap } from 'rxjs';
+import { AuthService } from '@services/auth/auth.service';
+
+
 @Component({
   selector: 'app-personal-info',
   standalone: true,
@@ -42,24 +46,25 @@ export class PersonalInfoComponent implements OnInit{
     "preferencias"
   ];
   token!: any;
-
   genres = [
     "Femenino",
     "Masculino",
     "Ruiz",
     "Otro"
   ]
+  initialUserData: any = {}
 
   @ViewChild('stateDropdown') stateDropdownComponent!: Dropdown;
   @ViewChild('cityDropdown') cityDropdownComponent!: Dropdown;
 
-  constructor(private formBuilder: FormBuilder, private jsonService: JsonService, private userService: UserService, private toastService: ToastService, private cookieService: CookieService) {
+  constructor(private formBuilder: FormBuilder, private jsonService: JsonService, private userService: UserService, private toastService: ToastService, 
+    private cookieService: CookieService, private authService: AuthService) {
     
   }
 
   ngOnInit(){
+
     this.editInfoForm = this.formBuilder.group({
-      'DNI': ['', [Validators.required, Validators.minLength(7), Validators.maxLength(10)]],
       'nombre': ['', [Validators.required, Validators.maxLength(32)]],
       'apellido': ['', [Validators.required, Validators.maxLength(32)]],
       'fecha_nacimiento': ['', [Validators.required]],
@@ -68,15 +73,13 @@ export class PersonalInfoComponent implements OnInit{
       'pais': ['', [Validators.required]],
       'direccion_envio': ['', [Validators.required, Validators.maxLength(64)]],
       'genero': ['', [Validators.required]],
-      'correo_electronico': ['', [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(32)]],
-      'usuario': ['', [Validators.required, Validators.maxLength(32)]],
-      'preferencias': ['', [Validators.required]],
+      'preferencias': ['', []]
     });
 
     this.editPassword = this.formBuilder.group({
+      'clave_actual': ['', [Validators.required]],
       'clave': ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/)]],
-      'nueva-clave': ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/)]],
-      'confirmar-clave': ['', [Validators.required]],
+      'confirmar-clave': ['', [Validators.required]]
     })
 
 
@@ -84,29 +87,41 @@ export class PersonalInfoComponent implements OnInit{
       user => {
         this.user = user
         const generos = GENRES.filter(genero => user.preferencias.includes(genero.id));
+        this.initialUserData = user;
+        this.initialUserData.preferencias = generos;
+
+        this.jsonService.fetchJson("countries+states+cities").subscribe(_countries => {
+          this.countries = _countries;
+          const pais = this.countries.find((country: { name: any; }) => country.name === user.pais)
+          this.editInfoForm.get("pais")?.setValue(pais)
+          this.onCountryChange();
+
+          const estado = pais.states.find((state: { name: any; }) => state.name === user.estado)
+          this.editInfoForm.get("estado")?.setValue(estado)
+          this.onStateChange();
+          
+          const ciudad = estado.cities.find((city: { name: any; }) => city.name === user.ciudad)
+          this.editInfoForm.get("ciudad")?.setValue(ciudad)
 
         
-        console.log(this.user);
         this.editInfoForm.patchValue({
-          DNI:  user.DNI,
-          nombre: user.nombre,
-          apellido: user.apellido,
-          fecha_nacimiento: new Date (user.fecha_nacimiento),
-          pais: user.pais,
-          estado: user.estado,
-          ciudad: user.ciudad,
-          direccion_envio: user.direccion_envio,
-          genero: user.genero,
-          correo_electronico: user.correo_electronico,
-          usuario: user.usuario,  
-          preferencias: generos
+            DNI:  user.DNI,
+            nombre: user.nombre,
+            apellido: user.apellido,
+            fecha_nacimiento: this.convertToLocalDate(user.fecha_nacimiento),
+            pais: pais,
+            estado: estado,
+            ciudad: ciudad,
+            direccion_envio: user.direccion_envio,
+            genero: user.genero,
+            correo_electronico: user.correo_electronico,
+            usuario: user.usuario,  
+            preferencias: generos,
+          })
         })
-        
-        
+       
       }
     )
-
-
 
 
     this.maxDate = new Date();
@@ -116,10 +131,6 @@ export class PersonalInfoComponent implements OnInit{
     this.minDate = new Date();
     const minBirtYear = this.minDate.getFullYear() - 101;
     this.minDate.setFullYear(minBirtYear);
-
-    this.jsonService.fetchJson("countries+states+cities").subscribe(_countries => {
-      this.countries = _countries;
-    })
   }
 
 
@@ -161,20 +172,59 @@ export class PersonalInfoComponent implements OnInit{
     const city = this.editInfoForm.get('ciudad')?.value.name;
     const formData: User = Object.assign({}, this.editInfoForm.value);
 
-    formData.DNI = formData.DNI.toString();
     formData.pais = country;
     formData.estado = state;
     formData.ciudad = city;
 
-    console.log(formData);
+    const changedData = this.getChangedData(formData);
     
+    this.userService.editPersonalInfo(changedData).subscribe({
+      next: (r) => {
+        if (r.token) {
+          this.cookieService.deleteCookie("Bearer")
+          this.cookieService.setCookie("Bearer", r.token, 1);
+          this.authService.isAuthenticated();
+        }
 
-    this.userService.editPersonalInfo(formData).subscribe({
+        if(r.success) this.toastService.showSuccessToast("Exito", "Se actualizaron los detalles de tu cuenta.")
+      },
       error: (error) => {
         this.toastService.showErrorToast("Error", error);
       }
     });
 
+  }
+
+  private convertToLocalDate(dateString: string) {
+    const [year, month, day] = dateString.split('-').map(Number);
+    return new Date(year, month - 1, day);
+  }
+
+  private formatDateToYYYYMMDD(date: Date): string {
+    const year = date.getFullYear().toString();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-indexed
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  private getChangedData(formData: any) {
+    const changedData: any = {};
+
+    Object.keys(formData).forEach(key => {
+      // Check if the data is different from the initial data
+      if (formData[key] !== this.initialUserData[key]) {
+
+        if (key === 'fecha_nacimiento' && formData[key] instanceof Date) {
+          const date = formData[key] as Date;
+          const formattedDate = this.formatDateToYYYYMMDD(date);
+
+          if(formattedDate !== this.initialUserData[key]) changedData[key] = formattedDate;
+        } else {
+          changedData[key] = formData[key];
+        }
+      }
+    });
+    return changedData;
   }
 
   onSubmitPass(){
@@ -186,18 +236,20 @@ export class PersonalInfoComponent implements OnInit{
       
       return;
     }
-
-    console.log(this.editPassword.value);
     
-
-    if(this.editPassword.get('nueva-clave')?.value === this.editPassword.get('confirmar-clave')?.value) {
+    if(this.editPassword.get('clave')?.value === this.editPassword.get('confirmar-clave')?.value) {
       
-        this.userService.editPassword(this.editPassword.value).subscribe({
-          
+        this.userService.editPersonalInfo(this.editPassword.value).subscribe({
+          next: (r) => {
+            this.editPassword.get("clave")?.setValue("");
+            this.editPassword.get("confirmar-clave")?.setValue("");
+            this.editPassword.get("clave_actual")?.setValue("");
+            if(r.success) this.toastService.showSuccessToast("Exito", "Se actualizaron los detalles de tu cuenta.")
+          },
           error: (error) => {
-            this.toastService.showErrorToast("Error", error)
+            this.toastService.showErrorToast("Error", error);
           }
-        })
+        });
       }
       
     }

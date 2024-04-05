@@ -92,14 +92,7 @@ export class UserService {
       catchError(error => this.handleError(error, this.editInfoSubject))
     );
   }
-  
-  editPassword(data: any): Observable<any> {
-    return this.http.post(`/api/user/editPasssword`, data).pipe(
-      tap(response => this.editPasswordSubject.next(response)),
-      shareReplay(1),
-      catchError(error => this.handleError(error, this.editPasswordSubject))
-    );
-  }
+
 
   private handleError(error: any, subject: Subject<any>): Observable<never> {
     subject.error(error);

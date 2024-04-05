@@ -8,9 +8,9 @@ import { catchError, shareReplay, tap } from 'rxjs/operators';
 })
 export class JsonService {
     private jsonSubject = new BehaviorSubject<any>(null);
-    private json$ = this.jsonSubject.asObservable();
     private jsonPath = '../../assets/json/';
-
+    json$ = this.jsonSubject.asObservable();
+    
     constructor(private http: HttpClient){}
 
     fetchJson(name: string): Observable<any> {

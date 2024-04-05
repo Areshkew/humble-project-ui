@@ -62,8 +62,6 @@ export class SignupComponent implements OnInit{
       'correo_electronico': ['', [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(32)]],
       'usuario': ['', [Validators.required, Validators.maxLength(32)]],
       'clave': ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/)]],
-      'preferencias': ['', [Validators.required]],
-      'suscrito_noticias': [false, Validators.required]
     });
 
     // Limites de fecha
@@ -124,9 +122,6 @@ export class SignupComponent implements OnInit{
     formData.pais = country;
     formData.estado = state;
     formData.ciudad = city;
-
-    console.log(formData);
-    
 
     this.userService.register(formData).subscribe({
       next: (response) => {

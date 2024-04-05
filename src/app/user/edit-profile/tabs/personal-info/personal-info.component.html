@@ -4,11 +4,6 @@
         <div class="form__group flex-container">
             <div class="form__data flex-container" style="--flex-direction: column">
                 <div class="input__group">
-                    <label>DNI</label>
-                    <input type="number" pInputText formControlName="DNI"
-                    [ngClass]="{'lib-invalid': editInfoForm.get('DNI')?.touched && editInfoForm.get('DNI')?.invalid}">
-                </div>
-                <div class="input__group">
                     <label>Nombres</label>
                     <input type="text" pInputText formControlName="nombre"
                     [ngClass]="{'lib-invalid': editInfoForm.get('nombre')?.touched && editInfoForm.get('nombre')?.invalid}">
@@ -55,16 +50,6 @@
                     </p-calendar>
                 </div>
                 <div class="input__group">
-                    <label>Correo</label>
-                    <input pInputText type="email" formControlName="correo_electronico"
-                    [ngClass]="{'lib-invalid': editInfoForm.get('correo_electronico')?.touched && editInfoForm.get('correo_electronico')?.invalid}">
-                </div>
-                <div class="input__group">
-                    <label>Usuario</label>
-                    <input pInputText type="text" formControlName="usuario"
-                    [ngClass]="{'lib-invalid': editInfoForm.get('usuario')?.touched && editInfoForm.get('usuario')?.invalid}">
-                </div>
-                <div class="input__group">
                     <label>Temas literarios</label>
                     <p-multiSelect display="chip" [selectionLimit]="3" [options]="bookGenres" optionLabel="genero" formControlName="preferencias"
                     [ngClass]="{'lib-invalid': editInfoForm.get('preferencias')?.touched && editInfoForm.get('preferencias')?.invalid}"></p-multiSelect>
@@ -86,15 +71,15 @@
             <div class="form__data flex-container" style="--flex-direction: column">
                 <div class=" input__group">
                     <label>Ingresa tu Contraseña actual </label>
-                    <input pInputText type="password" formControlName="clave"
-                    [ngClass]="{'lib-invalid': editPassword.get('clave')?.touched && editPassword.get('clave')?.invalid}">
+                    <input pInputText type="password" formControlName="clave_actual"
+                    [ngClass]="{'lib-invalid': editPassword.get('clave_actual')?.touched && editPassword.get('clave_actual')?.invalid}">
                 </div>
             </div>
             <div class="form__data flex-container" style="--flex-direction: column">
                 <div class="input__group">
                     <label>Ingresa tu nueva Contraseña </label>
-                    <input pInputText type="password" formControlName="nueva-clave"
-                    [ngClass]="{'lib-invalid': editPassword.get('nueva-clave')?.touched && editPassword.get('nueva-clave')?.invalid}">
+                    <input pInputText type="password" formControlName="clave"
+                    [ngClass]="{'lib-invalid': editPassword.get('clave')?.touched && editPassword.get('clave')?.invalid}">
                 </div>
                 <div class="input__group">
                     <label>Confirma tu nueva Contraseña </label>
@@ -109,7 +94,7 @@
                 Guardar
             </button>
 
-            @if (editPassword.get('nueva-clave')?.value !== editPassword.get('confirmar-clave')?.value){
+            @if (editPassword.get('clave')?.value !== editPassword.get('confirmar-clave')?.value){
                 <p class="lib-invalid__message">Las contraseñas deben coincidir.</p>
             }
         </div>

@@ -32,7 +32,7 @@ export class PutCodeComponent {
     this.userService.getData().subscribe({
       next: data =>{
         this.data = data;
-        
+        this.putCode.get("correo_electronico")?.setValue(this.data);
       }
     })
 
@@ -56,7 +56,6 @@ export class PutCodeComponent {
 
     this.userService.verifyRecoveryCode(this.putCode.value).subscribe({
       next: (response) => {
-        
           this.router.navigate(['recuperar-contraseña','ingresar-contraseña']);
       },
       error: (error) => {
