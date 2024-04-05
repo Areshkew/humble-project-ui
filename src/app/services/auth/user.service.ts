@@ -16,7 +16,9 @@ export class UserService {
   private passwordSubject = new Subject<string | null>();
   private editInfoSubject = new Subject<any>();
   private editPasswordSubject = new Subject<any>();
-  
+  private userAdminSubject = new BehaviorSubject<User[]>([]);
+  private userRootSubject = new BehaviorSubject<User[]>([]);
+  private userRootChangePasswordSubject = new BehaviorSubject<any>(null);
   userRegistration$ = this.userRegistrationSubject.asObservable();
   userLogin$ = this.userLoginSubject.asObservable();
   email$ = this.emailSubject.asObservable();
@@ -24,6 +26,9 @@ export class UserService {
   password$ = this.passwordSubject.asObservable();
   editInfo$ = this.editInfoSubject.asObservable();
   editPassword$ = this.editPasswordSubject.asObservable();
+  userAdmin$ = this.userAdminSubject.asObservable();
+  userRoot$ = this.userRootSubject.asObservable();
+  userRootChangePassword$ = this.userRootChangePasswordSubject.asObservable();
   
   
   constructor(private http: HttpClient, private authService: AuthService) { }  
@@ -88,6 +93,31 @@ export class UserService {
       tap(response => this.editPasswordSubject.next(response)),
       shareReplay(1),
       catchError(error => this.handleError(error, this.editPasswordSubject))
+    );
+  }
+
+  //Servicios de recibir información
+  getAdminUsers(): Observable<any> {
+    return this.http.get<User[]>(`/api/user/adminusers`).pipe(
+      tap(users => this.userAdminSubject.next(users)),
+      shareReplay(1),
+      catchError(error => this.handleError(error, this.userAdminSubject))
+    );
+  }
+
+  deleteUser(DNIuser: String): Observable<any> {
+    return this.http.put(`/api/user/delete`, DNIuser).pipe(
+      tap(response => this.userRootChangePasswordSubject.next(response)),
+      shareReplay(1),
+      catchError(error => this.handleError(error, this.userRootChangePasswordSubject))
+    );
+  }
+
+  getRootInformation(): Observable<any> {
+    return this.http.get<User[]>(`/api/user/root`).pipe(
+      tap(users => this.userRootSubject.next(users)),
+      shareReplay(1),
+      catchError(error => this.handleError(error, this.userRootSubject))
     );
   }
 

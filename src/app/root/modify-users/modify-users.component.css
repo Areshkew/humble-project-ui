@@ -1,0 +1,90 @@
+.signup{
+    width: 100%;
+    margin:auto;  
+  }
+  
+.signup__content{
+   width: 95vw;
+}
+  
+.signup__form{
+  display: grid;
+  gap: 1rem;
+  
+  width: 70%;
+  min-width: 380px;
+  background-color: #fafafa;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin: 2rem 0;
+}
+  
+.form__logo img{
+  width: 130px;
+  height: 41px;
+  padding: .5rem;
+}
+  
+.form__title{
+  font-weight: bolder;
+  justify-self: center;
+}
+
+.lib-button{
+  border-radius: 100px;
+  padding: 1rem;
+  width: 100%;
+  text-align: center;
+}
+.lib-input{
+  border-radius: 20px;
+}
+  
+.form__submit{
+  width: 70%;
+  justify-self: center;
+  max-width: 500px;
+}
+.form__submit a{
+    font-size: var(--font-size-sm);
+    color: black;
+    text-decoration: none;
+    margin-bottom: 2rem;
+}
+  
+.form__group{
+  flex-wrap: wrap;
+}
+.form__data{
+  width: 50%;
+  min-width: 300px;
+  gap: 1rem;
+}
+.form__preference{
+  justify-self: center;
+  width: 50%;
+  min-width: 300px;
+}
+.form__preference .input__group{
+  width: 100%;
+}
+
+.input__group{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 70%;  
+}
+
+.input__group label{
+  font-size: var(--font-size-sm);
+  font-weight: bold;
+}
+ 
+.input__group > input{
+  box-shadow: 0 4px 2px -2px gray;
+}
+
+button{
+    margin-bottom: 10px;
+}

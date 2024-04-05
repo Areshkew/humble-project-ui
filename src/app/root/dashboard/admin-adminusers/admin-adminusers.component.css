@@ -1,0 +1,34 @@
+.editar{
+    background-color: rgb(255, 214, 149);
+}
+.borrar{
+    background-color: rgb(255, 152, 152);
+    margin-left: 10px;
+}
+ul button{
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    border: 1px rgb(73, 73, 73) solid;
+    text-align: center;
+    cursor: pointer;
+}
+ul{
+    list-style-type: none;
+    padding: 0;
+}
+input, .lib-button{
+    width: 65%;
+    margin-top: 1.5%;
+    height: 6vh;
+    padding: 1%;
+    text-align: center;
+}
+li{
+    border: 1px gray solid;
+    display: flex;
+    justify-content: space-between;
+    padding: 7px;
+    margin-bottom: 3px;
+    width: 65%
+}

@@ -1,0 +1,31 @@
+<div class="dashboard">
+    <button class="menu-toggle" (click)="toggleMenu()" [ngClass]="{'visible': showMenu}">
+        
+        <a *ngIf="showMenu" (click)="goAdmin()"> Usuarios Administradores</a>
+        <a *ngIf="showMenu" (click)="goChangePassword()"> Cambiar la Contraseña</a>
+        <a *ngIf="showMenu"> Administración de Tiendas</a>
+        
+        <p *ngIf="!showMenu">▼</p>
+
+    </button>
+    <div class = "container"> 
+        <div class="menu" *ngIf="isMenuVisible">
+            <a class="menu-content" (click)="goAdmin()" >
+                <div>👤</div>
+                <b>Usuarios Administradores</b>
+            </a>
+            <a class="menu-content" (click)="goChangePassword()">
+                <div>🔑</div>
+                <b>Cambiar la Contraseña</b>
+            </a>
+            <a class="menu-content" (click)="goChangePassword()">
+                <div>🏪</div>
+                <b>Administración de Tiendas</b>
+            </a>
+        </div>
+        
+        <div class="main-content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

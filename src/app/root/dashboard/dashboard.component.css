@@ -1,0 +1,114 @@
+.dashboard{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    width: 100vw;
+    border-top: 5px black solid;
+}
+.menu{
+    flex: 0 0 17%;
+    border-right: 1px black solid;
+    width: 10vw;
+    display: flex;
+    flex-direction: column;
+    background-color: #002122;
+}
+.menu-toggle {
+    display: none;
+    border: none;
+    background-color: #002122;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    height: 5vh;
+    cursor: pointer;
+    transition: height 0.5s ease;
+}
+.visible {
+    height: 40vh;
+    align-items: flex-end;
+    padding-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+button a{
+    width: 100vw;
+    height: 30px;
+    margin-top: 15px;
+    font-size: var(--font-size-base);
+}
+button a:hover{
+    background-color: #00696e;
+}
+.container {
+    display: flex;
+    flex: 1;
+}
+.menu-content{
+    display: flex;
+    align-items: center;
+    height: 10%;
+    margin-top: 15px;
+    cursor: pointer;
+    width: 100%;
+    background-color: #002122;
+    padding-top: 9px;
+}
+a{
+    display: flex;
+}
+.menu-content div {
+    flex: 0 0 15%;
+}
+.menu-content b {
+    flex: 1;
+}
+a b{
+    flex: 1;
+    font-size: var(--font-size-base);
+    color: white;
+    align-items: center;
+}
+.main-content{
+    flex: 1;
+    padding-left: 10%;
+}
+a:hover{
+    color: #F59B6D;
+}
+.menu-content:hover, .menu-toggle{
+    background-color: #004346;
+}
+@media (max-width: 1000px) {
+    a {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    a b {
+        font-size: var(--font-size-sm);
+    }
+  }
+
+/* Mostrar el menú principal en pantallas grandes */
+@media (min-width: 600px) {
+    .menu-content {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+/* Mostrar el menú desplegable en pantallas pequeñas */
+@media (max-width: 600px) {
+    .menu-content {
+        display: none; 
+    }
+    .menu-toggle {
+        flex: 0 0 auto;
+        display:flex; 
+    }
+    .menu{
+        flex: 0 0 0%;
+    }
+}
