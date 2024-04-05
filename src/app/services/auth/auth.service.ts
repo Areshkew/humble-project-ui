@@ -23,6 +23,14 @@ export class AuthService {
     this.isAuthenticatedSubject.next(false);
   }
 
+  getUserRoleFromToken() {
+    const token = this.cookieService.getCookie('Bearer');
+    if (!token) return null;
+  
+    const decodedPayload = this.decodeJwtPayload(token);
+    return decodedPayload ? decodedPayload.role : null;
+  }
+
   isAuthenticated(): boolean {
     const token = this.cookieService.getCookie('Bearer');
     if (!token) return false;

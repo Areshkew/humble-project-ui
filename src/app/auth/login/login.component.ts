@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {  Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -27,7 +26,7 @@ export class LoginComponent {
 
   ngOnInit() {
     this.userLogin = this.formBuilder.group({
-      correo_electronico: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(32)]],
+      correo_electronico: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(32), Validators.email]],
       clave: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32)]]
     });
   }

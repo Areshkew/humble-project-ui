@@ -9,12 +9,29 @@ class PermissionsService {
   constructor(private authService: AuthService, private router: Router){}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean{
-    return route.data['Guest'] != this.authService.isAuthenticated();
+    const expectedRole: string[] = route.data['Roles'];
+    const isGuestAllowed = route.data['Guest'];
+    const userRole = this.authService.getUserRoleFromToken();
+    const isAuthenticated = this.authService.isAuthenticated();
+
+    return (
+      (isGuestAllowed != isAuthenticated)  // If guest, authenticated can't enter.
+      &&
+      (!expectedRole || expectedRole.includes(userRole)) // Allow if no specific role needed or if user has the expected role
+    ) ;
   }
 }
 
 export const authGuard: CanActivateFn = (route, state) => {
-  return inject(PermissionsService).canActivate(route, state);
+  const permissionsService = inject(PermissionsService);
+  const canActivateResult = permissionsService.canActivate(route, state);
+
+  if (!canActivateResult) {
+    const router = inject(Router);
+    return router.createUrlTree(['/inicio']);
+  }
+
+  return canActivateResult;
 };
 
 

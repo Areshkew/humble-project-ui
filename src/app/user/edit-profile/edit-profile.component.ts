@@ -1,8 +1,8 @@
 import { Component, HostListener} from '@angular/core';
-import { IconComponent } from '../shared/icon/icon.component';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { MenuItem } from 'primeng/api';
 import { Router} from '@angular/router';
+import { IconComponent } from '../../shared/icon/icon.component';
 
 @Component({
   selector: 'app-edit-profile',
