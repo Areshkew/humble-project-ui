@@ -61,17 +61,23 @@
   gap: 1rem;
 }
 .form__preference{
-  width: 70%;
+  width: 100%;
   min-width: 300px;
   margin-bottom: 20px;;
 }
 .form__news{
-  width: 30%;
+  width: 70%;
   min-width: 300px;
   gap: 1rem;
+  justify-content: center;
+  text-align: center;
 }
 
-
+.input__group p, .input__group-preference  p{
+  font-size: var(--font-size-sm);
+  color: red;
+  margin: 0;
+}
 
 .input__group{
   display: flex;
@@ -84,7 +90,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  width: 80%;
+  width: 70%;
 }
 
 .input__group label{

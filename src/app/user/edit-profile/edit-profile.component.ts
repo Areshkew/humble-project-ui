@@ -3,6 +3,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { MenuItem } from 'primeng/api';
 import { Router} from '@angular/router';
 import { IconComponent } from '../../shared/icon/icon.component';
+import { UserService } from '@services/auth/user.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -14,8 +15,9 @@ import { IconComponent } from '../../shared/icon/icon.component';
 export class EditProfileComponent  {
   items!: MenuItem[];
   iconSize = 156;
+  user = ["usuario"];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private userService: UserService) {
     this.updateIconSize(window.innerWidth);
   }
 
@@ -32,6 +34,12 @@ export class EditProfileComponent  {
         routerLink: 'gestion-financiera',
       },
     ];
+
+    this.userService.getCurrentUser(this.user).subscribe(
+      user => {
+        this.user = user.usuario
+      }
+    )
   }
 
   @HostListener('window:resize', ['$event'])

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Subject, Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, shareReplay, tap } from 'rxjs/operators';
 import { User } from '@models/user.model';
@@ -16,6 +16,7 @@ export class UserService {
   private passwordSubject = new Subject<string | null>();
   private editInfoSubject = new Subject<any>();
   private editPasswordSubject = new Subject<any>();
+  private currentUserSubject = new Subject<any>();
   
   userRegistration$ = this.userRegistrationSubject.asObservable();
   userLogin$ = this.userLoginSubject.asObservable();
@@ -24,6 +25,7 @@ export class UserService {
   password$ = this.passwordSubject.asObservable();
   editInfo$ = this.editInfoSubject.asObservable();
   editPassword$ = this.editPasswordSubject.asObservable();
+  currentUser$ = this.currentUserSubject = new Subject<any>();
   
   
   constructor(private http: HttpClient, private authService: AuthService) { }  
@@ -75,8 +77,16 @@ export class UserService {
     );
   }
 
+  getCurrentUser(fields: string[]): Observable<any> {
+    return this.http.post(`/api/user/getuserdata`, fields).pipe(
+      tap(response => this.currentUserSubject.next(response)),
+      shareReplay(1),
+      catchError(error => this.handleError(error, this.currentUserSubject))
+    );
+  }
+  
   editPersonalInfo(data: User): Observable<any> {
-    return this.http.post(`/api/user/editPersonalInfo`, data).pipe(
+    return this.http.post(`/api/user/editaccount`, data).pipe(
       tap(response => this.editInfoSubject.next(response)),
       shareReplay(1),
       catchError(error => this.handleError(error, this.editInfoSubject))

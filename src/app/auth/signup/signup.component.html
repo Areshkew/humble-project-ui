@@ -11,34 +11,52 @@
                         <label>Ingresa tu DNI</label>
                         <input type="number" placeholder="DNI" pInputText formControlName="DNI"
                             [ngClass]="{'lib-invalid': registerForm.get('DNI')?.touched && registerForm.get('DNI')?.invalid}">
-                    </div>
+                            @if (registerForm.get('DNI')?.touched && registerForm.get('DNI')?.invalid) {
+                                <p>El DNI es requerido.</p>
+                                }
+                        </div>
                     <div class="input__group">
                         <label>Ingresa tus Nombres</label>
                         <input pInputText type="text" placeholder="Nombres" formControlName="nombre"
                             [ngClass]="{'lib-invalid': registerForm.get('nombre')?.touched && registerForm.get('nombre')?.invalid}">
-                    </div>
+                            @if (registerForm.get('nombre')?.touched && registerForm.get('nombre')?.invalid) {
+                                <p>El Nombre es requerido.</p>
+                                }
+                        </div>
                     <div class="input__group">
                         <label>Ingresa tus Apellidos</label>
                         <input pInputText type="text" placeholder="Apellidos" formControlName="apellido"
                             [ngClass]="{'lib-invalid': registerForm.get('apellido')?.touched && registerForm.get('apellido')?.invalid}">
+                            @if (registerForm.get('apellido')?.touched && registerForm.get('apellido')?.invalid) {
+                                <p>El Apellido es requerido.</p>
+                                }
                     </div>
                     <div class="input__group">
                         <label>Ingresa tu País</label>
                         <p-dropdown [options]="countries" optionLabel="name" placeholder="País" [filter]="true"
                             (onChange)="onCountryChange()" formControlName="pais"
                             [ngClass]="{'lib-invalid': registerForm.get('pais')?.touched && registerForm.get('pais')?.invalid}"></p-dropdown>
+                            @if (registerForm.get('pais')?.touched && registerForm.get('pais')?.invalid) {
+                                <p>El Pais es requerido.</p>
+                                }
                     </div>
                     <div class="input__group">
                         <label>Ingresa tu Estado/Departamento/Distrito</label>
                         <p-dropdown #stateDropdown [options]="states" optionLabel="name" placeholder="Estado"
                             [filter]="true" (onChange)="onStateChange()" formControlName="estado"
                             [ngClass]="{'lib-invalid': registerForm.get('estado')?.touched && registerForm.get('estado')?.invalid}"></p-dropdown>
+                            @if (registerForm.get('estado')?.touched && registerForm.get('estado')?.invalid) {
+                                <p>El Estado es requerido.</p>
+                                }
                     </div>
                     <div class="input__group">
                         <label>Ingresa tu Ciudad</label>
                         <p-dropdown #cityDropdown [options]="cities" optionLabel="name" placeholder="Ciudad"
                             [filter]="true" formControlName="ciudad"
                             [ngClass]="{'lib-invalid': registerForm.get('ciudad')?.touched && registerForm.get('ciudad')?.invalid}"></p-dropdown>
+                            @if (registerForm.get('ciudad')?.touched && registerForm.get('ciudad')?.invalid) {
+                                <p>La ciudad es requerida.</p>
+                                }
                     </div>
                 </div>
 
@@ -47,12 +65,18 @@
                         <label>Ingresa tu Dirección</label>
                         <input pInputText type="text" placeholder="Dirección" formControlName="direccion_envio"
                             [ngClass]="{'lib-invalid': registerForm.get('direccion_envio')?.touched && registerForm.get('direccion_envio')?.invalid}">
+                            @if (registerForm.get('direccion_envio')?.touched && registerForm.get('direccion_envio')?.invalid) {
+                                <p>La Direccion es requerida.</p>
+                                }
                     </div>
 
                     <div class="input__group">
                         <label>Ingresa tu Género</label>
                         <p-dropdown [options]="genres" placeholder="Género" formControlName="genero"
                             [ngClass]="{'lib-invalid': registerForm.get('genero')?.touched && registerForm.get('genero')?.invalid}"></p-dropdown>
+                            @if (registerForm.get('genero')?.touched && registerForm.get('genero')?.invalid) {
+                                <p>El Genero es requerido.</p>
+                                }
                     </div>
 
                     <div class="input__group">
@@ -60,12 +84,18 @@
                         <p-calendar placeholder="Fecha" formControlName="fecha_nacimiento" [defaultDate]="maxDate"
                             [maxDate]="maxDate" [minDate]="minDate" dateFormat="dd/mm/yy"
                             [ngClass]="{'lib-invalid': registerForm.get('fecha_nacimiento')?.touched && registerForm.get('fecha_nacimiento')?.invalid}"></p-calendar>
+                            @if (registerForm.get('fecha_nacimiento')?.touched && registerForm.get('fecha_nacimiento')?.invalid) {
+                                <p>La fecha es requerida.</p>
+                                }
                     </div>
 
                     <div class="input__group">
                         <label>Ingresa tu Correo Electrónico</label>
                         <input pInputText type="email" placeholder="Email" formControlName="correo_electronico"
                             [ngClass]="{'lib-invalid': registerForm.get('correo_electronico')?.touched && registerForm.get('correo_electronico')?.invalid}">
+                            @if (registerForm.get('correo_electronico')?.touched && registerForm.get('correo_electronico')?.invalid) {
+                                <p>El Correo es requerido.</p>
+                                }
                     </div>
 
 
@@ -73,28 +103,37 @@
                         <label>Ingresa tu Usuario</label>
                         <input pInputText type="text" formControlName="usuario" placeholder="Usuario"
                             [ngClass]="{'lib-invalid': registerForm.get('usuario')?.touched && registerForm.get('usuario')?.invalid}">
+                            @if (registerForm.get('usuario')?.touched && registerForm.get('usuario')?.invalid) {
+                                <p>El Usuarioes requerido.</p>
+                                }
                     </div>
 
                     <div class="input__group">
                         <label>Ingresa tu Contraseña</label>
                         <input pInputText type="password" formControlName="clave" placeholder="Contraseña"
                             [ngClass]="{'lib-invalid': registerForm.get('clave')?.touched && registerForm.get('clave')?.invalid}">
+                            @if (registerForm.get('contraseña')?.touched && registerForm.get('contraseña')?.invalid) {
+                                <p>LA Contraseña es requerida.</p>
+                                }
                     </div>
                 </div>
             </div>
 
             <div class="form__group flex-container">
-                <div class="form__preference flex-container" style="--flex-direction: column;">
+                <div class="form__preference flex-container" style="--flex-direction: center;">
                     <div class="input__group-preference">
                         <label>Temas literarios de preferencia (Máximo 3)</label>
                         <p-multiSelect display="chip" [selectionLimit]="3" [options]="bookGenres" optionLabel="genero"
                             placeholder="Preferencias" formControlName="preferencias"
                             [ngClass]="{'lib-invalid': registerForm.get('clave')?.touched && registerForm.get('clave')?.invalid}"></p-multiSelect>
+                            @if (registerForm.get('preferencias')?.touched && registerForm.get('preferencias')?.invalid) {
+                                <p>Las preferencias son requeridas..</p>
+                                }
                     </div>                    
                 </div>
-                <div class="form__news flex-container" style="--flex-direction: column;">
+                <div class="form__news flex-container" style="--flex-direction: center;">
                     <div class="input__group">
-                        <label>Deseas recibir noticias?</label>
+                        <label>Deseas recibir noticias sobre tus temas literarios de preferencia?</label>
 
                         <p-inputSwitch formControlName="suscrito_noticias"></p-inputSwitch>
 

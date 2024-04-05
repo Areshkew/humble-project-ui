@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { UserService } from '@services/auth/user.service';
 import { User } from '@models/user.model';
 import { ToastService } from '@services/toast.service';
+import { CookieService } from '@services/cookie.service';
 @Component({
   selector: 'app-personal-info',
   standalone: true,
@@ -18,7 +19,6 @@ import { ToastService } from '@services/toast.service';
   styleUrl: './personal-info.component.css'
 })
 export class PersonalInfoComponent implements OnInit{
-
   editInfoForm!: FormGroup;
   editPassword!: FormGroup;
   countries!: any;
@@ -27,6 +27,21 @@ export class PersonalInfoComponent implements OnInit{
   maxDate!: Date;
   minDate!: Date;
   bookGenres = GENRES;
+  user: string[] = [
+    "DNI",
+    "nombre",
+    "apellido",
+    "fecha_nacimiento",
+    "pais",
+    "estado",
+    "ciudad",
+    "direccion_envio",
+    "genero",
+    "correo_electronico",
+    "usuario",  
+    "preferencias"
+  ];
+  token!: any;
 
   genres = [
     "Femenino",
@@ -38,7 +53,7 @@ export class PersonalInfoComponent implements OnInit{
   @ViewChild('stateDropdown') stateDropdownComponent!: Dropdown;
   @ViewChild('cityDropdown') cityDropdownComponent!: Dropdown;
 
-  constructor(private formBuilder: FormBuilder, private jsonService: JsonService, private userService: UserService, private toastService: ToastService) {
+  constructor(private formBuilder: FormBuilder, private jsonService: JsonService, private userService: UserService, private toastService: ToastService, private cookieService: CookieService) {
     
   }
 
@@ -64,9 +79,35 @@ export class PersonalInfoComponent implements OnInit{
       'confirmar-clave': ['', [Validators.required]],
     })
 
-    this.jsonService.fetchJson("countries+states+cities").subscribe(_countries => {
-      this.countries = _countries;
-    })
+
+    this.userService.getCurrentUser(this.user).subscribe(
+      user => {
+        this.user = user
+        const generos = GENRES.filter(genero => user.preferencias.includes(genero.id));
+
+        
+        console.log(this.user);
+        this.editInfoForm.patchValue({
+          DNI:  user.DNI,
+          nombre: user.nombre,
+          apellido: user.apellido,
+          fecha_nacimiento: new Date (user.fecha_nacimiento),
+          pais: user.pais,
+          estado: user.estado,
+          ciudad: user.ciudad,
+          direccion_envio: user.direccion_envio,
+          genero: user.genero,
+          correo_electronico: user.correo_electronico,
+          usuario: user.usuario,  
+          preferencias: generos
+        })
+        
+        
+      }
+    )
+
+
+
 
     this.maxDate = new Date();
     const maxBirthYear = this.maxDate.getFullYear() - 18;
@@ -76,14 +117,14 @@ export class PersonalInfoComponent implements OnInit{
     const minBirtYear = this.minDate.getFullYear() - 101;
     this.minDate.setFullYear(minBirtYear);
 
-    
+    this.jsonService.fetchJson("countries+states+cities").subscribe(_countries => {
+      this.countries = _countries;
+    })
   }
+
 
   onCountryChange(){
     const selectedCountry = this.editInfoForm.get('pais')?.value;
-
-    console.log(selectedCountry);
-    
 
     if(this.cityDropdownComponent && this.stateDropdownComponent) {
       this.cityDropdownComponent.clear();
@@ -94,7 +135,6 @@ export class PersonalInfoComponent implements OnInit{
 
     this.states = selectedCountry.states.length > 0 ? selectedCountry.states : [{name: selectedCountry.name, cities: []}];
   }
-
 
   onStateChange(){
     const selectedCountry = this.editInfoForm.get('pais')?.value;
