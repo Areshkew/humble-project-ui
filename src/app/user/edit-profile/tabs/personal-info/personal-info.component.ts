@@ -45,13 +45,23 @@ export class PersonalInfoComponent implements OnInit{
     "usuario",  
     "preferencias"
   ];
-  token!: any;
   genres = [
     "Femenino",
     "Masculino",
     "Ruiz",
     "Otro"
   ]
+  roads = [
+    "Avenida",
+    "Calle",
+    "Carrera",
+    "Circular",
+    "Circunvalar",
+    "Diagonal",
+    "Manzana",
+    "Transversal",
+    "Vía"
+  ] 
   initialUserData: any = {}
 
   @ViewChild('stateDropdown') stateDropdownComponent!: Dropdown;
@@ -71,14 +81,19 @@ export class PersonalInfoComponent implements OnInit{
       'ciudad': ['', [Validators.required]],
       'estado': ['', [Validators.required]],
       'pais': ['', [Validators.required]],
-      'direccion_envio': ['', [Validators.required, Validators.maxLength(64)]],
+      'direccion_envio': this.formBuilder.group({
+        'tipo_via': ['', Validators.required],
+        'nombre_via': ['', Validators.required],
+        'numero_exterior': ['', Validators.required,],
+        'numero_interior': ['', Validators.required,]
+      }),
       'genero': ['', [Validators.required]],
       'preferencias': ['', []]
     });
 
     this.editPassword = this.formBuilder.group({
       'clave_actual': ['', [Validators.required]],
-      'clave': ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/)]],
+      'clave': ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]],
       'confirmar-clave': ['', [Validators.required]]
     })
 
@@ -89,6 +104,8 @@ export class PersonalInfoComponent implements OnInit{
         const generos = GENRES.filter(genero => user.preferencias.includes(genero.id));
         this.initialUserData = user;
         this.initialUserData.preferencias = generos;
+
+        const direccion = this.splitAddress(user.direccion_envio)
 
         this.jsonService.fetchJson("countries+states+cities").subscribe(_countries => {
           this.countries = _countries;
@@ -104,20 +121,25 @@ export class PersonalInfoComponent implements OnInit{
           this.editInfoForm.get("ciudad")?.setValue(ciudad)
 
         
-        this.editInfoForm.patchValue({
-            DNI:  user.DNI,
-            nombre: user.nombre,
-            apellido: user.apellido,
-            fecha_nacimiento: this.convertToLocalDate(user.fecha_nacimiento),
-            pais: pais,
-            estado: estado,
-            ciudad: ciudad,
-            direccion_envio: user.direccion_envio,
-            genero: user.genero,
-            correo_electronico: user.correo_electronico,
-            usuario: user.usuario,  
-            preferencias: generos,
-          })
+          this.editInfoForm.patchValue({
+              DNI:  user.DNI,
+              nombre: user.nombre,
+              apellido: user.apellido,
+              fecha_nacimiento: this.convertToLocalDate(user.fecha_nacimiento),
+              pais: pais,
+              estado: estado,
+              ciudad: ciudad,
+              direccion_envio: {
+                tipo_via: direccion.tipo_via ,
+                nombre_via: direccion.nombre_via ,
+                numero_exterior: direccion.numero_exterior,
+                numero_interior: direccion.numero_interior 
+              },
+              genero: user.genero,
+              correo_electronico: user.correo_electronico,
+              usuario: user.usuario,  
+              preferencias: generos,
+            })
         })
        
       }
@@ -170,11 +192,20 @@ export class PersonalInfoComponent implements OnInit{
     const country = this.editInfoForm.get('pais')?.value.name;
     const state = this.editInfoForm.get('estado')?.value.name;
     const city = this.editInfoForm.get('ciudad')?.value.name;
+
+    const formAddress = this.editInfoForm.get('direccion_envio') as FormGroup;
+    const typeRoad = formAddress.get('tipo_via')?.value;
+    const nameRoad = formAddress.get('nombre_via')?.value;
+    const outNumber = formAddress.get('numero_exterior')?.value;
+    const inNumber = formAddress.get('numero_interior')?.value;
+    const completeAddress = `${nameRoad} ${typeRoad} ${outNumber} ${inNumber}`;
+
     const formData: User = Object.assign({}, this.editInfoForm.value);
 
     formData.pais = country;
     formData.estado = state;
     formData.ciudad = city;
+    formData.direccion_envio = completeAddress; 
 
     const changedData = this.getChangedData(formData);
     
@@ -194,6 +225,30 @@ export class PersonalInfoComponent implements OnInit{
     });
 
   }
+
+  private splitAddress(address: string) {
+    const numeros = address.match(/\d+/g);
+    if(numeros) {
+    
+      const parte3 = numeros[numeros.length - 2];
+      const parte4 = numeros[numeros.length - 1];
+      
+      
+      let textoSinNumeros = address.replace(parte3, '').replace(parte4, '').trim();
+      
+      const palabras = textoSinNumeros.split(' ');
+      const parte2 = palabras.pop(); 
+      const parte1 = palabras.join(' '); 
+      return {tipo_via: parte2,
+        nombre_via: parte1,
+        numero_exterior: parte3 ,
+        numero_interior: parte4}
+  
+  }else{
+    throw new Error('La cadena no tiene el formato esperado con dos números al final.');
+
+  }
+}
 
   private convertToLocalDate(dateString: string) {
     const [year, month, day] = dateString.split('-').map(Number);

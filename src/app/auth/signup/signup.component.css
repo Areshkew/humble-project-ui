@@ -10,7 +10,6 @@
 .signup__form{
   display: grid;
   gap: 1rem;
-
   width: 70%;
   min-width: 380px;
   background-color: #fafafa;
@@ -59,21 +58,10 @@
   width: 50%;
   min-width: 300px;
   gap: 1rem;
-}
-.form__preference{
-  width: 100%;
-  min-width: 300px;
-  margin-bottom: 20px;;
-}
-.form__news{
-  width: 70%;
-  min-width: 300px;
-  gap: 1rem;
-  justify-content: center;
-  text-align: center;
+  margin-bottom: 1rem;
 }
 
-.input__group p, .input__group-preference  p{
+.form__group p{
   font-size: var(--font-size-sm);
   color: red;
   margin: 0;
@@ -86,24 +74,45 @@
   width: 70%;
 }
 
-.input__group-preference{
+.input__address{
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
   width: 70%;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
-.input__group label{
+.input__group-address{
+  display: flex;
+  width: 70%;
+  gap: 0.5rem;
+}
+
+.input__field {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  gap: 0.5rem;
+}
+
+.input__field-dropdown{
+  width: 100%;
+}
+
+.input__field-number{
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+}
+
+
+.form__group label{
   font-size: var(--font-size-sm);
   font-weight: bold;
 }
 
-.input__group-preference label{
-  font-size: var(--font-size-sm);
-  font-weight: bold;
-}
 
-.input__group > input{
+.form__group input{
   box-shadow: 0 4px 2px -2px gray;
 }
 

@@ -7,37 +7,87 @@
                     <label>Nombres</label>
                     <input type="text" pInputText formControlName="nombre"
                     [ngClass]="{'lib-invalid': editInfoForm.get('nombre')?.touched && editInfoForm.get('nombre')?.invalid}">
+                    @if (editInfoForm.get('nombre')?.touched && editInfoForm.get('nombre')?.invalid) {
+                        @if (editInfoForm.get('nombre')?.errors?.['required']) {
+                            <p>El Nombre es requerido</p>
+                        }
+                        @if (editInfoForm.get('nombre')?.errors?.['maxlength']){
+                            <p>El Nombre no debe teener mas de 32 caracteres.</p>
+                        }
+                    }
                 </div>
                 <div class="input__group">
                     <label>Apellidos</label>
                     <input type="text" pInputText formControlName="apellido"
                     [ngClass]="{'lib-invalid': editInfoForm.get('apellido')?.touched && editInfoForm.get('apellido')?.invalid}">
+                    @if (editInfoForm.get('apellido')?.touched && editInfoForm.get('apellido')?.invalid) {
+                        @if (editInfoForm.get('apellido')?.errors?.['required']){
+                            <p>El Apellido es requerido.</p>
+                        }
+                        @if (editInfoForm.get('apellido')?.errors?.['maxlength']){
+                            <p>El Apellido no debe teener mas de 32 caracteres.</p>
+                        }
+                    }
                 </div>
                 <div class="input__group">
                     <label>Pais</label>
                     <p-dropdown [options]="countries" optionLabel="name" [filter]="true" (onChange)="onCountryChange()"
                         formControlName="pais"
                         [ngClass]="{'lib-invalid': editInfoForm.get('pais')?.touched && editInfoForm.get('pais')?.invalid}"></p-dropdown>
+                        @if (editInfoForm.get('pais')?.touched && editInfoForm.get('pais')?.invalid) {
+                            <p>El Pais es requerido.</p>
+                        }
                 </div>
                 <div class="input__group">
                     <label>Estado</label>
                     <p-dropdown #stateDropdown [options]="states" optionLabel="name" [filter]="true"
                         (onChange)="onStateChange()" formControlName="estado"
                         [ngClass]="{'lib-invalid': editInfoForm.get('estado')?.touched && editInfoForm.get('estado')?.invalid}"></p-dropdown>
+                        @if (editInfoForm.get('estado')?.touched && editInfoForm.get('estado')?.invalid) {
+                            <p>El Estado es requerido.</p>
+                        }
                 </div>
                 <div class="input__group">
                     <label>Ciudad</label>
                     <p-dropdown #cityDropdown [options]="cities" optionLabel="name" [filter]="true"
                         formControlName="ciudad"
                         [ngClass]="{'lib-invalid': editInfoForm.get('ciudad')?.touched && editInfoForm.get('ciudad')?.invalid}"></p-dropdown>
+                        @if (editInfoForm.get('ciudad')?.touched && editInfoForm.get('ciudad')?.invalid) {
+                            <p>La ciudad es requerida.</p>
+                        }
                 </div>
             </div>
             <div class="form__data flex-container" style="--flex-direction: column">
-                <div class="input__group">
-                    <label>Direccion</label>
-                    <input type="text" pInputText formControlName="direccion_envio"
-                    [ngClass]="{'lib-invalid': editInfoForm.get('direccion_envio')?.touched && editInfoForm.get('direccion_envio')?.invalid}">
-                </div>
+                <form class="flex-container" style="--justify-content: center; --align-items: center;"
+                        formGroupName="direccion_envio">
+                        <div class="input__address">
+                            <label>Direccion</label>
+                            <input pInputText type="text" placeholder="Direccion" formControlName="nombre_via"
+                                [ngClass]="{'lib-invalid': editInfoForm.get('direccion_envio.nombre_via')?.touched && editInfoForm.get('direccion_envio.nombre_via')?.invalid}">
+                                @if (editInfoForm.get('direccion_envio.nombre_via')?.touched && editInfoForm.get('direccion_envio.nombre_via')?.invalid) {
+                                    <p>La direccion es requerida</p>
+                                }
+                        </div>
+                        <div class="input__group-address">
+                            <div class="input__field input__field-dropdown">
+                                <label>Tipo</label>
+                                <p-dropdown class="road-type" [options]="roads" formControlName="tipo_via"
+                                    [ngClass]="{'lib-invalid': editInfoForm.get('direccion_envio.tipo_via')?.touched && editInfoForm.get('direccion_envio.tipo_via')?.invalid}"></p-dropdown>
+                                    @if (editInfoForm.get('direccion_envio.tipo_via')?.touched && editInfoForm.get('direccion_envio.tipo_via')?.invalid) {
+                                        <p>El tipo de via es requerido</p>
+                                    }
+                            </div>
+                            <div class="input__field ">
+                                <label>Numero(opcional)</label>
+                                <div class="input__field-number">
+                                    <input pInputText type="number" formControlName="numero_exterior"
+                                        [ngClass]="{'lib-invalid': editInfoForm.get('direccion_envio.numero_exterior')?.touched && editInfoForm.get('direccion_envio.numero_exterior')?.invalid}">
+                                    <input pInputText type="number" formControlName="numero_interior"
+                                        [ngClass]="{'lib-invalid': editInfoForm.get('direccion_envio.numero_interior')?.touched && editInfoForm.get('direccion_envio.numero_interior')?.invalid}">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 <div class="input__group">
                     <label>Genero</label>
                     <p-dropdown [options]="genres" formControlName="genero"
@@ -73,6 +123,9 @@
                     <label>Ingresa tu Contraseña actual </label>
                     <input pInputText type="password" formControlName="clave_actual"
                     [ngClass]="{'lib-invalid': editPassword.get('clave_actual')?.touched && editPassword.get('clave_actual')?.invalid}">
+                    @if (editPassword.get('clave_actual')?.touched && editPassword.get('clave_actual')?.invalid) {
+                        <p>La contraseña es requerida</p>
+                    }
                 </div>
             </div>
             <div class="form__data flex-container" style="--flex-direction: column">
@@ -80,6 +133,20 @@
                     <label>Ingresa tu nueva Contraseña </label>
                     <input pInputText type="password" formControlName="clave"
                     [ngClass]="{'lib-invalid': editPassword.get('clave')?.touched && editPassword.get('clave')?.invalid}">
+                    @if (editPassword.get('clave')?.touched && editPassword.get('clave')?.invalid) {
+                        @if (editPassword.get('clave')?.errors?.['required']){
+                            <p>La Contraseña es requerida.</p>
+                        }
+                        @if (editPassword.get('clave')?.errors?.['minlength']){
+                            <p>La contraseña debe tener al menos 5 caracteres.</p>
+                        }
+                        @if (editPassword.get('clave')?.errors?.['maxlength']){
+                            <p>La contraseña no puede exceder los 32 caracteres</p>
+                        }
+                        @if (editPassword.get('clave')?.errors?.['pattern']){
+                            <p>La contraseña debe contener al menos una mayúscula, un número y un símbolo especial.</p>
+                        }
+                        }
                 </div>
                 <div class="input__group">
                     <label>Confirma tu nueva Contraseña </label>
