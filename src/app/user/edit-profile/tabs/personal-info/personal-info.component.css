@@ -30,11 +30,11 @@
   width: 70%;
 }
 
-.input__group > input{
+.form__group input{
     box-shadow: 0 4px 2px -2px gray;
   }
 
-.input__group label {
+.form__group label {
   font-size: var(--font-size-sm);
   font-weight: bold;
   
@@ -46,6 +46,39 @@
     width: 30%;
     text-align: center;
     margin-top: 1rem;
+}
+
+.input__address{
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.input__field {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  gap: 0.5rem;
+}
+
+.input__field-number{
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+} 
+
+.input__group-address{
+  display: flex;
+  width: 70%;
+  gap: 0.5rem;
+}
+
+.form__group p{
+  font-size: var(--font-size-sm);
+  color: red;
+  margin: 0;
 }
 
 .lib-invalid__message{

@@ -6,7 +6,7 @@ export interface User {
     ciudad: string;
     estado: string;
     pais: string;
-    direccionEnvio: string;
+    direccion_envio: string;
     genero: string;
     correoElectronico: string;
     usuario: string;

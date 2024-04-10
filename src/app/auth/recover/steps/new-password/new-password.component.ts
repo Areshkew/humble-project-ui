@@ -33,7 +33,7 @@ export class NewPasswordComponent {
     })
 
     this.newPass = this.formbuilder.group({
-      clave: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/)]],
+      clave: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]],
       claveRepetida: ['', [Validators.required]],
       correo_electronico: [this.data]
     })

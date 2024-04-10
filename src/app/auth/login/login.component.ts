@@ -45,6 +45,7 @@ export class LoginComponent {
     this.userService.login(this.userLogin.value).subscribe({
       next: (response) => {
         if (response.token) {
+          this.toastService.showSuccessToast("Bienvenido de vuelta", "Nos alegra verte de nuevo en LibHub")
           this.cookieService.setCookie("Bearer", response.token, 1);
           this.authService.isAuthenticated();
           this.router.navigate(['/inicio']);

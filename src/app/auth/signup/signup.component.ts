@@ -35,6 +35,17 @@ export class SignupComponent implements OnInit{
     "Ruiz",
     "Otro"
   ]
+  roads = [
+    "Avenida",
+    "Calle",
+    "Carrera",
+    "Circular",
+    "Circunvalar",
+    "Diagonal",
+    "Manzana",
+    "Transversal",
+    "Vía"
+  ]
   maxDate!: Date;
   minDate!: Date;
   countries!: any;
@@ -50,18 +61,23 @@ export class SignupComponent implements OnInit{
 
   ngOnInit(){
     this.registerForm = this.formBuilder.group({
-      'DNI': ['', [Validators.required, Validators.minLength(7), Validators.maxLength(10)]],
+      'DNI': ['', [Validators.required, Validators.minLength(7), Validators.maxLength(10), Validators.pattern('^[a-zA-Z0-9]+$')]],
       'nombre': ['', [Validators.required, Validators.maxLength(32)]],
       'apellido': ['', [Validators.required, Validators.maxLength(32)]],
       'fecha_nacimiento': ['', [Validators.required]],
       'ciudad': ['', [Validators.required]],
       'estado': ['', [Validators.required]],
       'pais': ['', [Validators.required]],
-      'direccion_envio': ['', [Validators.required, Validators.maxLength(64)]],
+      'direccion_envio': this.formBuilder.group({
+        'tipo_via': ['', Validators.required],
+        'nombre_via': ['', Validators.required],
+        'numero_exterior': ['', Validators.required],
+        'numero_interior': ['', Validators.required]
+      }),
       'genero': ['', [Validators.required]],
-      'correo_electronico': ['', [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(32)]],
+      'correo_electronico': ['', [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(32), Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) ]],
       'usuario': ['', [Validators.required, Validators.maxLength(32)]],
-      'clave': ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/)]],
+      'clave': ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]],
     });
 
     // Limites de fecha
@@ -115,6 +131,14 @@ export class SignupComponent implements OnInit{
     const country = this.registerForm.get('pais')?.value.name;
     const state = this.registerForm.get('estado')?.value.name;
     const city = this.registerForm.get('ciudad')?.value.name;
+
+    const formAddress = this.registerForm.get('direccion_envio') as FormGroup;
+    const typeRoad = formAddress.get('tipo_via')?.value;
+    const nameRoad = formAddress.get('nombre_via')?.value;
+    const outNumber = formAddress.get('numero_exterior')?.value;
+    const inNumber = formAddress.get('numero_interior')?.value;
+    const completeAddress = `${nameRoad} ${typeRoad} ${outNumber} ${inNumber}`;
+
     const formData: User = Object.assign({}, this.registerForm.value); // Deep copy 
 
     // Transformar los datos
@@ -122,10 +146,12 @@ export class SignupComponent implements OnInit{
     formData.pais = country;
     formData.estado = state;
     formData.ciudad = city;
-
+    formData.direccion_envio = completeAddress;  
+    
     this.userService.register(formData).subscribe({
       next: (response) => {
         if (response.token) {
+          this.toastService.showSuccessToast("Registro Exitoso", "Te damos la bienvenida a LibHub")
           this.cookieService.setCookie("Bearer", response.token, 1);
           this.router.navigate(['/inicio']);
         } else {
