@@ -1,14 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { IconComponent } from '../icon/icon.component';
 import { Router, RouterLink } from '@angular/router';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { LoadingService } from '@services/loading.service';
-import { Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api/menuitem';
 import { PrimeIcons } from 'primeng/api';
 import { AuthService } from '@services/auth/auth.service';
+import { SearchResultsComponent } from '../search-results/search-results.component';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-menu',
@@ -19,21 +21,28 @@ import { AuthService } from '@services/auth/auth.service';
     RouterLink,
     ProgressBarModule,
     MenuModule,
+    SearchResultsComponent,
+    ReactiveFormsModule
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css',
 })
 export class MenuComponent implements OnInit, OnDestroy {
   loadingSuscription!: Subscription;
-  loading: boolean = false;
   authenticationSuscription!: Subscription;
+  searchSuscription!: Subscription;
+  loading: boolean = false;
   authenticated!: boolean;
+  displayResults: boolean = false;
   items: MenuItem[] | undefined;
+  searchControl = new FormControl("");
+  searchRequestValue!: string;
 
   constructor(
     private loadingService: LoadingService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cdref: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -60,12 +69,28 @@ export class MenuComponent implements OnInit, OnDestroy {
         this.loading = isLoading;
       }
     );
+
+    this.searchSuscription = this.searchControl.valueChanges
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged()
+      )
+      .subscribe((value: any) => {
+        if (value && value.length >= 3 && value.length <= 50) {
+          this.searchRequestValue = value;
+          this.displayResults = true;
+        } else {
+          this.displayResults = false;
+        }
+        this.searchRequestValue = value;
+        this.cdref.detectChanges();
+      })
   }
 
   ngOnDestroy(): void {
     if (this.loadingSuscription) this.loadingSuscription.unsubscribe();
-    if (this.authenticationSuscription)
-      this.authenticationSuscription.unsubscribe();
+    if (this.authenticationSuscription) this.authenticationSuscription.unsubscribe();
+    if (this.searchSuscription) this.searchSuscription.unsubscribe();
   }
 
   toggleMenu(menu: any, event: Event) {

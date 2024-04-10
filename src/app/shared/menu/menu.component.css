@@ -9,6 +9,7 @@
 }
 
 .menu__search{
+  position: relative;
   gap: 1rem;
   width: 30%;
 }

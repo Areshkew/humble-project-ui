@@ -11,7 +11,6 @@ import { UserService } from '@services/auth/user.service';
 import { User } from '@models/user.model';
 import { ToastService } from '@services/toast.service';
 import { CookieService } from '@services/cookie.service';
-import { tap } from 'rxjs';
 import { AuthService } from '@services/auth/auth.service';
 
 
@@ -68,12 +67,9 @@ export class PersonalInfoComponent implements OnInit{
   @ViewChild('cityDropdown') cityDropdownComponent!: Dropdown;
 
   constructor(private formBuilder: FormBuilder, private jsonService: JsonService, private userService: UserService, private toastService: ToastService, 
-    private cookieService: CookieService, private authService: AuthService) {
-    
-  }
+    private cookieService: CookieService, private authService: AuthService) { }
 
   ngOnInit(){
-
     this.editInfoForm = this.formBuilder.group({
       'nombre': ['', [Validators.required, Validators.maxLength(32)]],
       'apellido': ['', [Validators.required, Validators.maxLength(32)]],
@@ -141,10 +137,8 @@ export class PersonalInfoComponent implements OnInit{
               preferencias: generos,
             })
         })
-       
       }
     )
-
 
     this.maxDate = new Date();
     const maxBirthYear = this.maxDate.getFullYear() - 18;
@@ -155,7 +149,7 @@ export class PersonalInfoComponent implements OnInit{
     this.minDate.setFullYear(minBirtYear);
   }
 
-
+  // 
   onCountryChange(){
     const selectedCountry = this.editInfoForm.get('pais')?.value;
 
@@ -223,9 +217,10 @@ export class PersonalInfoComponent implements OnInit{
         this.toastService.showErrorToast("Error", error);
       }
     });
-
   }
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
   private splitAddress(address: string) {
     const numeros = address.match(/\d+/g);
     if(numeros) {
@@ -250,6 +245,42 @@ export class PersonalInfoComponent implements OnInit{
   }
 }
 
+=======
+=======
+>>>>>>> Stashed changes
+  onSubmitPass(){
+    if(this.editPassword.invalid){
+      Object.keys(this.editPassword.controls).forEach(field => {
+        const control = this.editPassword.get(field);
+        control?.markAsTouched({ onlySelf: true });
+      });
+      
+      return;
+    }
+    
+    if(this.editPassword.get('clave')?.value === this.editPassword.get('confirmar-clave')?.value) {
+      
+        this.userService.editPersonalInfo(this.editPassword.value).subscribe({
+          next: (r) => {
+            this.editPassword.get("clave")?.setValue("");
+            this.editPassword.get("confirmar-clave")?.setValue("");
+            this.editPassword.get("clave_actual")?.setValue("");
+            if(r.success) this.toastService.showSuccessToast("Exito", "Se actualizaron los detalles de tu cuenta.")
+          },
+          error: (error) => {
+            this.toastService.showErrorToast("Error", error);
+          }
+        });
+      }
+      
+  }
+
+
+  // Data Managment
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
   private convertToLocalDate(dateString: string) {
     const [year, month, day] = dateString.split('-').map(Number);
     return new Date(year, month - 1, day);
@@ -281,33 +312,6 @@ export class PersonalInfoComponent implements OnInit{
     });
     return changedData;
   }
-
-  onSubmitPass(){
-    if(this.editPassword.invalid){
-      Object.keys(this.editPassword.controls).forEach(field => {
-        const control = this.editPassword.get(field);
-        control?.markAsTouched({ onlySelf: true });
-      });
-      
-      return;
-    }
-    
-    if(this.editPassword.get('clave')?.value === this.editPassword.get('confirmar-clave')?.value) {
-      
-        this.userService.editPersonalInfo(this.editPassword.value).subscribe({
-          next: (r) => {
-            this.editPassword.get("clave")?.setValue("");
-            this.editPassword.get("confirmar-clave")?.setValue("");
-            this.editPassword.get("clave_actual")?.setValue("");
-            if(r.success) this.toastService.showSuccessToast("Exito", "Se actualizaron los detalles de tu cuenta.")
-          },
-          error: (error) => {
-            this.toastService.showErrorToast("Error", error);
-          }
-        });
-      }
-      
-    }
 
 }
 

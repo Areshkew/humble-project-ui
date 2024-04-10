@@ -11,7 +11,6 @@ import { ChangeDetectionStrategy, Component, ElementRef, Input } from '@angular/
               [style.font-size.px]="size"
               class="material-symbols-rounded" 
               style="pointer-events: none; user-select: none;">{{ icon }}</span>`,
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconComponent { 
     @Input() color!: string;

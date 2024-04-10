@@ -3,7 +3,10 @@
         <div class="menu__logo pointer" routerLink="/inicio"> </div>
 
         <div class="menu__search flex-container">
-            <input class="lib-input" type="text" placeholder="Busqueda de Libros ">
+            <input class="lib-input" type="text" [formControl]="searchControl" placeholder="Busqueda de Libros ">
+            @if (displayResults) {
+                <app-search-results [receivedValue]="searchRequestValue"></app-search-results>
+            }
             <button class="lib-button">
                 <app-icon icon="search" [size]=28></app-icon>
             </button>

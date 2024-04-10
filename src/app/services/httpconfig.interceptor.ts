@@ -4,14 +4,24 @@ import { finalize } from 'rxjs/operators';
 import { inject } from '@angular/core';
 import { LoadingService } from './loading.service';
 
+const excludedEndpoints = [
+  '/api/book/search'
+];
+
 export const loadingInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<any>> => {
   const loadingService = inject(LoadingService);
-  loadingService.startLoading();
+  
+  const isExcludedEndpoint = excludedEndpoints.some(endpoint => req.url.includes(endpoint));
 
-  return next(req).pipe(
-    finalize(() => loadingService.stopLoading())
-  );
+  if (isExcludedEndpoint) {
+    return next(req);
+  } else {
+    loadingService.startLoading();
+    return next(req).pipe(
+      finalize(() => loadingService.stopLoading())
+    );
+  }
 };

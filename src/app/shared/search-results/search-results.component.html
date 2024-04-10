@@ -1,0 +1,32 @@
+<div class="search-results" [style.position]="absolute ? 'absolute' : 'static'">
+    
+        @if (!loading) {
+            <div class="search-results__text"> Resultados para: <div class="search-results__query">{{ receivedValue }}</div> </div>
+    
+            @if ( isBookError() ) {
+                <br> {{ this.books }}
+            } @else {
+                
+                <div class="search-results__hits">
+                    @for (item of this.books; track $index) {
+                        <div class="card" [title]="item.titulo">
+                            <img [src]="imageUrl + '/' + item.portada" alt="{{ item.titulo }}" class="card-image">
+                            <div class="card-info">
+                                <div class="card-title">{{ item.titulo }}</div>
+                                <div class="card-details">
+                                    <div> <app-icon icon="description" [size]="20" color="gray"></app-icon> {{ item.num_paginas }} </div>
+                                    <div> <app-icon [icon]="getLanguageEmoji(item.idioma)" [size]="20" color="gray"></app-icon></div>
+                                    <div> {{ item.precio | currency: 'COP' }} </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+    
+            }
+    
+        } @else {
+            <p-progressSpinner class="spinner" ariaLabel="loading"></p-progressSpinner>
+        }
+    
+</div>
