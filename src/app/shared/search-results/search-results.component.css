@@ -29,10 +29,9 @@
     display: contents;
 }
 .search-results__hits {
-    display: grid; /* or 'flex', depending on your layout needs */
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Example for a responsive grid layout */
-    gap: 1rem; /* Adjust spacing between items */
-    overflow: auto; /* Allows scrolling within this container if content overflows */
+    display: grid;
+    gap: 1rem;
+    overflow: auto;
 }
 
 .card {

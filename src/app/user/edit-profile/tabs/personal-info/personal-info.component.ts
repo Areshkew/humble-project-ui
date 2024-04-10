@@ -219,8 +219,7 @@ export class PersonalInfoComponent implements OnInit{
     });
   }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
   private splitAddress(address: string) {
     const numeros = address.match(/\d+/g);
     if(numeros) {
@@ -245,9 +244,6 @@ export class PersonalInfoComponent implements OnInit{
   }
 }
 
-=======
-=======
->>>>>>> Stashed changes
   onSubmitPass(){
     if(this.editPassword.invalid){
       Object.keys(this.editPassword.controls).forEach(field => {
@@ -275,12 +271,6 @@ export class PersonalInfoComponent implements OnInit{
       
   }
 
-
-  // Data Managment
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
   private convertToLocalDate(dateString: string) {
     const [year, month, day] = dateString.split('-').map(Number);
     return new Date(year, month - 1, day);
