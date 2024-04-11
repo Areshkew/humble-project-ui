@@ -11,6 +11,7 @@ import { PrimeIcons } from 'primeng/api';
 import { AuthService } from '@services/auth/auth.service';
 import { SearchResultsComponent } from '../search-results/search-results.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-menu',
@@ -22,7 +23,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
     ProgressBarModule,
     MenuModule,
     SearchResultsComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DialogModule
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css',
@@ -34,6 +36,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   authenticated!: boolean;
   displayResults: boolean = false;
+  visible: boolean = false;
   items: MenuItem[] | undefined;
   searchControl = new FormControl("");
   searchRequestValue!: string;
@@ -82,7 +85,6 @@ export class MenuComponent implements OnInit, OnDestroy {
         } else {
           this.displayResults = false;
         }
-        this.searchRequestValue = value;
         this.cdref.detectChanges();
       })
   }
@@ -96,5 +98,12 @@ export class MenuComponent implements OnInit, OnDestroy {
   toggleMenu(menu: any, event: Event) {
     if (!this.authenticated) this.router.navigate(['/ingreso']);
     else menu.toggle(event);
+  }
+
+  dialogSearch(){
+    this.visible = !this.visible;
+    this.searchRequestValue = "";
+    this.displayResults = false;
+    this.searchControl.setValue("");
   }
 }

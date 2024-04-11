@@ -31,6 +31,21 @@
   display: flex;
 }
 
+
+.mobile-search{
+  background-color: white;
+  border-radius: 20px;
+  min-height: 400px;
+  padding: 2rem;
+}
+.mobile-search__bar{
+  display: flex;
+  flex-direction: row;
+}
+.mobile-search__bar app-icon{
+  cursor: pointer;
+}
+
 @media (max-width: 830px){
 
   .menu__search{

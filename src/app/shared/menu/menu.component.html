@@ -13,7 +13,7 @@
         </div>
 
         <div class="menu__nav flex-container">
-            <button class="lib-button mobile__search">
+            <button class="lib-button mobile__search" (click)="dialogSearch()">
                 <app-icon icon="search" [size]=28></app-icon>
             </button>
 
@@ -32,3 +32,21 @@
         <p-progressBar mode="indeterminate" [style]="{ height: '4px' }"></p-progressBar>
     }
 </div>
+
+
+<p-dialog [position]="'top'" [(visible)]="visible" [modal]="true" [style]="{ width: '80vw' }" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="headless">
+        
+        <div class="mobile-search">
+            <div class="mobile-search__bar">
+                <input class="lib-input" type="text" [formControl]="searchControl" placeholder="Ingresa tu busqueda...">
+                <app-icon icon="close" (click)="dialogSearch()"></app-icon>
+            </div>
+            
+            @if (displayResults) {
+                <app-search-results [receivedValue]="searchRequestValue" [absolute]="false"></app-search-results>
+            }
+        </div>
+
+    </ng-template>
+</p-dialog>
