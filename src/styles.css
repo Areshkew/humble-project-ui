@@ -19,11 +19,12 @@ body{
     font-family: 'Quicksand';
     background-color: #002122;
     font-size: var(--font-size-base);
+    overflow-x: hidden;
     /* height: 1000vh; This is just to make the page scrollable */
 }
 
 .wrapper{
-    max-width: 1500px;
+    max-width: 2000px;
 }
 
 /* Utility CSS */

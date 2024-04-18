@@ -1,0 +1,17 @@
+    <div class="sidebar flex-container">
+        <div class="sidebar__content flex-container" style="--flex-direction: column">
+            <div class="sidebar__title flex-container" style="--flex-direction: row">
+                <h3>Categorias</h3> 
+                <button class="clear-button"  (click)="clearSelection()" >
+                    <app-icon icon="ink_eraser" [size]=28></app-icon>
+                </button>
+            </div>
+            <div class="sidebar__categories">
+                <ul>
+                    @for (book of booksGenres; track $index) {
+                    <li (click)="onCategorySelected(book.genero)" [ngClass]="{'selected': book.genero === selectedGenre}">{{book.genero}}</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,66 @@
+.home-page {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+
+.home-page__content {
+  background-color: white;
+  width: 100vw;
+  height: 100%;
+}
+
+.recommendation-board {
+  background-color: #002122;
+  background-image: url("/assets/img/backgroundwaves.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 560px;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recommendation-board__content {
+  background-color: white;
+  width: 70%;
+  height: 80%;
+  border-radius: 25px;
+}
+
+.books-category-container {
+  gap: 1rem;
+  margin-left: 10px;
+}
+
+.categories {
+  padding-top: 1rem;
+}
+
+app-sidebar {
+  max-width: 346px;
+  transition: max-width 0.5s ease, opacity 1s ease;
+  overflow: hidden;
+  opacity: 1;
+}
+
+.hidden {
+  max-width: 0;
+  opacity: 0;
+  transition: max-width 0.5s ease, opacity 1s ease;
+}
+
+.toggle-button {
+  all: unset;
+  background-color: transparent;
+  color: #5e5e5e;
+  cursor: pointer;
+  padding-top: 2rem;
+}
+.toggle-button:hover {
+  color: #f48b6b;
+}
+
+

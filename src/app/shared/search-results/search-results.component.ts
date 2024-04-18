@@ -32,6 +32,8 @@ export class SearchResultsComponent implements OnChanges {
       this.bookService.searchBooks(this.receivedValue).subscribe({
         next: (response) => {
           if(response.success) this.books = response.results;
+          console.log(response.results);
+          
         },
         error: (response) => {
           this.books = response.error.detail;
@@ -50,7 +52,7 @@ export class SearchResultsComponent implements OnChanges {
 
   getLanguageEmoji(languageCode: string): string {
     const languageMap: any = {
-      "inglés": 'language_gb_english',
+      "inglés": 'language_us',
       "español": 'language_spanish'
     };
 
