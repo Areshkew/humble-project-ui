@@ -17,7 +17,6 @@ export class SidebarComponent {
 
   onCategorySelected(genero: string) {
     this.selectedGenre = genero;
-    console.log('Seleccionado:', genero);
   }
 
   clearSelection() {

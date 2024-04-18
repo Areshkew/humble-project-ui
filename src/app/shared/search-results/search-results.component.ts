@@ -32,7 +32,6 @@ export class SearchResultsComponent implements OnChanges {
       this.bookService.searchBooks(this.receivedValue).subscribe({
         next: (response) => {
           if(response.success) this.books = response.results;
-          console.log(response.results);
           
         },
         error: (response) => {
