@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { HttpRequest, HttpEvent, HttpInterceptorFn, HttpHandlerFn } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CookieService } from '@services/cookie.service';
+import { CookieService } from '@services/utils/cookie.service';
 
 export const authInterceptor: HttpInterceptorFn = (
     req: HttpRequest<any>,

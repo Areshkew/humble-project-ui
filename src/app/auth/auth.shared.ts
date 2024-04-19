@@ -3,12 +3,14 @@ import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { RouterLink, RouterLinkActive, RouterModule } from "@angular/router";
 import { NgOptimizedImage } from '@angular/common';
+import { NormalizeSpacesDirective } from "../shared/directives/normalizeSpace.directive";
 
 @NgModule({
     imports: [
         NgOptimizedImage,
         RouterLink,
-        RouterLinkActive
+        RouterLinkActive,
+        NormalizeSpacesDirective
     ],
     exports: [
         RouterModule,
@@ -16,7 +18,8 @@ import { NgOptimizedImage } from '@angular/common';
         ReactiveFormsModule,
         NgOptimizedImage,
         RouterLink,
-        RouterLinkActive
+        RouterLinkActive,
+        NormalizeSpacesDirective
     ]
 })
 export class AuthShared { }

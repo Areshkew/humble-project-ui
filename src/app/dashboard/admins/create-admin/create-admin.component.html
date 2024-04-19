@@ -1,0 +1,187 @@
+<div class="create-admin flex-container">
+    <div class="create-admin__content flex-container" style="--justify-content: center; --align-items: center;">
+        <form class="create-admin__form" [formGroup]="createAdminForm" (ngSubmit)="onSubmit()">
+
+            <div class="form__group flex-container">
+                <div class="form__data flex-container" style="--flex-direction: column;">
+                    <div class="input__group">
+                        <label>DNI</label>
+                        <input type="text" placeholder="DNI" pInputText formControlName="DNI" normalizeSpaces
+                            [ngClass]="{'lib-invalid': createAdminForm.get('DNI')?.touched && createAdminForm.get('DNI')?.invalid}">
+                        @if (createAdminForm.get('DNI')?.touched && createAdminForm.get('DNI')?.invalid) {
+                            @if (createAdminForm.get('DNI')?.errors?.['required']){
+                                <p>El DNI es requerido.</p>
+                            }
+                            @if (createAdminForm.get('DNI')?.errors?.['minlength']){
+                                <p>El DNI debe tener al menos 7 caracteres</p>
+                            }
+                            @if (createAdminForm.get('DNI')?.errors?.['maxlength']){
+                                <p>El DNI no debe superar los 10 caracteres</p>
+                            }
+                            @if (createAdminForm.get('DNI')?.errors?.['pattern']) {
+                                <p>El DNI solo debe tener caracteres alfanumericos </p>
+                            }
+                        }
+                    </div>
+                    <div class="input__group">
+                        <label>Nombres</label>
+                        <input pInputText type="text" placeholder="Nombres" formControlName="nombre" normalizeSpaces
+                            [ngClass]="{'lib-invalid': createAdminForm.get('nombre')?.touched && createAdminForm.get('nombre')?.invalid}">
+                        @if (createAdminForm.get('nombre')?.touched && createAdminForm.get('nombre')?.invalid) {
+                            @if (createAdminForm.get('nombre')?.errors?.['required']){
+                                <p>El Nombre es requerido.</p>
+                            }
+                            @if (createAdminForm.get('nombre')?.errors?.['maxlength']){
+                                <p>El Nombre no debe teener mas de 32 caracteres.</p>
+                            }
+                        }
+                    </div>
+                    <div class="input__group">
+                        <label>Apellidos</label>
+                        <input pInputText type="text" placeholder="Apellidos" formControlName="apellido" normalizeSpaces
+                            [ngClass]="{'lib-invalid': createAdminForm.get('apellido')?.touched && createAdminForm.get('apellido')?.invalid}">
+                        @if (createAdminForm.get('apellido')?.touched && createAdminForm.get('apellido')?.invalid) {
+                            @if (createAdminForm.get('apellido')?.errors?.['required']){
+                                <p>El Apellido es requerido.</p>
+                            }
+                            @if (createAdminForm.get('apellido')?.errors?.['maxlength']){
+                                <p>El Apellido no debe teener mas de 32 caracteres.</p>
+                            }
+                        }
+                    </div>
+                    <div class="input__group">
+                        <label>País</label>
+                        <p-dropdown [options]="countries" optionLabel="name" placeholder="País" [filter]="true"
+                            (onChange)="onCountryChange()" formControlName="pais"
+                            [ngClass]="{'lib-invalid': createAdminForm.get('pais')?.touched && createAdminForm.get('pais')?.invalid}"></p-dropdown>
+                        @if (createAdminForm.get('pais')?.touched && createAdminForm.get('pais')?.invalid) {
+                            <p>El Pais es requerido.</p>
+                        }
+                    </div>
+                    <div class="input__group">
+                        <label>Estado/Departamento/Distrito</label>
+                        <p-dropdown #stateDropdown [options]="states" optionLabel="name" placeholder="Estado"
+                            [filter]="true" (onChange)="onStateChange()" formControlName="estado"
+                            [ngClass]="{'lib-invalid': createAdminForm.get('estado')?.touched && createAdminForm.get('estado')?.invalid}"></p-dropdown>
+                        @if (createAdminForm.get('estado')?.touched && createAdminForm.get('estado')?.invalid) {
+                            <p>El Estado es requerido.</p>
+                        }
+                    </div>
+                    <div class="input__group">
+                        <label>Ciudad</label>
+                        <p-dropdown #cityDropdown [options]="cities" optionLabel="name" placeholder="Ciudad"
+                            [filter]="true" formControlName="ciudad"
+                            [ngClass]="{'lib-invalid': createAdminForm.get('ciudad')?.touched && createAdminForm.get('ciudad')?.invalid}"></p-dropdown>
+                        @if (createAdminForm.get('ciudad')?.touched && createAdminForm.get('ciudad')?.invalid) {
+                            <p>La ciudad es requerida.</p>
+                        }
+                    </div>
+                </div>
+
+                <div class="form__data flex-container" style="--flex-direction: column;">
+                    <div class="flex-container" style="--justify-content: center; --align-items: center;"
+                        formGroupName="direccion_envio">
+                        <div class="input__address">
+                            <label>Direccion</label>
+                            <input pInputText type="text" placeholder="Direccion" formControlName="nombre_via" normalizeSpaces
+                                [ngClass]="{'lib-invalid': createAdminForm.get('direccion_envio.nombre_via')?.touched && createAdminForm.get('direccion_envio.nombre_via')?.invalid}">
+                                @if (createAdminForm.get('direccion_envio.nombre_via')?.touched && createAdminForm.get('direccion_envio.nombre_via')?.invalid) {
+                                    <p>La direccion es requerida</p>
+                                }
+                        </div>
+                        <div class="input__group-address">
+                            <div class="input__field input__field-dropdown">
+                                <label>Tipo</label>
+                                <p-dropdown class="road-type" [options]="roads" formControlName="tipo_via"
+                                    [ngClass]="{'lib-invalid': createAdminForm.get('direccion_envio.tipo_via')?.touched && createAdminForm.get('direccion_envio.tipo_via')?.invalid}"></p-dropdown>
+                                    @if (createAdminForm.get('direccion_envio.tipo_via')?.touched && createAdminForm.get('direccion_envio.tipo_via')?.invalid) {
+                                        <p>El tipo de via es requerido</p>
+                                    }
+                            </div>
+                            <div class="input__field ">
+                                <label>Numero(opcional)</label>
+                                <div class="input__field-number">
+                                    <input pInputText type="number" formControlName="numero_exterior" normalizeSpaces
+                                        [ngClass]="{'lib-invalid': createAdminForm.get('direccion_envio.numero_exterior')?.touched && createAdminForm.get('direccion_envio.numero_exterior')?.invalid}">
+                                    <input pInputText type="number" formControlName="numero_interior" normalizeSpaces
+                                        [ngClass]="{'lib-invalid': createAdminForm.get('direccion_envio.numero_interior')?.touched && createAdminForm.get('direccion_envio.numero_interior')?.invalid}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input__group">
+                        <label>Género</label>
+                        <p-dropdown [options]="genres" placeholder="Género" formControlName="genero"
+                            [ngClass]="{'lib-invalid': createAdminForm.get('genero')?.touched && createAdminForm.get('genero')?.invalid}"></p-dropdown>
+                        @if (createAdminForm.get('genero')?.touched && createAdminForm.get('genero')?.invalid) {
+                            <p>El Genero es requerido.</p>
+                        }
+                    </div>
+
+                    <div class="input__group">
+                        <label>Nacimiento</label>
+                        <p-calendar placeholder="Fecha" formControlName="fecha_nacimiento" [defaultDate]="maxDate"
+                            [maxDate]="maxDate" [minDate]="minDate" dateFormat="dd/mm/yy"
+                            [ngClass]="{'lib-invalid': createAdminForm.get('fecha_nacimiento')?.touched && createAdminForm.get('fecha_nacimiento')?.invalid}"></p-calendar>
+                        @if (createAdminForm.get('fecha_nacimiento')?.touched &&createAdminForm.get('fecha_nacimiento')?.invalid) {
+                            <p>La fecha es requerida.</p>
+                        }
+                    </div>
+
+                    <div class="input__group">
+                        <label>Correo Electrónico</label>
+                        <input pInputText type="email" placeholder="Email" formControlName="correo_electronico" normalizeSpaces
+                            [ngClass]="{'lib-invalid': createAdminForm.get('correo_electronico')?.touched && createAdminForm.get('correo_electronico')?.invalid}">
+                        @if (createAdminForm.get('correo_electronico')?.touched && createAdminForm.get('correo_electronico')?.invalid) {
+                            @if (createAdminForm.get('correo_electronico')?.errors?.['required']){
+                                <p>El correo es requerido.</p>
+                            }
+                            @if (createAdminForm.get('correo_electronico')?.errors?.['pattern']) {
+                                <p>Ingresa un correo valido </p>
+                            }
+                        }
+                    </div>
+
+
+                    <div class="input__group">
+                        <label>Usuario</label>
+                        <input pInputText type="text" formControlName="usuario" placeholder="Usuario" normalizeSpaces
+                            [ngClass]="{'lib-invalid': createAdminForm.get('usuario')?.touched && createAdminForm.get('usuario')?.invalid}">
+                        @if (createAdminForm.get('usuario')?.touched && createAdminForm.get('usuario')?.invalid) {
+                        <p>El Usuarioes requerido.</p>
+                        }
+                    </div>
+
+                    <div class="input__group">
+                        <label>Contraseña</label>
+                        <input pInputText type="password" formControlName="clave" placeholder="Contraseña" normalizeSpaces
+                            [ngClass]="{'lib-invalid': createAdminForm.get('clave')?.touched && createAdminForm.get('clave')?.invalid}">
+
+                        @if (createAdminForm.get('clave')?.touched && createAdminForm.get('clave')?.invalid) {
+                        @if (createAdminForm.get('clave')?.errors?.['required']){
+                        <p>La Contraseña es requerida.</p>
+                        }
+                        @if (createAdminForm.get('clave')?.errors?.['minlength']){
+                        <p>La contraseña debe tener al menos 5 caracteres.</p>
+                        }
+                        @if (createAdminForm.get('clave')?.errors?.['maxlength']){
+                        <p>La contraseña no puede exceder los 32 caracteres</p>
+                        }
+                        @if (createAdminForm.get('clave')?.errors?.['pattern']){
+                        <p>La contraseña debe contener al menos una mayúscula, un número y un símbolo especial.</p>
+                        }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="form__submit flex-container" style="--flex-direction: column;">
+                <button class="lib-button" type="submit" [ngClass]="{'lib-button-disabled': !createAdminForm.valid}"
+                    [disabled]="!createAdminForm.valid">
+                    Crear Admin
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

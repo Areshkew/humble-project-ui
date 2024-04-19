@@ -1,11 +1,11 @@
 import {  Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '@services/auth/user.service';
-import { CookieService } from '@services/cookie.service';
+import { UserService } from '@services/user.service';
+import { CookieService } from '@services/utils/cookie.service';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthShared } from '../auth.shared';
-import { ToastService } from '@services/toast.service';
+import { ToastService } from '@services/utils/toast.service';
 import { AuthService } from '@services/auth/auth.service';
 
 

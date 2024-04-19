@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
-import { UserService } from '@services/auth/user.service';
+import { UserService } from '@services/user.service';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthShared } from '../../../auth.shared';
-import { ToastService } from '@services/toast.service';
+import { ToastService } from '@services/utils/toast.service';
 import { IconComponent } from '../../../../shared/icon/icon.component';
 
 @Component({
