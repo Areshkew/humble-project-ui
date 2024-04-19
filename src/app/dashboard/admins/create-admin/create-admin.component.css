@@ -1,7 +1,6 @@
 .create-admin__form{
   display: grid;
   gap: 1rem;
-  width: 70%;
   min-width: 380px;
   border-radius: 10px;
   margin: 2rem 0;

@@ -77,6 +77,7 @@ body{
   }
   
 
+/* PrimeNG */
 .p-calendar, .p-multiselect, .p-dropdown{
     width: 100%;
 }
@@ -96,6 +97,15 @@ p-calendar, p-multiselect, p-dropdown{
     height: 50px;
     box-shadow: 0 4px 2px -2px gray;
   }
+
+.p-datepicker{
+    width: 0;
+}
+
+.p-datepicker table td > span{
+    width: auto;
+    height: auto;
+}
   
 /* CSS Hiding */
 /* For Chrome, Safari, Edge, Opera */
