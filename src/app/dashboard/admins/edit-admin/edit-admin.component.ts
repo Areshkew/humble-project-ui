@@ -91,7 +91,6 @@ export class EditAdminComponent implements OnInit {
     });
 
     this.editPassword = this.formBuilder.group({
-      'clave_actual': ['', [Validators.required]],
       'clave': ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]],
       'confirmar-clave': ['', [Validators.required]]
     })

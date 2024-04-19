@@ -42,6 +42,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   searchControl = new FormControl("");
   searchRequestValue!: string;
   userRole!: string | null;
+  inputHasFocus: boolean = false;
 
   constructor(
     private loadingService: LoadingService,
