@@ -1,17 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { IconComponent } from '../../shared/icon/icon.component';
 import { CommonModule } from '@angular/common';
+import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
   selector: 'app-books',
   standalone: true,
-  imports: [IconComponent, CommonModule],
+  imports: [IconComponent, CommonModule, PaginatorModule],
   templateUrl: './books.component.html',
   styleUrl: './books.component.css'
 })
-export class BooksComponent {
+export class BooksComponent implements OnInit{
   imageUrl: string = environment.api_host;
+
+  totalRecords!: number;
+  rows: number = 21; 
+  currentPage: number = 0;
 
   booksTest = [
     {
@@ -438,6 +443,14 @@ export class BooksComponent {
       titulo: 'Metiendo Codos',
     },
   ];
+
+  ngOnInit() {
+    this.totalRecords = this.booksTest.length;
+  }
+
+  onPaginateChange(event: any) {
+    this.currentPage = event.first / event.rows;
+  }
 
   getLanguageEmoji(languageCode: string): string {
     const languageMap: any = {

@@ -10,30 +10,6 @@
   height: 100%;
 }
 
-.recommendation-board {
-  background-color: #002122;
-  background-image: url("/assets/img/backgroundwaves.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 100%;
-  height: 560px;
-  min-height: 560px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.recommendation-board__content {
-  background-color: white;
-  width: 70%;
-  height: 80%;
-  border-radius: 25px;
-}
-
-.books-category-container {
-  gap: 1rem;
-  margin-left: 10px;
-}
 
 .categories {
   padding-top: 1rem;
@@ -58,9 +34,8 @@ app-sidebar {
   color: #5e5e5e;
   cursor: pointer;
   padding-top: 2rem;
+  padding-left: 1rem;
 }
 .toggle-button:hover {
   color: #f48b6b;
 }
-
-

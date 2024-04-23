@@ -5,6 +5,9 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { IconComponent } from '../../shared/icon/icon.component';
 import { CommonModule, NgClass } from '@angular/common';
 import { BooksComponent } from '../books/books.component';
+import { CarouselModule } from 'primeng/carousel';
+import { environment } from '../../../environments/environment';
+import { RecommendationBoardComponent } from '../recommendation-board/recommendation-board.component';
 
 @Component({
   selector: 'app-home-page',
@@ -16,12 +19,15 @@ import { BooksComponent } from '../books/books.component';
     IconComponent,
     NgClass,
     CommonModule,
-    BooksComponent
+    BooksComponent,
+    CarouselModule,
+    RecommendationBoardComponent
   ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
 })
 export class HomePageComponent {
+  imageUrl: string = environment.api_host;  
   sidebarVisible = true;
   
 

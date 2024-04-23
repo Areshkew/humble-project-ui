@@ -1,5 +1,5 @@
 <div class="books flex-container">
-    @for (item of this.booksTest; track $index) {
+    @for (item of booksTest.slice(currentPage * rows, (currentPage * rows) + rows)  ; track $index) {
     <div class="book-card flex-container" style="--flex-direction: row; --align-items: start;">
         
         <div class="card-image-container">
@@ -20,9 +20,10 @@
             </div>
         </div>
         <div class="card-buttons">
-            <button class="btn"><app-icon icon="shopping_cart" [size]="20" color="white"></app-icon> Agregar</button>
-            <button class="btn"><app-icon icon="payments" [size]="20" color="white"></app-icon> Comprar</button>
+            <button class="btn"><app-icon icon="shopping_cart" [size]="30" color="white"></app-icon>Carrito</button>
+            <button class="btn"><app-icon icon="payments" [size]="30" color="white"></app-icon>Comprar</button>
         </div>
     </div>
     }
 </div>
+<p-paginator [rows]="rows" [totalRecords]="totalRecords" (onPageChange)="onPaginateChange($event)"></p-paginator>

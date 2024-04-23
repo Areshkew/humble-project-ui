@@ -40,6 +40,12 @@
 .card-title {
   font-weight: bold;
   font-size: var(--font-size-base);
+  display: -webkit-box;            /* Utiliza el modelo de caja flexible de webkit */
+    -webkit-box-orient: vertical;    /* Orienta el contenido del contenedor verticalmente */
+    -webkit-line-clamp: 2;           /* Limita el texto a dos líneas */
+    overflow: hidden;                /* Oculta el contenido que sobrepasa el contenedor */
+    text-overflow: ellipsis; 
+    
 }
 
 .price-discount-container {
@@ -64,9 +70,7 @@
   align-items: center;
 }
 
-app-icon {
-  margin-right: 5px; 
-}
+
 
 .card-buttons {
   position: absolute;
@@ -89,14 +93,17 @@ app-icon {
 .btn{
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 10px 10px;
   border: none;
-  background-color: #f48b6b;
+  background-color: #fd6c40;
   color: white; 
   border-radius: 5px; 
   cursor: pointer; 
   font-weight: bold;
 }
+
+
 
 .btn:hover {
   background-color: #c76352;
@@ -107,6 +114,6 @@ app-icon {
   transform: scale(1.1);
 }
 
-.book-card:hover .book-info, .book-card:hover .card-image-container {
+.book-card:hover .book-info{
   filter: blur(1px);
 }

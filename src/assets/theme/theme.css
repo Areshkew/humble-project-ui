@@ -304,6 +304,7 @@
     font-feature-settings: var(--font-feature-settings, normal);
     font-size: 1rem;
     border-radius: 4px;
+    border: 0;
   }
   .p-link:focus-visible {
     outline: 0 none;
@@ -2752,19 +2753,19 @@
   }
   .p-carousel .p-carousel-content .p-carousel-prev,
   .p-carousel .p-carousel-content .p-carousel-next {
-    width: 2rem;
-    height: 2rem;
+    width: 3rem;
+    height: 3rem;
     color: #f48b6b;
-    border: 2px solid transparent;
+    border: 2px solid #f48b6b;  
     background: transparent;
     border-radius: 50%;
     transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
-    margin: 0.5rem;
+    margin: 1rem;
   }
   .p-carousel .p-carousel-content .p-carousel-prev:enabled:hover,
   .p-carousel .p-carousel-content .p-carousel-next:enabled:hover {
-    color: #4c566a;
-    border-color: #5e81ac;
+    color: #002122;
+    border-color: #002122;
     background: #ffffff;
   }
   .p-carousel .p-carousel-content .p-carousel-prev:focus-visible,
@@ -2774,25 +2775,25 @@
     box-shadow: 0 0 0 0.2rem #f48b6b;
   }
   .p-carousel .p-carousel-indicators {
-    padding: 1rem;
+    gap: 3rem;
+    list-style: none;
+    margin: 0;
+    margin-top: 1rem;
   }
-  .p-carousel .p-carousel-indicators .p-carousel-indicator {
-    margin-right: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
+
   .p-carousel .p-carousel-indicators .p-carousel-indicator button {
     background-color: #e5e9f0;
-    width: 2rem;
-    height: 0.5rem;
+    width: 5rem;
+    height: 0.7rem;
     transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
-    border-radius: 0;
+    border-radius: 50px;
   }
   .p-carousel .p-carousel-indicators .p-carousel-indicator button:hover {
-    background: #f48b6b;
+    background: #4C6364;
   }
   .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
-    background: #d8dee9;
-    color: #2e3440;
+    background: #002122;
+    color: #002122;
   }
   .p-datatable .p-paginator-top {
     border-width: 0 0 1px 0;
@@ -6378,8 +6379,8 @@
     box-shadow: inset 0 0 0 0.1rem #f48b6b;
   }
   .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
-    background: #5e81ac;
-    color: #ffffff;
+    background: #002122;
+    
   }
   .p-galleria .p-galleria-indicators .p-galleria-indicator.p-highlight button {
     background: #5e81ac;
