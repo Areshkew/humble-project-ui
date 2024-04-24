@@ -35,7 +35,10 @@
                                 <p>El Nombre es requerido.</p>
                             }
                             @if (registerForm.get('nombre')?.errors?.['maxlength']){
-                                <p>El Nombre no debe teener mas de 32 caracteres.</p>
+                                <p>El Nombre no debe tener mas de 32 caracteres.</p>
+                            }
+                            @if (registerForm.get('nombre')?.errors?.['pattern']){
+                                <p>El Nombre solo puede contener letras.</p>
                             }
                         }
                     </div>
@@ -48,7 +51,10 @@
                                 <p>El Apellido es requerido.</p>
                             }
                             @if (registerForm.get('apellido')?.errors?.['maxlength']){
-                                <p>El Apellido no debe teener mas de 32 caracteres.</p>
+                                <p>El Apellido no debe tener mas de 32 caracteres.</p>
+                            }
+                            @if (registerForm.get('apellido')?.errors?.['pattern']){
+                                <p>El Apellido solo puede contener letras.</p>
                             }
                         }
                     </div>
@@ -89,8 +95,14 @@
                             <input pInputText type="text" placeholder="Direccion" formControlName="nombre_via"
                                 [ngClass]="{'lib-invalid': registerForm.get('direccion_envio.nombre_via')?.touched && registerForm.get('direccion_envio.nombre_via')?.invalid}">
                                 @if (registerForm.get('direccion_envio.nombre_via')?.touched && registerForm.get('direccion_envio.nombre_via')?.invalid) {
-                                    <p>La direccion es requerida</p>
+                                    @if (registerForm.get('direccion_envio.nombre_via')?.errors?.['required']){
+                                        <p>La direccion es requerida</p>
+                                    }
+                                    @if (registerForm.get('direccion_envio.nombre_via')?.errors?.['pattern']){
+                                        <p>La direccion solo puede contener letras, # y -</p>
+                                    }
                                 }
+                                
                         </div>
                         <div class="input__group-address">
                             <div class="input__field input__field-dropdown">
@@ -152,7 +164,12 @@
                         <input pInputText type="text" formControlName="usuario" placeholder="Usuario"
                             [ngClass]="{'lib-invalid': registerForm.get('usuario')?.touched && registerForm.get('usuario')?.invalid}">
                         @if (registerForm.get('usuario')?.touched && registerForm.get('usuario')?.invalid) {
-                        <p>El Usuarioes requerido.</p>
+                            @if (registerForm.get('usuario')?.errors?.['required']){
+                                <p>El Usuario es requerido.</p>
+                                }
+                            @if (registerForm.get('usuario')?.errors?.['pattern']){
+                                <p>El Usuario solo puede contener letras, . y _ </p>
+                            }
                         }
                     </div>
 
@@ -162,18 +179,18 @@
                             [ngClass]="{'lib-invalid': registerForm.get('clave')?.touched && registerForm.get('clave')?.invalid}">
 
                         @if (registerForm.get('clave')?.touched && registerForm.get('clave')?.invalid) {
-                        @if (registerForm.get('clave')?.errors?.['required']){
-                        <p>La Contraseña es requerida.</p>
-                        }
-                        @if (registerForm.get('clave')?.errors?.['minlength']){
-                        <p>La contraseña debe tener al menos 5 caracteres.</p>
-                        }
-                        @if (registerForm.get('clave')?.errors?.['maxlength']){
-                        <p>La contraseña no puede exceder los 32 caracteres</p>
-                        }
-                        @if (registerForm.get('clave')?.errors?.['pattern']){
-                        <p>La contraseña debe contener al menos una mayúscula, un número y un símbolo especial.</p>
-                        }
+                            @if (registerForm.get('clave')?.errors?.['required']){
+                            <p>La Contraseña es requerida.</p>
+                            }
+                            @if (registerForm.get('clave')?.errors?.['minlength']){
+                            <p>La contraseña debe tener al menos 5 caracteres.</p>
+                            }
+                            @if (registerForm.get('clave')?.errors?.['maxlength']){
+                            <p>La contraseña no puede exceder los 32 caracteres</p>
+                            }
+                            @if (registerForm.get('clave')?.errors?.['pattern']){
+                            <p>La contraseña debe contener al menos una mayúscula, un número y un símbolo especial.</p>
+                            }
                         }
                     </div>
                 </div>
