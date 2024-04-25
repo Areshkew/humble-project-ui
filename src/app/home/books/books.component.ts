@@ -3,7 +3,7 @@ import { environment } from '../../../environments/environment';
 import { IconComponent } from '../../shared/icon/icon.component';
 import { CommonModule } from '@angular/common';
 import { PaginatorModule } from 'primeng/paginator';
-import { BookService } from '@services/book/book.service';
+import { BookService } from '@services/book.service';
 
 @Component({
   selector: 'app-books',
