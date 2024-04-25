@@ -1,6 +1,6 @@
 <div class="recommendation-board">
     <div class="recommendation-board__content">
-        <p-carousel [value]="books" [numVisible]="1" [numScroll]="1" [circular]="true" >
+        <p-carousel [value]="books" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]=3000>
             <ng-template let-book pTemplate="item">
                 <div class="carousel-content flex-container" style="--flex-direction: row; --align-items: start;">
 
@@ -17,8 +17,12 @@
                         </div>
                     </div>
                     <div class="price-discount-container">
-                        <div class="price-original">{{ book.precio | currency: 'COP' }}</div>
-                        <div class="price-discount">{{ book.descuento | currency: 'COP' }}</div>
+                        @if (book.descuento === book.precio) {
+                            <div class="price-discount">{{ book.precio | currency: 'COP' }}</div>
+                        }@else {
+                            <div class="price-original">{{ book.precio | currency: 'COP' }}</div>
+                            <div class="price-discount">{{ book.descuento | currency: 'COP' }}</div>
+                        }
                     </div>
                     <div class="recommendation-image-container">
                         <img class="recommendation-image" [src]="imageUrl +'/' + book.portada"

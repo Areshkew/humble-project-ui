@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, NgModule , EventEmitter, Output} from '@angular/core';
 import { GENRES } from '@models/genres';
-import { IconComponent } from '../../shared/icon/icon.component';
+import { IconComponent } from '../../../shared/icon/icon.component';
 
 @Component({
   selector: 'app-sidebar',

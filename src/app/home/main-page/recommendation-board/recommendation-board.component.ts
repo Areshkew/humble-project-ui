@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { IconComponent } from '../../shared/icon/icon.component';
+import { environment } from '../../../../environments/environment';
+import { IconComponent } from '../../../shared/icon/icon.component';
 import { CarouselModule } from 'primeng/carousel';
 import { GENRES } from '@models/genres';
 import { BookService } from '@services/book.service';

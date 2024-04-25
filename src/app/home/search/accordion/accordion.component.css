@@ -1,0 +1,49 @@
+.accordion__title{
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.accordion__title h2 {
+  text-align: center;
+  flex-grow: 1;
+}
+
+.accordion__categories {
+  border-right: 5px solid #f5f5f5; 
+}
+
+.accordion__categories ul {
+  list-style-type: none;
+  padding: 0 2rem;
+  
+}
+
+.accordion__categories li {
+  padding: 0.5rem 0;
+  cursor: pointer;
+  font-size: var(--font-size-base);
+}
+
+.accordion__categories li:hover {
+  background-color: #f5f5f5; 
+  color: #f48b6b;
+}
+
+.selected {
+  color: #f48b6b;
+  text-decoration: underline;
+}
+
+.clear-button{
+  all: unset;
+  background-color: transparent;
+  color: #5e5e5e;
+  cursor: pointer;
+  
+}
+
+.clear-button:hover{
+  color: #f48b6b;
+}
+

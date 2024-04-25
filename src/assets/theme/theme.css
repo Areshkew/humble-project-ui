@@ -3889,8 +3889,8 @@
   }
   .p-accordion .p-accordion-header .p-accordion-header-link {
     padding: 1rem;
-    border: 1px solid #e5e9f0;
-    color: #4c566a;
+    border-bottom: 4px solid #e5e9f0;
+    color: black;
     background: #ffffff;
     font-weight: 600;
     border-radius: 4px;
@@ -3907,25 +3907,25 @@
   .p-accordion .p-accordion-header:not(.p-highlight):not(.p-disabled):hover .p-accordion-header-link {
     background: #ffffff;
     border-color: #e5e9f0;
-    color: #4c566a;
+    color: black;
   }
   .p-accordion .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link {
     background: #ffffff;
     border-color: #e5e9f0;
-    color: #4c566a;
+    color: black;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
   }
   .p-accordion .p-accordion-header:not(.p-disabled).p-highlight:hover .p-accordion-header-link {
     border-color: #e5e9f0;
     background: #ffffff;
-    color: #4c566a;
+    color: black;
   }
   .p-accordion .p-accordion-content {
     padding: 1rem;
     border: 1px solid #e5e9f0;
     background: #ffffff;
-    color: #4c566a;
+    color: black;
     border-top: 0;
     border-top-right-radius: 0;
     border-top-left-radius: 0;
@@ -3937,6 +3937,7 @@
   }
   .p-accordion p-accordiontab .p-accordion-header .p-accordion-header-link {
     border-radius: 0;
+    font-size: 24px;
   }
   .p-accordion p-accordiontab .p-accordion-content {
     border-radius: 0;
