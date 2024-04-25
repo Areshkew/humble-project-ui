@@ -1,9 +1,9 @@
 <div class="books flex-container">
-    @for (item of booksTest.slice(currentPage * rows, (currentPage * rows) + rows)  ; track $index) {
+    @for (item of books ; track $index) {
     <div class="book-card flex-container" style="--flex-direction: row; --align-items: start;">
         
         <div class="card-image-container">
-            <img class="card-image" [src]="imageUrl +'/' + item.portada" alt="test">
+            <img class="card-image" [src]="imageUrl +'/' + item.portada" alt="{{ item.titulo }}">
         </div>
         <div class="book-info">
             <div class="card-title">{{ item.titulo }}</div>
@@ -15,8 +15,14 @@
                 <div class="icon-text"><app-icon [icon]="getStateEmoji(item.estado)" [size]="22" color="gray"></app-icon><span>{{ getState(item.estado) }}</span></div>
             </div>
             <div class="price-discount-container">
-                <div class="price-original">{{ item.precio | currency: 'COP' }}</div>
-                <div class="price-discount">{{ item.descuento | currency: 'COP' }}</div>
+                @if (item.descuento === item.precio) {
+                    <div class="price-discount">{{ item.precio | currency: 'COP' }}</div>
+                }@else {
+                    <div class="price-original">{{ item.precio | currency: 'COP' }}</div>
+                    <div class="price-discount">{{ item.descuento | currency: 'COP' }}</div>
+                }
+                           
+                
             </div>
         </div>
         <div class="card-buttons">
@@ -25,5 +31,5 @@
         </div>
     </div>
     }
-</div>
-<p-paginator [rows]="rows" [totalRecords]="totalRecords" (onPageChange)="onPaginateChange($event)"></p-paginator>
+</div>  
+<p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" (onPageChange)="onPaginateChange($event)"></p-paginator>

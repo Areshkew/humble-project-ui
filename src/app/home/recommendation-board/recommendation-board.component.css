@@ -72,9 +72,8 @@
   
   .price-discount-container {
     display: flex;
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-xxl);
     flex-direction: column;
-    gap: 10px; 
     padding: 20px;
     height: 100%;
     justify-content: flex-end;
@@ -88,11 +87,13 @@
   .price-original {
     text-decoration: line-through;
     color: #999; 
+    text-align: center;
   }
   
   .price-discount {
     color: #ff6347; 
     font-weight: bold;
+  text-align: center;
   }
   
   .recommendation-image-container{

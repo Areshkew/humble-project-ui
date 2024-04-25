@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, NgModule } from '@angular/core';
+import { Component, NgModule , EventEmitter, Output} from '@angular/core';
 import { GENRES } from '@models/genres';
 import { IconComponent } from '../../shared/icon/icon.component';
 
@@ -12,16 +12,21 @@ import { IconComponent } from '../../shared/icon/icon.component';
 })
 export class SidebarComponent {
   booksGenres = GENRES
-  selectedGenre!: any
+  @Output() selectedGenre = new EventEmitter<string | null>(); 
+  currentGenre:  string | null = null
 
 
-  onCategorySelected(genero: string) {
-    this.selectedGenre = genero;
-    console.log(this.selectedGenre);
+  onCategorySelected(book: any) {
+    this.currentGenre = book.genero;
+    
+    
+    this.selectedGenre.emit(book.key);
     
   }
 
   clearSelection() {
-    this.selectedGenre = null;
+    this.currentGenre = null;
+    this.selectedGenre.emit(null);
+    
   }
 }

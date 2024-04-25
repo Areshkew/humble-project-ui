@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { IconComponent } from '../../shared/icon/icon.component';
 import { CarouselModule } from 'primeng/carousel';
+import { GENRES } from '@models/genres';
+import { BookService } from '@services/book/book.service';
 
 @Component({
   selector: 'app-recommendation-board',
@@ -10,8 +12,12 @@ import { CarouselModule } from 'primeng/carousel';
   templateUrl: './recommendation-board.component.html',
   styleUrl: './recommendation-board.component.css'
 })
-export class RecommendationBoardComponent {
+export class RecommendationBoardComponent implements OnInit{
   imageUrl: string = environment.api_host;  
+  booksGenres = GENRES
+  booksNumber = 3
+  books: any[] = []
+  
   carouselBooks = [
     {
       ISSN: '9789588263816',
@@ -61,6 +67,43 @@ export class RecommendationBoardComponent {
       titulo: 'Metiendo Codos',
     }
   ]
+
+  constructor(private bookService: BookService){}
+
+  ngOnInit(): void {
+    let randomKeys = this.getRandomKeys();
+    randomKeys.forEach((element: { key: any; }) => {
+        this.loadBook(element.key)     
+      }); 
+    
+      
+  }
+
+  loadBook(categoryKey: string): void {
+    const filters = {
+      category: categoryKey,
+      page: 1,
+      size: 1,
+    };
+
+    this.bookService.getBooks(filters).subscribe({
+      next: (response) => {       
+        if (response.books.length > 0) {
+          this.books = [...this.books, response.books[0]];
+          console.log(this.books);
+        }
+      },
+      error: (error) => {
+        console.error('Error al cargar los libros:', error);
+      }
+    });
+  }
+
+  getRandomKeys(): any {
+    const copy = [...this.booksGenres];
+    copy.sort(() => Math.random() - 0.5);
+    return copy.slice(0,this.booksNumber)
+  }
 
   getLanguageEmoji(languageCode: string): string {
     const languageMap: any = {

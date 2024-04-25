@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api';
 })
 export class ToastService {
   private TOAST_KEY: string = 'global-toast';
-  private STICKY: boolean = true;
+  private STICKY: boolean = false;
 
   constructor(private messageService: MessageService) { }
 

@@ -27,11 +27,16 @@ import { RecommendationBoardComponent } from '../recommendation-board/recommenda
   styleUrl: './home-page.component.css',
 })
 export class HomePageComponent {
-  imageUrl: string = environment.api_host;  
   sidebarVisible = true;
+  selectedCategory: string | null = null;
   
 
   showSidebar() {
     this.sidebarVisible = !this.sidebarVisible;
+  }
+
+  onGenreSelected(genre: string | null): void {
+    this.selectedCategory = genre; 
+       
   }
 }
