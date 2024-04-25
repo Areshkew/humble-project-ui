@@ -38,5 +38,24 @@ export const routes: Routes = [
             {path: 'informacion-personal', loadComponent: () => import('./user/edit-profile/tabs/personal-info/personal-info.component').then(m => m.PersonalInfoComponent)},
             {path: 'gestion-financiera', loadComponent: () => import('./user/edit-profile/tabs/financial-info/financial-info.component').then(m => m.FinancialInfoComponent)}
         ]
+    },
+    {
+        path: 'panel-admin',
+        loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent),
+        data: { Roles: ['admin', 'root'] },
+        canActivate: [authGuard],
+        children: [
+            {path: '', redirectTo: 'dashboard-inicio', pathMatch: 'full'},
+            {path: 'dashboard-inicio', loadComponent: () => import('./dashboard/home/home.component').then(m => m.HomeComponent)},
+            {
+                path: 'administradores', 
+                data: { Roles: ['root'] },
+                loadComponent: () => import('./dashboard/admins/admins.component').then(m => m.AdminsComponent),
+                canActivate: [authGuard],
+            },
+            {path: 'libros', loadComponent: () => import('./dashboard/books/books.component').then(m => m.BooksComponent)},
+            {path: 'tiendas', loadComponent: () => import('./dashboard/shops/shops.component').then(m => m.ShopsComponent)},
+            {path: 'pqrs', loadComponent: () => import('./dashboard/support/support.component').then(m => m.SupportComponent)},
+        ]
     }
 ];

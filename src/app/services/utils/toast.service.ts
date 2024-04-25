@@ -32,6 +32,7 @@ export class ToastService {
     this.messageService.add({
       key:this.TOAST_KEY, 
       severity: severity, 
+      life: 3500,
       summary: summary,
       detail: detail, 
       sticky: this.STICKY });

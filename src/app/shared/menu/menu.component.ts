@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { IconComponent } from '../icon/icon.component';
 import { Router, RouterLink } from '@angular/router';
 import { ProgressBarModule } from 'primeng/progressbar';
-import { LoadingService } from '@services/loading.service';
+import { LoadingService } from '@services/utils/loading.service';
 import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api/menuitem';
@@ -33,6 +33,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   loadingSuscription!: Subscription;
   authenticationSuscription!: Subscription;
   searchSuscription!: Subscription;
+  roleSuscription!: Subscription;
   loading: boolean = false;
   authenticated!: boolean;
   displayResults: boolean = false;
@@ -40,6 +41,8 @@ export class MenuComponent implements OnInit, OnDestroy {
   items: MenuItem[] | undefined;
   searchControl = new FormControl("");
   searchRequestValue!: string;
+  userRole!: string | null;
+  inputHasFocus: boolean = false;
 
   constructor(
     private loadingService: LoadingService,
@@ -52,20 +55,26 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.authenticationSuscription =
       this.authService.isAuthenticated$.subscribe((isAuthenticated) => {
         this.authenticated = isAuthenticated;
-      });
 
-    this.items = [
-      {
-        label: 'Configuración',
-        icon: PrimeIcons.COG,
-        routerLink: 'editar-perfil',
-      },
-      {
-        label: 'Cerrar Sesión',
-        icon: PrimeIcons.SIGN_OUT,
-        command: () => this.authService.logout()
-      },
-    ];
+        this.items = [
+          {
+            label: 'Configuración',
+            icon: PrimeIcons.COG,
+            routerLink: 'editar-perfil',
+          },
+          {
+            label: 'Panel Admin',
+            routerLink: 'panel-admin',
+            icon: PrimeIcons.SHIELD,
+            style: (this.authService.getUserRoleFromToken() === "root" || this.authService.getUserRoleFromToken() === "admin") ? null : {'display': 'none'},
+          },
+          {
+            label: 'Cerrar Sesión',
+            icon: PrimeIcons.SIGN_OUT,
+            command: () => this.authService.logout()
+          },
+        ];
+      });
 
     this.loadingSuscription = this.loadingService.loading$.subscribe(
       (isLoading: boolean) => {

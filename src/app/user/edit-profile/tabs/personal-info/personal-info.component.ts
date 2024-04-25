@@ -2,22 +2,25 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Dropdown, DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
-import { JsonService } from '@services/json.service';
+import { JsonService } from '@services/utils/json.service';
 import { CalendarModule } from 'primeng/calendar';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { GENRES } from '@models/genres';
 import { CommonModule } from '@angular/common';
-import { UserService } from '@services/auth/user.service';
+import { UserService } from '@services/user.service';
 import { User } from '@models/user.model';
-import { ToastService } from '@services/toast.service';
-import { CookieService } from '@services/cookie.service';
+import { ToastService } from '@services/utils/toast.service';
+import { CookieService } from '@services/utils/cookie.service';
 import { AuthService } from '@services/auth/auth.service';
+import { NormalizeSpacesDirective } from '../../../../shared/directives/normalizeSpace.directive';
 
 
 @Component({
   selector: 'app-personal-info',
   standalone: true,
-  imports: [CommonModule ,InputTextModule, DropdownModule, ReactiveFormsModule,  CalendarModule, MultiSelectModule],
+  imports: [CommonModule ,InputTextModule, DropdownModule, ReactiveFormsModule,  CalendarModule, MultiSelectModule,
+    NormalizeSpacesDirective
+  ],
   templateUrl: './personal-info.component.html',
   styleUrl: './personal-info.component.css'
 })

@@ -5,14 +5,14 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { Dropdown, DropdownModule } from 'primeng/dropdown';
 import { GENRES } from '@models/genres';
-import { JsonService } from '@services/json.service';
+import { JsonService } from '@services/utils/json.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '@models/user.model';
-import { UserService } from '../../services/auth/user.service';
-import { CookieService } from '@services/cookie.service';
+import { UserService } from '../../services/user.service';
+import { CookieService } from '@services/utils/cookie.service';
 import { MessageService } from 'primeng/api';
 import { AuthShared } from '../auth.shared';
-import { ToastService } from '@services/toast.service';
+import { ToastService } from '@services/utils/toast.service';
 import { InputSwitchModule } from 'primeng/inputswitch';
 
 @Component({
@@ -25,7 +25,6 @@ import { InputSwitchModule } from 'primeng/inputswitch';
   providers: [MessageService],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignupComponent implements OnInit{ 
   bookGenres = GENRES;

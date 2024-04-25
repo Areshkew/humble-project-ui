@@ -1,0 +1,51 @@
+<p-confirmPopup></p-confirmPopup>
+
+<div class="admins">
+    <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
+
+    <div class="admins__actions flex-container">
+        <div class="add-admin flex-container pointer" (click)="show()">
+            <app-icon icon="add" color="darkgreen"></app-icon>
+            Nuevo admin
+        </div>
+
+        @if (selectedAdmins && selectedAdmins.length > 0) {
+            <div class="remove-admin flex-container pointer" (click)="confirm_multiple_delete($event)">
+                <app-icon icon="delete" color="darkred"></app-icon>
+                Borrar {{ selectedAdmins.length }} admin/s
+            </div>
+        }
+
+    </div>
+    
+    <p-table [value]="admins" [paginator]="true" 
+            [rows]="5" [rowHover]="true" selectionMode="multiple" [(selection)]="selectedAdmins" [metaKeySelection]="false" dataKey="DNI"
+            [tableStyle]="{ 'min-width': '50rem' }">
+        
+        <ng-template pTemplate="header">
+            <tr>
+                <th>DNI</th>
+                <th>Correo Electrónico</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>País</th>
+                <th></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-admin>
+            <tr [pSelectableRow]="admin">
+                <td>{{ admin.DNI }}</td>
+                <td>{{ admin.correo_electronico }}</td>
+                <td>{{ admin.nombre }}</td>
+                <td>{{ admin.apellido }}</td>
+                <td>{{ admin.pais }}</td>
+                <td class="edit-btns">
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" (click)="editAdmin(admin.DNI)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="confirm_single_delete($event, admin.DNI)"></button>
+                </td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { BookService } from '@services/book/book.service';
+import { BookService } from '@services/book.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { environment } from '../../../environments/environment';
 import { IconComponent } from '../icon/icon.component';

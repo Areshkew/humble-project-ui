@@ -1,0 +1,67 @@
+<div class="dashboard">
+
+    <div class="dashboard__navmen">
+        <div class="dashboard__nav flex-container" style="--justify-content: space-between; --align-items: center; padding: 0 2rem;">
+            <div class="option">
+                <div class="logo"></div>
+            </div>
+    
+            <div class="option flex-container pointer" style="--justify-content: center;">
+                <a routerLink="/inicio">Ir a Tienda</a>
+                <app-icon icon="open_in_new" ></app-icon>
+            </div>
+        </div>
+
+        @if (loading) {
+            <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" [color]="'#f48b6b'"></p-progressBar>
+        }
+    </div>
+    
+    <div class="dashboard__sidebar-container flex-container" style="--justify-content: space-between; flex-direction: column;">
+        <div class="dashboard__sidebar">
+            <div class="option flex-container pointer" style="--justify-content: center;" routerLink="dashboard-inicio" > 
+                <app-icon icon="home"></app-icon>
+                <span>Inicio</span>
+            </div>
+
+            @if (role == "root") {
+                <div class="option flex-container pointer" style="--justify-content: center;" routerLink="administradores" >
+                    <app-icon icon="shield_person"></app-icon>
+                    <span>Administradores</span>
+                </div>
+            }
+
+            @if (role == "root" || role == "admin") {
+                <div class="option flex-container pointer" style="--justify-content: center;" routerLink="libros">
+                    <app-icon icon="book"></app-icon>
+                    <span>Libros</span>
+                </div>
+                
+                <div class="option flex-container pointer" style="--justify-content: center;" routerLink="tiendas">
+                    <app-icon icon="store"></app-icon>
+                    <span>Tiendas</span>
+                </div>
+                
+                <div class="option flex-container pointer" style="--justify-content: center;" routerLink="pqrs">
+                    <app-icon icon="help"></app-icon>
+                    <span>PQRS</span>
+                </div>
+            }
+        </div>
+
+        <div class="dashboard__sidebar">
+            <div class="option flex-container pointer" style="--justify-content: center;">
+                <app-icon icon="person"></app-icon>
+                <span>Cuenta</span>
+            </div>
+            <div class="option flex-container pointer" style="--justify-content: center;" (click)="logOut()">
+                <app-icon icon="logout"></app-icon>
+                <span>Cerrar Sesión</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard__content">
+        <router-outlet></router-outlet>
+    </div>
+</div>

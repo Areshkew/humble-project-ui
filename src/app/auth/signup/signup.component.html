@@ -9,7 +9,7 @@
                 <div class="form__data flex-container" style="--flex-direction: column;">
                     <div class="input__group">
                         <label>Ingresa tu DNI</label>
-                        <input type="text" placeholder="DNI" pInputText formControlName="DNI"
+                        <input type="text" placeholder="DNI" pInputText formControlName="DNI" normalizeSpaces
                             [ngClass]="{'lib-invalid': registerForm.get('DNI')?.touched && registerForm.get('DNI')?.invalid}">
                         @if (registerForm.get('DNI')?.touched && registerForm.get('DNI')?.invalid) {
                             @if (registerForm.get('DNI')?.errors?.['required']){
@@ -28,7 +28,7 @@
                     </div>
                     <div class="input__group">
                         <label>Ingresa tus Nombres</label>
-                        <input pInputText type="text" placeholder="Nombres" formControlName="nombre"
+                        <input pInputText type="text" placeholder="Nombres" formControlName="nombre" normalizeSpaces
                             [ngClass]="{'lib-invalid': registerForm.get('nombre')?.touched && registerForm.get('nombre')?.invalid}">
                         @if (registerForm.get('nombre')?.touched && registerForm.get('nombre')?.invalid) {
                             @if (registerForm.get('nombre')?.errors?.['required']){
@@ -41,7 +41,7 @@
                     </div>
                     <div class="input__group">
                         <label>Ingresa tus Apellidos</label>
-                        <input pInputText type="text" placeholder="Apellidos" formControlName="apellido"
+                        <input pInputText type="text" placeholder="Apellidos" formControlName="apellido" normalizeSpaces
                             [ngClass]="{'lib-invalid': registerForm.get('apellido')?.touched && registerForm.get('apellido')?.invalid}">
                         @if (registerForm.get('apellido')?.touched && registerForm.get('apellido')?.invalid) {
                             @if (registerForm.get('apellido')?.errors?.['required']){
@@ -86,7 +86,7 @@
                         formGroupName="direccion_envio">
                         <div class="input__address">
                             <label>Direccion</label>
-                            <input pInputText type="text" placeholder="Direccion" formControlName="nombre_via"
+                            <input pInputText type="text" placeholder="Direccion" formControlName="nombre_via" normalizeSpaces
                                 [ngClass]="{'lib-invalid': registerForm.get('direccion_envio.nombre_via')?.touched && registerForm.get('direccion_envio.nombre_via')?.invalid}">
                                 @if (registerForm.get('direccion_envio.nombre_via')?.touched && registerForm.get('direccion_envio.nombre_via')?.invalid) {
                                     <p>La direccion es requerida</p>
@@ -104,9 +104,9 @@
                             <div class="input__field ">
                                 <label>Numero</label>
                                 <div class="input__field-number">
-                                    <input pInputText type="number" formControlName="numero_exterior"
+                                    <input pInputText type="number" formControlName="numero_exterior" normalizeSpaces
                                         [ngClass]="{'lib-invalid': registerForm.get('direccion_envio.numero_exterior')?.touched && registerForm.get('direccion_envio.numero_exterior')?.invalid}">
-                                    <input pInputText type="number" formControlName="numero_interior"
+                                    <input pInputText type="number" formControlName="numero_interior" normalizeSpaces
                                         [ngClass]="{'lib-invalid': registerForm.get('direccion_envio.numero_interior')?.touched && registerForm.get('direccion_envio.numero_interior')?.invalid}">
                                 </div>
                             </div>
@@ -134,7 +134,7 @@
 
                     <div class="input__group">
                         <label>Ingresa tu Correo Electrónico</label>
-                        <input pInputText type="email" placeholder="Email" formControlName="correo_electronico"
+                        <input pInputText type="email" placeholder="Email" formControlName="correo_electronico" normalizeSpaces
                             [ngClass]="{'lib-invalid': registerForm.get('correo_electronico')?.touched && registerForm.get('correo_electronico')?.invalid}">
                         @if (registerForm.get('correo_electronico')?.touched && registerForm.get('correo_electronico')?.invalid) {
                             @if (registerForm.get('correo_electronico')?.errors?.['required']){
@@ -149,7 +149,7 @@
 
                     <div class="input__group">
                         <label>Ingresa tu Usuario</label>
-                        <input pInputText type="text" formControlName="usuario" placeholder="Usuario"
+                        <input pInputText type="text" formControlName="usuario" placeholder="Usuario" normalizeSpaces
                             [ngClass]="{'lib-invalid': registerForm.get('usuario')?.touched && registerForm.get('usuario')?.invalid}">
                         @if (registerForm.get('usuario')?.touched && registerForm.get('usuario')?.invalid) {
                         <p>El Usuarioes requerido.</p>
@@ -158,7 +158,7 @@
 
                     <div class="input__group">
                         <label>Ingresa tu Contraseña</label>
-                        <input pInputText type="password" formControlName="clave" placeholder="Contraseña"
+                        <input pInputText type="password" formControlName="clave" placeholder="Contraseña" normalizeSpaces
                             [ngClass]="{'lib-invalid': registerForm.get('clave')?.touched && registerForm.get('clave')?.invalid}">
 
                         @if (registerForm.get('clave')?.touched && registerForm.get('clave')?.invalid) {

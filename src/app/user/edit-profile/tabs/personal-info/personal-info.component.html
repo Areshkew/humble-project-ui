@@ -5,7 +5,7 @@
             <div class="form__data flex-container" style="--flex-direction: column">
                 <div class="input__group">
                     <label>Nombres</label>
-                    <input type="text" pInputText formControlName="nombre"
+                    <input type="text" pInputText formControlName="nombre" normalizeSpaces
                     [ngClass]="{'lib-invalid': editInfoForm.get('nombre')?.touched && editInfoForm.get('nombre')?.invalid}">
                     @if (editInfoForm.get('nombre')?.touched && editInfoForm.get('nombre')?.invalid) {
                         @if (editInfoForm.get('nombre')?.errors?.['required']) {
@@ -18,7 +18,7 @@
                 </div>
                 <div class="input__group">
                     <label>Apellidos</label>
-                    <input type="text" pInputText formControlName="apellido"
+                    <input type="text" pInputText formControlName="apellido" normalizeSpaces
                     [ngClass]="{'lib-invalid': editInfoForm.get('apellido')?.touched && editInfoForm.get('apellido')?.invalid}">
                     @if (editInfoForm.get('apellido')?.touched && editInfoForm.get('apellido')?.invalid) {
                         @if (editInfoForm.get('apellido')?.errors?.['required']){
@@ -62,7 +62,7 @@
                         formGroupName="direccion_envio">
                         <div class="input__address">
                             <label>Direccion</label>
-                            <input pInputText type="text" placeholder="Direccion" formControlName="nombre_via"
+                            <input pInputText type="text" placeholder="Direccion" formControlName="nombre_via" normalizeSpaces
                                 [ngClass]="{'lib-invalid': editInfoForm.get('direccion_envio.nombre_via')?.touched && editInfoForm.get('direccion_envio.nombre_via')?.invalid}">
                                 @if (editInfoForm.get('direccion_envio.nombre_via')?.touched && editInfoForm.get('direccion_envio.nombre_via')?.invalid) {
                                     <p>La direccion es requerida</p>
@@ -80,9 +80,9 @@
                             <div class="input__field ">
                                 <label>Numero</label>
                                 <div class="input__field-number">
-                                    <input pInputText type="number" formControlName="numero_exterior"
+                                    <input pInputText type="number" formControlName="numero_exterior" normalizeSpaces
                                         [ngClass]="{'lib-invalid': editInfoForm.get('direccion_envio.numero_exterior')?.touched && editInfoForm.get('direccion_envio.numero_exterior')?.invalid}">
-                                    <input pInputText type="number" formControlName="numero_interior"
+                                    <input pInputText type="number" formControlName="numero_interior" normalizeSpaces
                                         [ngClass]="{'lib-invalid': editInfoForm.get('direccion_envio.numero_interior')?.touched && editInfoForm.get('direccion_envio.numero_interior')?.invalid}">
                                 </div>
                             </div>
@@ -121,7 +121,7 @@
             <div class="form__data flex-container" style="--flex-direction: column">
                 <div class=" input__group">
                     <label>Ingresa tu Contraseña actual </label>
-                    <input pInputText type="password" formControlName="clave_actual"
+                    <input pInputText type="password" formControlName="clave_actual" normalizeSpaces
                     [ngClass]="{'lib-invalid': editPassword.get('clave_actual')?.touched && editPassword.get('clave_actual')?.invalid}">
                     @if (editPassword.get('clave_actual')?.touched && editPassword.get('clave_actual')?.invalid) {
                         <p>La contraseña es requerida</p>
@@ -131,7 +131,7 @@
             <div class="form__data flex-container" style="--flex-direction: column">
                 <div class="input__group">
                     <label>Ingresa tu nueva Contraseña </label>
-                    <input pInputText type="password" formControlName="clave"
+                    <input pInputText type="password" formControlName="clave" normalizeSpaces
                     [ngClass]="{'lib-invalid': editPassword.get('clave')?.touched && editPassword.get('clave')?.invalid}">
                     @if (editPassword.get('clave')?.touched && editPassword.get('clave')?.invalid) {
                         @if (editPassword.get('clave')?.errors?.['required']){
@@ -150,7 +150,7 @@
                 </div>
                 <div class="input__group">
                     <label>Confirma tu nueva Contraseña </label>
-                    <input pInputText type="password" formControlName="confirmar-clave"
+                    <input pInputText type="password" formControlName="confirmar-clave" normalizeSpaces
                     [ngClass]="{'lib-invalid': editPassword.get('confirmar-clave')?.touched && editPassword.get('confirmar-clave')?.invalid}">
                 </div>
             </div>
