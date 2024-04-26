@@ -1,0 +1,102 @@
+.screen{
+    width: 80%;
+    height: 90%;
+    background-color: white;
+    display: inline-block;
+    align-items: center;
+    padding: 15px;
+    margin: 20px;
+    border-radius: 15px;
+}
+.edit-info__form {
+    display: grid;
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .edit-msg{
+      font-size: var(--font-size-md);
+      color: #002122;
+      font-weight: bolder;
+      border-bottom: 2px solid #002122;
+  }
+  .form__group {
+    width: 100%;
+    gap: 0;
+  }
+  
+  .form__group {
+    flex-wrap: wrap;
+  }
+  
+  .form__data {
+    width: 50%;
+    min-width: 300px;
+    gap: 1rem;
+  }
+  .input__group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 70%;
+  }
+  
+  .form__group input{
+      box-shadow: 0 4px 2px -2px gray;
+    }
+  
+  .form__group label {
+    font-size: var(--font-size-sm);
+    font-weight: bold;
+    
+  }
+  input{
+    border-radius: 10px;
+  }
+  .lib-button{
+      border-radius: 100px;
+      padding: 1rem;
+      width: 30%;
+      text-align: center;
+      margin-top: 2rem;
+      margin-left: 32%
+  }
+  
+  .input__address{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .input__field {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    gap: 0.5rem;
+  }
+  
+  .input__field-number{
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+  } 
+  
+  .input__group-address{
+    display: flex;
+    width: 70%;
+    gap: 0.5rem;
+  }
+  
+  .form__group p{
+    font-size: var(--font-size-sm);
+    color: red;
+    margin: 0;
+  }
+  
+  .lib-invalid__message{
+    font-size: var(--font-size-sm);
+    color: red;
+    margin: 0;
+  }
+  

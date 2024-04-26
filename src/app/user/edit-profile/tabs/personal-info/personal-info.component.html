@@ -14,6 +14,9 @@
                         @if (editInfoForm.get('nombre')?.errors?.['maxlength']){
                             <p>El Nombre no debe teener mas de 32 caracteres.</p>
                         }
+                        @if (editInfoForm.get('nombre')?.errors?.['pattern']){
+                            <p>El Nombre solo puede contener letras.</p>
+                        }
                     }
                 </div>
                 <div class="input__group">
@@ -27,7 +30,10 @@
                         @if (editInfoForm.get('apellido')?.errors?.['maxlength']){
                             <p>El Apellido no debe teener mas de 32 caracteres.</p>
                         }
-                    }
+                        @if (editInfoForm.get('apellido')?.errors?.['pattern']){
+                            <p>El Apellido solo puede contener letras.</p>
+                        }
+                }
                 </div>
                 <div class="input__group">
                     <label>Pais</label>
@@ -65,7 +71,15 @@
                             <input pInputText type="text" placeholder="Direccion" formControlName="nombre_via" normalizeSpaces
                                 [ngClass]="{'lib-invalid': editInfoForm.get('direccion_envio.nombre_via')?.touched && editInfoForm.get('direccion_envio.nombre_via')?.invalid}">
                                 @if (editInfoForm.get('direccion_envio.nombre_via')?.touched && editInfoForm.get('direccion_envio.nombre_via')?.invalid) {
-                                    <p>La direccion es requerida</p>
+                                    @if (editInfoForm.get('direccion_envio.nombre_via')?.errors?.['required']){
+                                        <p>La direccion es requerida</p>
+                                    }
+                                    @if (editInfoForm.get('direccion_envio.nombre_via')?.errors?.['pattern']){
+                                        <p>La direccion solo puede contener letras, # y -</p>
+                                    }
+                                    @if (editInfoForm.get('direccion_envio.nombre_via')?.errors?.['maxlength']){
+                                        <p>La direccion no debe tener más de 42 caracteres</p>
+                                    }
                                 }
                         </div>
                         <div class="input__group-address">

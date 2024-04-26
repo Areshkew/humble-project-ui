@@ -1,0 +1,54 @@
+<div class="screen">
+    <form class="edit-info__form" [formGroup]="editPassword" (ngSubmit)="onSubmitPass()">
+        <p class="edit-msg">Cambiar Contraseña</p>
+        <div class="form__group  flex-container">
+            <div class="form__data flex-container" style="--flex-direction: column">
+                <div class=" input__group">
+                    <label>Ingresa tu Contraseña actual </label>
+                    <input pInputText type="password" formControlName="clave_actual" normalizeSpaces
+                    [ngClass]="{'lib-invalid': editPassword.get('clave_actual')?.touched && editPassword.get('clave_actual')?.invalid}">
+                    @if (editPassword.get('clave_actual')?.touched && editPassword.get('clave_actual')?.invalid) {
+                        <p>La contraseña es requerida</p>
+                    }
+                </div>
+            </div>
+            <div class="form__data flex-container" style="--flex-direction: column">
+                <div class="input__group">
+                    <label>Ingresa tu nueva Contraseña </label>
+                    <input pInputText type="password" formControlName="clave" normalizeSpaces
+                    [ngClass]="{'lib-invalid': editPassword.get('clave')?.touched && editPassword.get('clave')?.invalid}">
+                    @if (editPassword.get('clave')?.touched && editPassword.get('clave')?.invalid) {
+                        @if (editPassword.get('clave')?.errors?.['required']){
+                            <p>La Contraseña es requerida.</p>
+                        }
+                        @if (editPassword.get('clave')?.errors?.['minlength']){
+                            <p>La contraseña debe tener al menos 5 caracteres.</p>
+                        }
+                        @if (editPassword.get('clave')?.errors?.['maxlength']){
+                            <p>La contraseña no puede exceder los 32 caracteres</p>
+                        }
+                        @if (editPassword.get('clave')?.errors?.['pattern']){
+                            <p>La contraseña debe contener al menos una mayúscula, un número y un símbolo especial.</p>
+                        }
+                        }
+                </div>
+                <div class="input__group">
+                    <label>Confirma tu nueva Contraseña </label>
+                    <input pInputText type="password" formControlName="confirmar_clave" normalizeSpaces
+                    [ngClass]="{'lib-invalid': editPassword.get('confirmar_clave')?.touched && editPassword.get('confirmar_clave')?.invalid}">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="form__submit flex-container" style="--flex-direction: column;">
+            <button class="lib-button" type="submit" [ngClass]="{'lib-button-disabled': !editPassword.valid}" 
+            [disabled]="!editPassword.valid">
+                Guardar
+            </button>
+
+            @if (editPassword.get('clave')?.value !== editPassword.get('confirmar_clave')?.value){
+                <p class="lib-invalid__message">Las contraseñas deben coincidir.</p>
+            }
+        </div>
+    </form>
+</div>

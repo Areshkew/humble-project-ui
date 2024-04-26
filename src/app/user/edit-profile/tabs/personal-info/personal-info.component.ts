@@ -74,25 +74,25 @@ export class PersonalInfoComponent implements OnInit{
 
   ngOnInit(){
     this.editInfoForm = this.formBuilder.group({
-      'nombre': ['', [Validators.required, Validators.maxLength(32)]],
-      'apellido': ['', [Validators.required, Validators.maxLength(32)]],
+      'nombre': ['', [Validators.required, Validators.maxLength(32), Validators.pattern('^[a-zA-Z" "]+$')]],
+      'apellido': ['', [Validators.required, Validators.maxLength(32), Validators.pattern('^[a-zA-Z" "]+$')]],
       'fecha_nacimiento': ['', [Validators.required]],
       'ciudad': ['', [Validators.required]],
       'estado': ['', [Validators.required]],
       'pais': ['', [Validators.required]],
       'direccion_envio': this.formBuilder.group({
         'tipo_via': ['', Validators.required],
-        'nombre_via': ['', Validators.required],
-        'numero_exterior': ['', Validators.required,],
-        'numero_interior': ['', Validators.required,]
+        'nombre_via': ['', [Validators.required, Validators.maxLength(42), Validators.pattern('^[a-zA-Z0-9" "#-]+$')]],
+        'numero_exterior': ['', [Validators.required, Validators.maxLength(4)]],
+        'numero_interior': ['', [Validators.required, Validators.maxLength(4)]]
       }),
       'genero': ['', [Validators.required]],
       'preferencias': ['', []]
     });
 
     this.editPassword = this.formBuilder.group({
-      'clave_actual': ['', [Validators.required]],
-      'clave': ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]],
+      'clave_actual': ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32)]],
+      'clave': ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32), Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{4,})')]],
       'confirmar-clave': ['', [Validators.required]]
     })
 
@@ -220,6 +220,12 @@ export class PersonalInfoComponent implements OnInit{
         this.toastService.showErrorToast("Error", error);
       }
     });
+  }
+
+  passwordsMatch(): boolean {
+    const password = this.editPassword.get('clave')?.value;
+    const confirmPassword = this.editPassword.get('confirmar-clave')?.value;
+    return password === confirmPassword; 
   }
 
 

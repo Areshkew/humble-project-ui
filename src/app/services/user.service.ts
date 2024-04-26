@@ -92,7 +92,6 @@ export class UserService {
     );
   }
 
-
   private handleError(error: any, subject: Subject<any>): Observable<never> {
     subject.error(error);
     subject.next(null);

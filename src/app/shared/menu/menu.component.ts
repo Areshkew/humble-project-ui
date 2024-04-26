@@ -43,6 +43,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   searchRequestValue!: string;
   userRole!: string | null;
   inputHasFocus: boolean = false;
+  isRoot: boolean = false; 
 
   constructor(
     private loadingService: LoadingService,
@@ -56,12 +57,22 @@ export class MenuComponent implements OnInit, OnDestroy {
       this.authService.isAuthenticated$.subscribe((isAuthenticated) => {
         this.authenticated = isAuthenticated;
 
+        this.isRoot = this.authService.getUserRoleFromToken() === "root";
+
         this.items = [
           {
             label: 'Configuración',
             icon: PrimeIcons.COG,
             routerLink: 'editar-perfil',
+            style: (this.authService.getUserRoleFromToken() != "root") ? null : {'display': 'none'},
           },
+          //
+          //{
+          //  label: 'Cambiar Contraseña',
+          //  routerLink: 'contrasena-root',
+          //  icon: PrimeIcons.COG,
+          //  style: (this.authService.getUserRoleFromToken() === "root") ? null : {'display': 'none'},
+          //},
           {
             label: 'Panel Admin',
             routerLink: 'panel-admin',

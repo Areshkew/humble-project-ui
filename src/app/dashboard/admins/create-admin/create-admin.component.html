@@ -34,6 +34,9 @@
                             @if (createAdminForm.get('nombre')?.errors?.['maxlength']){
                                 <p>El Nombre no debe teener mas de 32 caracteres.</p>
                             }
+                            @if (createAdminForm.get('nombre')?.errors?.['pattern']){
+                                <p>El Nombre solo puede contener letras.</p>
+                            }
                         }
                     </div>
                     <div class="input__group">
@@ -46,6 +49,9 @@
                             }
                             @if (createAdminForm.get('apellido')?.errors?.['maxlength']){
                                 <p>El Apellido no debe teener mas de 32 caracteres.</p>
+                            }
+                            @if (createAdminForm.get('apellido')?.errors?.['pattern']){
+                                <p>El Apellido solo puede contener letras.</p>
                             }
                         }
                     </div>
@@ -86,8 +92,17 @@
                             <input pInputText type="text" placeholder="Direccion" formControlName="nombre_via" normalizeSpaces
                                 [ngClass]="{'lib-invalid': createAdminForm.get('direccion_envio.nombre_via')?.touched && createAdminForm.get('direccion_envio.nombre_via')?.invalid}">
                                 @if (createAdminForm.get('direccion_envio.nombre_via')?.touched && createAdminForm.get('direccion_envio.nombre_via')?.invalid) {
-                                    <p>La direccion es requerida</p>
+                                    @if (createAdminForm.get('direccion_envio.nombre_via')?.errors?.['required']){
+                                        <p>La direccion es requerida</p>
+                                    }
+                                    @if (createAdminForm.get('direccion_envio.nombre_via')?.errors?.['pattern']){
+                                        <p>La direccion solo puede contener letras, # y -</p>
+                                    }
+                                    @if (createAdminForm.get('direccion_envio.nombre_via')?.errors?.['maxlength']){
+                                        <p>La direccion no debe tener más de 42 caracteres</p>
+                                    }
                                 }
+                                
                         </div>
                         <div class="input__group-address">
                             <div class="input__field input__field-dropdown">
@@ -148,9 +163,17 @@
                         <label>Usuario</label>
                         <input pInputText type="text" formControlName="usuario" placeholder="Usuario" normalizeSpaces
                             [ngClass]="{'lib-invalid': createAdminForm.get('usuario')?.touched && createAdminForm.get('usuario')?.invalid}">
-                        @if (createAdminForm.get('usuario')?.touched && createAdminForm.get('usuario')?.invalid) {
-                        <p>El Usuarioes requerido.</p>
-                        }
+                            @if (createAdminForm.get('usuario')?.touched && createAdminForm.get('usuario')?.invalid) {
+                                @if (createAdminForm.get('usuario')?.errors?.['required']){
+                                    <p>El Usuario es requerido.</p>
+                                    }
+                                @if (createAdminForm.get('usuario')?.errors?.['pattern']){
+                                    <p>El Usuario solo puede contener letras, . y _ </p>
+                                }
+                                @if (createAdminForm.get('usuario')?.errors?.['maxlength']){
+                                    <p>El Usuario no puede ser superior a 32 caracteres </p>
+                                }
+                            }
                     </div>
 
                     <div class="input__group">
@@ -159,26 +182,26 @@
                             [ngClass]="{'lib-invalid': createAdminForm.get('clave')?.touched && createAdminForm.get('clave')?.invalid}">
 
                         @if (createAdminForm.get('clave')?.touched && createAdminForm.get('clave')?.invalid) {
-                        @if (createAdminForm.get('clave')?.errors?.['required']){
-                        <p>La Contraseña es requerida.</p>
-                        }
-                        @if (createAdminForm.get('clave')?.errors?.['minlength']){
-                        <p>La contraseña debe tener al menos 5 caracteres.</p>
-                        }
-                        @if (createAdminForm.get('clave')?.errors?.['maxlength']){
-                        <p>La contraseña no puede exceder los 32 caracteres</p>
-                        }
-                        @if (createAdminForm.get('clave')?.errors?.['pattern']){
-                        <p>La contraseña debe contener al menos una mayúscula, un número y un símbolo especial.</p>
-                        }
+                            @if (createAdminForm.get('clave')?.errors?.['required']){
+                            <p>La Contraseña es requerida.</p>
+                            }
+                            @if (createAdminForm.get('clave')?.errors?.['minlength']){
+                            <p>La contraseña debe tener al menos 5 caracteres.</p>
+                            }
+                            @if (createAdminForm.get('clave')?.errors?.['maxlength']){
+                            <p>La contraseña no puede exceder los 32 caracteres</p>
+                            }
+                            @if (createAdminForm.get('clave')?.errors?.['pattern']){
+                            <p>La contraseña debe contener al menos una mayúscula, un número y un símbolo especial.</p>
+                            }
                         }
                     </div>
                 </div>
             </div>
 
             <div class="form__submit flex-container" style="--flex-direction: column;">
-                <button class="lib-button" type="submit" [ngClass]="{'lib-button-disabled': !createAdminForm.valid}"
-                    [disabled]="!createAdminForm.valid">
+                <button class="lib-button" type="submit" [ngClass]="{'lib-button-disabled': createAdminForm.valid}"
+                    [disabled]="createAdminForm.valid">
                     Crear Admin
                 </button>
             </div>

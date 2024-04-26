@@ -9,8 +9,11 @@ import { Observable, Subject, catchError, shareReplay, tap, throwError } from 'r
 export class RootService {
   private adminCreationSubject = new Subject<any>();
   private adminsSubject = new Subject<any>();
+  private editInfoSubject = new Subject<any>();
+
   adminCreation$ = this.adminCreationSubject.asObservable();
   admins$ = this.adminsSubject.asObservable();
+  
 
   constructor(private http: HttpClient) { }  
 
@@ -47,6 +50,14 @@ export class RootService {
       tap(response => this.adminsSubject.next(response)),
       shareReplay(1),
       catchError(error => this.handleError(error, this.adminsSubject))
+    );
+  }
+
+  editPassword(data: any): Observable<any> {
+    return this.http.post(`/api/root/change-password`, data).pipe(
+      tap(response => this.editInfoSubject.next(response)),
+      shareReplay(1),
+      catchError(error => this.handleError(error, this.editInfoSubject))
     );
   }
 

@@ -61,22 +61,22 @@ export class SignupComponent implements OnInit{
   ngOnInit(){
     this.registerForm = this.formBuilder.group({
       'DNI': ['', [Validators.required, Validators.minLength(7), Validators.maxLength(10), Validators.pattern('^[a-zA-Z0-9]+$')]],
-      'nombre': ['', [Validators.required, Validators.maxLength(32)]],
-      'apellido': ['', [Validators.required, Validators.maxLength(32)]],
+      'nombre': ['', [Validators.required, Validators.maxLength(32), Validators.pattern('^[a-zA-Z" "]+$')]],
+      'apellido': ['', [Validators.required, Validators.maxLength(32), Validators.pattern('^[a-zA-Z" "]+$')]],
       'fecha_nacimiento': ['', [Validators.required]],
       'ciudad': ['', [Validators.required]],
       'estado': ['', [Validators.required]],
       'pais': ['', [Validators.required]],
       'direccion_envio': this.formBuilder.group({
-        'tipo_via': ['', Validators.required],
-        'nombre_via': ['', Validators.required],
-        'numero_exterior': ['', Validators.required],
-        'numero_interior': ['', Validators.required]
+        'tipo_via': ['', [Validators.required]],
+        'nombre_via': ['', [Validators.required, Validators.maxLength(42), Validators.pattern('^[a-zA-Z0-9" "#-]+$')]],
+        'numero_exterior': ['', [Validators.required, Validators.maxLength(4)]],
+        'numero_interior': ['', [Validators.required, Validators.maxLength(4)]]
       }),
       'genero': ['', [Validators.required]],
       'correo_electronico': ['', [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(32), Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) ]],
-      'usuario': ['', [Validators.required, Validators.maxLength(32)]],
-      'clave': ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]],
+      'usuario': ['', [Validators.required, Validators.maxLength(32), Validators.pattern('^[a-zA-Z0-9_.]+$')]],
+      'clave': ['', [Validators.required, Validators.minLength(5), Validators.maxLength(32), Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{4,})/)]],
     });
 
     // Limites de fecha

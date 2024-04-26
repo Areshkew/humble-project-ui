@@ -108,6 +108,7 @@ export class AdminsComponent implements OnInit, OnDestroy{
             next: (response) => {
               this.toastService.showInfoToast("Borrado de Admin", "Se han eliminado multiples administradores.");
               this.fetchAdmins();
+              this.selectedAdmins = [];
             },
             error: (error) => {
               this.toastService.showErrorToast("Error", error)

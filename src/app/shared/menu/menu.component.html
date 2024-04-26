@@ -24,7 +24,7 @@
                 <app-icon icon="person" [size]=28></app-icon>
             </button>
             
-            <button class="lib-button">
+            <button *ngIf="!isRoot" class="lib-button">
                 <app-icon icon="shopping_cart" [size]=28></app-icon>
             </button>
         </div>

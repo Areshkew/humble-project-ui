@@ -9,7 +9,7 @@
                 <div class="form__data flex-container" style="--flex-direction: column;">
                     <div class="input__group">
                         <label>Ingresa tu DNI</label>
-                        <input type="text" placeholder="DNI" pInputText formControlName="DNI" normalizeSpaces
+                        <input type="text" placeholder="DNI" pInputText formControlName="DNI"
                             [ngClass]="{'lib-invalid': registerForm.get('DNI')?.touched && registerForm.get('DNI')?.invalid}">
                         @if (registerForm.get('DNI')?.touched && registerForm.get('DNI')?.invalid) {
                             @if (registerForm.get('DNI')?.errors?.['required']){
@@ -28,27 +28,33 @@
                     </div>
                     <div class="input__group">
                         <label>Ingresa tus Nombres</label>
-                        <input pInputText type="text" placeholder="Nombres" formControlName="nombre" normalizeSpaces
+                        <input pInputText type="text" placeholder="Nombres" formControlName="nombre"
                             [ngClass]="{'lib-invalid': registerForm.get('nombre')?.touched && registerForm.get('nombre')?.invalid}">
                         @if (registerForm.get('nombre')?.touched && registerForm.get('nombre')?.invalid) {
                             @if (registerForm.get('nombre')?.errors?.['required']){
                                 <p>El Nombre es requerido.</p>
                             }
                             @if (registerForm.get('nombre')?.errors?.['maxlength']){
-                                <p>El Nombre no debe teener mas de 32 caracteres.</p>
+                                <p>El Nombre no debe tener mas de 32 caracteres.</p>
+                            }
+                            @if (registerForm.get('nombre')?.errors?.['pattern']){
+                                <p>El Nombre solo puede contener letras.</p>
                             }
                         }
                     </div>
                     <div class="input__group">
                         <label>Ingresa tus Apellidos</label>
-                        <input pInputText type="text" placeholder="Apellidos" formControlName="apellido" normalizeSpaces
+                        <input pInputText type="text" placeholder="Apellidos" formControlName="apellido"
                             [ngClass]="{'lib-invalid': registerForm.get('apellido')?.touched && registerForm.get('apellido')?.invalid}">
                         @if (registerForm.get('apellido')?.touched && registerForm.get('apellido')?.invalid) {
                             @if (registerForm.get('apellido')?.errors?.['required']){
                                 <p>El Apellido es requerido.</p>
                             }
                             @if (registerForm.get('apellido')?.errors?.['maxlength']){
-                                <p>El Apellido no debe teener mas de 32 caracteres.</p>
+                                <p>El Apellido no debe tener mas de 32 caracteres.</p>
+                            }
+                            @if (registerForm.get('apellido')?.errors?.['pattern']){
+                                <p>El Apellido solo puede contener letras.</p>
                             }
                         }
                     </div>
@@ -86,11 +92,17 @@
                         formGroupName="direccion_envio">
                         <div class="input__address">
                             <label>Direccion</label>
-                            <input pInputText type="text" placeholder="Direccion" formControlName="nombre_via" normalizeSpaces
+                            <input pInputText type="text" placeholder="Direccion" formControlName="nombre_via"
                                 [ngClass]="{'lib-invalid': registerForm.get('direccion_envio.nombre_via')?.touched && registerForm.get('direccion_envio.nombre_via')?.invalid}">
                                 @if (registerForm.get('direccion_envio.nombre_via')?.touched && registerForm.get('direccion_envio.nombre_via')?.invalid) {
-                                    <p>La direccion es requerida</p>
+                                    @if (registerForm.get('direccion_envio.nombre_via')?.errors?.['required']){
+                                        <p>La direccion es requerida</p>
+                                    }
+                                    @if (registerForm.get('direccion_envio.nombre_via')?.errors?.['pattern']){
+                                        <p>La direccion solo puede contener letras, # y -</p>
+                                    }
                                 }
+                                
                         </div>
                         <div class="input__group-address">
                             <div class="input__field input__field-dropdown">
@@ -102,11 +114,11 @@
                                     }
                             </div>
                             <div class="input__field ">
-                                <label>Numero</label>
+                                <label>Numero(opcional)</label>
                                 <div class="input__field-number">
-                                    <input pInputText type="number" formControlName="numero_exterior" normalizeSpaces
+                                    <input pInputText type="number" formControlName="numero_exterior"
                                         [ngClass]="{'lib-invalid': registerForm.get('direccion_envio.numero_exterior')?.touched && registerForm.get('direccion_envio.numero_exterior')?.invalid}">
-                                    <input pInputText type="number" formControlName="numero_interior" normalizeSpaces
+                                    <input pInputText type="number" formControlName="numero_interior"
                                         [ngClass]="{'lib-invalid': registerForm.get('direccion_envio.numero_interior')?.touched && registerForm.get('direccion_envio.numero_interior')?.invalid}">
                                 </div>
                             </div>
@@ -134,7 +146,7 @@
 
                     <div class="input__group">
                         <label>Ingresa tu Correo Electrónico</label>
-                        <input pInputText type="email" placeholder="Email" formControlName="correo_electronico" normalizeSpaces
+                        <input pInputText type="email" placeholder="Email" formControlName="correo_electronico"
                             [ngClass]="{'lib-invalid': registerForm.get('correo_electronico')?.touched && registerForm.get('correo_electronico')?.invalid}">
                         @if (registerForm.get('correo_electronico')?.touched && registerForm.get('correo_electronico')?.invalid) {
                             @if (registerForm.get('correo_electronico')?.errors?.['required']){
@@ -149,31 +161,36 @@
 
                     <div class="input__group">
                         <label>Ingresa tu Usuario</label>
-                        <input pInputText type="text" formControlName="usuario" placeholder="Usuario" normalizeSpaces
+                        <input pInputText type="text" formControlName="usuario" placeholder="Usuario"
                             [ngClass]="{'lib-invalid': registerForm.get('usuario')?.touched && registerForm.get('usuario')?.invalid}">
                         @if (registerForm.get('usuario')?.touched && registerForm.get('usuario')?.invalid) {
-                        <p>El Usuarioes requerido.</p>
+                            @if (registerForm.get('usuario')?.errors?.['required']){
+                                <p>El Usuario es requerido.</p>
+                                }
+                            @if (registerForm.get('usuario')?.errors?.['pattern']){
+                                <p>El Usuario solo puede contener letras, . y _ </p>
+                            }
                         }
                     </div>
 
                     <div class="input__group">
                         <label>Ingresa tu Contraseña</label>
-                        <input pInputText type="password" formControlName="clave" placeholder="Contraseña" normalizeSpaces
+                        <input pInputText type="password" formControlName="clave" placeholder="Contraseña"
                             [ngClass]="{'lib-invalid': registerForm.get('clave')?.touched && registerForm.get('clave')?.invalid}">
 
                         @if (registerForm.get('clave')?.touched && registerForm.get('clave')?.invalid) {
-                        @if (registerForm.get('clave')?.errors?.['required']){
-                        <p>La Contraseña es requerida.</p>
-                        }
-                        @if (registerForm.get('clave')?.errors?.['minlength']){
-                        <p>La contraseña debe tener al menos 5 caracteres.</p>
-                        }
-                        @if (registerForm.get('clave')?.errors?.['maxlength']){
-                        <p>La contraseña no puede exceder los 32 caracteres</p>
-                        }
-                        @if (registerForm.get('clave')?.errors?.['pattern']){
-                        <p>La contraseña debe contener al menos una mayúscula, un número y un símbolo especial.</p>
-                        }
+                            @if (registerForm.get('clave')?.errors?.['required']){
+                            <p>La Contraseña es requerida.</p>
+                            }
+                            @if (registerForm.get('clave')?.errors?.['minlength']){
+                            <p>La contraseña debe tener al menos 5 caracteres.</p>
+                            }
+                            @if (registerForm.get('clave')?.errors?.['maxlength']){
+                            <p>La contraseña no puede exceder los 32 caracteres</p>
+                            }
+                            @if (registerForm.get('clave')?.errors?.['pattern']){
+                            <p>La contraseña debe contener al menos una mayúscula, un número y un símbolo especial.</p>
+                            }
                         }
                     </div>
                 </div>

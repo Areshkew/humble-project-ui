@@ -50,10 +50,18 @@
         </div>
 
         <div class="dashboard__sidebar">
-            <div class="option flex-container pointer" style="--justify-content: center;">
-                <app-icon icon="person"></app-icon>
-                <span>Cuenta</span>
-            </div>
+            @if (role == "root") {
+                <div class="option flex-container pointer" style="--justify-content: center;" routerLink="contrasena-root">
+                    <app-icon icon="person"></app-icon>
+                    <span>Cuenta</span>
+                </div>
+            }
+            @if (role != "root") {
+                <div class="option flex-container pointer" style="--justify-content: center;">
+                    <app-icon icon="person"></app-icon>
+                    <span>Cuenta</span>
+                </div>
+            }
             <div class="option flex-container pointer" style="--justify-content: center;" (click)="logOut()">
                 <app-icon icon="logout"></app-icon>
                 <span>Cerrar Sesión</span>

@@ -16,11 +16,14 @@
             <div class="form__group flex-container" style="--align-items: start;">
                 <input class="form__input" type="text" formControlName="correo_electronico" pInputText placeholder="Correo Electrónico"
                     [ngClass]="{'lib-invalid': userLogin.get('correo_electronico')?.touched && userLogin.get('correo_electronico')?.invalid}">
-
                 @if (userLogin.get('correo_electronico')?.touched && userLogin.get('correo_electronico')?.invalid) {
-                <p>El email es requerido.</p>
+                    @if (userLogin.get('correo_electronico')?.errors?.['required']){
+                        <p>El correo es requerido.</p>
+                    }
+                    @if (userLogin.get('correo_electronico')?.errors?.['pattern']) {
+                        <p>El formato del correo no es válido </p>
+                    }
                 }
-
             </div>
 
             <div class="form__group flex-container" style="--align-items: start;">
