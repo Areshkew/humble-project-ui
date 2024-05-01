@@ -21,4 +21,9 @@ export class AdvancedSearchComponent {
   showAccordion() {
     this.accordionVisible = !this.accordionVisible;
   }
+
+  handleFiltersChanged(filters: any) {
+    console.log('datos de accord', filters);
+
+  }
 }

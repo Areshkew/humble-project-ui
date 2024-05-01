@@ -9,7 +9,7 @@
             </button>
         </div>
         <div class="accordion__categories">
-            <p-accordion [multiple]="true" [activeIndex]="0">
+            <p-accordion  [activeIndex]="0">
                 <p-accordionTab header="Categorias">
                     <ul>
                         @for (book of booksGenres; track $index) {
@@ -18,6 +18,34 @@
                         }
                     </ul>
                 </p-accordionTab>
+                <p-accordionTab header="Precio">
+                    <ul>
+                        @for (price of booksPrices; track $index) {
+                            <li class="price" (click)="onPriceSelected(price)" [ngClass]="{'selected': price.id === currentIdPrice}">
+                                {{price.minPrice | currency: 'COP' }} - {{price.maxPrice | currency: 'COP' }}
+                            </li>
+                        }
+                    </ul>
+                    <div class="order">Ordenar por:</div>
+                    <ul>
+                        <li (click)="onSortSelected('min_max')" [ngClass]="{'selected': sortOrder === 'min_max'}">Menor a Mayor</li>
+                        <li (click)="onSortSelected('max_min')" [ngClass]="{'selected': sortOrder === 'max_min'}">Mayor a Menor</li>
+                    </ul>
+                </p-accordionTab>
+                <p-accordionTab header="Estado" >
+                    <ul>
+                        <li (click)="onStateSelected(true)" [ngClass]="{'selected': isNew == true}">Usado</li>
+                        <li (click)="onStateSelected(false)" [ngClass]="{'selected': isNew == false}">Nuevo</li>
+                    </ul>
+                </p-accordionTab>
+                <p-accordionTab header="Idioma">
+                    <ul>
+                        <li (click)="onLanguageSelected('Español')" [ngClass]="{'selected': currentLanguage === 'Español'}">Español</li>
+                        <li (click)="onLanguageSelected('Ingles')" [ngClass]="{'selected': currentLanguage === 'Ingles'}">Inglés</li>
+                    </ul>
+                </p-accordionTab>
+                
+
             </p-accordion>
         </div>
     </div>

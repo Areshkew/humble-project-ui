@@ -11,11 +11,12 @@
 
 .accordion__categories {
   border-right: 5px solid #f5f5f5; 
+  font-size: var(--font-size-base);
 }
 
 .accordion__categories ul {
   list-style-type: none;
-  padding: 0 2rem;
+  padding: 0 1rem;
   
 }
 
@@ -28,6 +29,16 @@
 .accordion__categories li:hover {
   background-color: #f5f5f5; 
   color: #f48b6b;
+}
+
+.price {
+  text-align: center;
+}
+
+.order {
+  font-size: var(--font-size-md);
+padding-left: 1rem;
+font-weight: bolder;;
 }
 
 .selected {

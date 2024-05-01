@@ -2,7 +2,7 @@
     <div class="search-page__content flex-container" style="--flex-direction: column;">
         <div class="books-category-container flex-container" style="--flex-direction: row">
             <div class="filters flex-container">
-                <app-accordion [ngClass]="{'hidden': !accordionVisible}" ></app-accordion>
+                <app-accordion (filtersChanged)="handleFiltersChanged($event)" [ngClass]="{'hidden': !accordionVisible}" ></app-accordion>
             </div>
             <div>
                 <button class="toggle-button" (click)="showAccordion()">

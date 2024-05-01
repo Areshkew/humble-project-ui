@@ -11,9 +11,7 @@
   }
   
   
-  .filters {
-    padding: 0.5rem;
-  }
+  
   
   app-accordion {
     max-width: 346px;

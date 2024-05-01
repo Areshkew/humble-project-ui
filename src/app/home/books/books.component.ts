@@ -15,9 +15,9 @@ import { BookService } from '@services/book.service';
 export class BooksComponent implements OnChanges{
   imageUrl: string = environment.api_host;
   @Input() category: string | null = null;
-  @Input() rows!: number; //Elementos por pagina 
+  @Input() rows!: number; 
 
-  totalRecords!: number; //Numero total de libros
+  totalRecords!: number; 
   currentPage: number = 1;
   first: number = 0; 
 
