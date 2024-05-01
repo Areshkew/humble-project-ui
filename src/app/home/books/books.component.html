@@ -32,4 +32,4 @@
     </div>
     }
 </div>  
-<p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" (onPageChange)="onPaginateChange($event)"></p-paginator>
+<p-paginator [rows]="filters.size" [first]="first" [totalRecords]="totalRecords" (onPageChange)="onPaginateChange($event)"></p-paginator>

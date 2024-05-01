@@ -14,8 +14,7 @@ import { NgClass } from '@angular/common';
 })
 export class AdvancedSearchComponent {
   accordionVisible = true;
-  booksNumber = 27;
-  selectedCategory: string | null = null;
+  filters: any
   
 
   showAccordion() {
@@ -23,7 +22,8 @@ export class AdvancedSearchComponent {
   }
 
   handleFiltersChanged(filters: any) {
-    console.log('datos de accord', filters);
-
+    this.filters = filters
+    this.filters.size = 27
+    console.log('datos busqueda avan', filters);
   }
 }

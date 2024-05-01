@@ -3,14 +3,14 @@
         <app-recommendation-board></app-recommendation-board>
         <div class="books-category-container flex-container" style="--flex-direction: row">
             <div class="categories flex-container">
-                <app-sidebar [ngClass]="{'hidden': !sidebarVisible}" (selectedGenre)="onGenreSelected($event)"></app-sidebar>
+                <app-sidebar [ngClass]="{'hidden': !sidebarVisible}" (filtersChanged)="handleFiltersChanged($event)"></app-sidebar>
             </div>
             <div>
                 <button class="toggle-button" (click)="showSidebar()">
                     <app-icon icon="menu" [size]=28></app-icon>
                 </button>
             </div>
-            <app-books [category]="selectedCategory" [rows]="booksNumber"></app-books>
+            <app-books [filters]="filters"></app-books>
         </div>
     </div>
 </div>

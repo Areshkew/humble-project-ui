@@ -73,7 +73,9 @@ emitFilters() {
     currentMaxPrice: this.currentMaxPrice,
     isNew: this.isNew,
     currentLanguage: this.currentLanguage,
-    sortOrder: this.sortOrder
+    sortOrder: this.sortOrder,
+    size: null,
+    page: null
   };
   this.filtersChanged.emit(filters);
 }

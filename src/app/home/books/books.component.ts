@@ -14,8 +14,8 @@ import { BookService } from '@services/book.service';
 })
 export class BooksComponent implements OnChanges{
   imageUrl: string = environment.api_host;
-  @Input() category: string | null = null;
-  @Input() rows!: number; 
+
+  @Input() filters: any;
 
   totalRecords!: number; 
   currentPage: number = 1;
@@ -26,28 +26,22 @@ export class BooksComponent implements OnChanges{
 
   constructor(private bookService: BookService){}
 
-
-
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['category'] && changes['category'].currentValue !== changes['category'].previousValue) {
-      this.currentPage = 1;
+    console.log('Datos que llegan al books',this.filters);
+    
+    if (changes['filters'] && changes['filters'].currentValue !== changes['filters'].previousValue) {
+      this.filters.page = 1;
       this.first = 0;
       this.loadBooks();
     }
   }
 
   loadBooks(): void {
-    const filters = {
-      category: this.category,
-      page: this.currentPage,
-      size: this.rows
-   
-    };
 
-    this.bookService.getBooks(filters).subscribe({
+    this.bookService.getBooks(this.filters).subscribe({
       next: (response) => {   
         this.books = response.books;
-        this.totalRecords = response.total_pages * this.rows; // Pa tener el numero total de registros/libros  
+        this.totalRecords = response.total_pages * this.filters.size; // Pa tener el numero total de registros/libros  
       },
       error: (error) => {
         console.error('Error al cargar los libros:', error);
@@ -57,7 +51,7 @@ export class BooksComponent implements OnChanges{
 
 
   onPaginateChange(event: any) {
-    this.currentPage = event.page + 1; 
+    this.filters.page = event.page + 1; 
     this.first = event.first;
     this.loadBooks();
   }

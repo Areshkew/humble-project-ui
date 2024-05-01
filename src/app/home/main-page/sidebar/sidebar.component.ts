@@ -12,21 +12,32 @@ import { IconComponent } from '../../../shared/icon/icon.component';
 })
 export class SidebarComponent {
   booksGenres = GENRES
-  @Output() selectedGenre = new EventEmitter<string | null>(); 
+  @Output() filtersChanged: EventEmitter<any> = new EventEmitter<any>();
   currentGenre:  string | null = null
 
 
   onCategorySelected(book: any) {
     this.currentGenre = book.genero;
-    
-    
-    this.selectedGenre.emit(book.key);
+    this.emitFilters()
     
   }
 
   clearSelection() {
     this.currentGenre = null;
-    this.selectedGenre.emit(null);
+    this.emitFilters()
     
+  }
+  emitFilters() {
+    const filters = {
+      currentGenre: this.currentGenre,
+      currentMinPrice: null,
+      currentMaxPrice: null,
+      isNew: null,
+      currentLanguage: null,
+      sortOrder: null,
+      size: null,
+      page: null
+    };
+    this.filtersChanged.emit(filters);
   }
 }

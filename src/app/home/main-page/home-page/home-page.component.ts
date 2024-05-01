@@ -28,15 +28,15 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 })
 export class HomePageComponent {
   sidebarVisible = true;
-  selectedCategory: string | null = null;
-  booksNumber = 18;
+  filters: any
 
   showSidebar() {
     this.sidebarVisible = !this.sidebarVisible;
   }
 
-  onGenreSelected(genre: string | null): void {
-    this.selectedCategory = genre; 
-       
+  handleFiltersChanged(filters: any) {
+    this.filters = filters
+    this.filters.size = 18
+    console.log('datos busqueda catego', filters);
   }
 }
