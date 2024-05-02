@@ -54,7 +54,7 @@ export class LoginComponent {
         }
       },
       error: (error) => {
-        this.toastService.showErrorToast("Error", error);
+        this.toastService.showErrorToast("Error al cargar los libros", error);
       }
     })
   }

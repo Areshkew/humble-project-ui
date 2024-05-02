@@ -4,6 +4,7 @@ import { IconComponent } from '../../shared/icon/icon.component';
 import { CommonModule, ViewportScroller } from '@angular/common';
 import { PaginatorModule } from 'primeng/paginator';
 import { BookService } from '@services/book.service';
+import { ToastService } from '@services/utils/toast.service';
 
 @Component({
   selector: 'app-books',
@@ -24,11 +25,11 @@ export class BooksComponent implements OnChanges{
   books: any[] = []
 
 
-  constructor(private bookService: BookService, private viewportScroller: ViewportScroller){}
+  constructor(private bookService: BookService, private viewportScroller: ViewportScroller, private toastService: ToastService){}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.viewportScroller.scrollToPosition([0, 0])
-    console.log('Datos que llegan al books',this.filters);
+    
     
     if (changes['filters'] && changes['filters'].currentValue !== changes['filters'].previousValue) {
       setTimeout(() => {
@@ -40,14 +41,14 @@ export class BooksComponent implements OnChanges{
   }
 
   loadBooks(): void {
-
     this.bookService.getBooks(this.filters).subscribe({
-      next: (response) => {   
+      next: (response) => {
         this.books = response.books;
-        this.totalRecords = response.total_pages * this.filters.size; // Pa tener el numero total de registros/libros  
+        this.totalRecords = response.total_pages * this.filters.size;
       },
       error: (error) => {
-        console.error('Error al cargar los libros:', error);
+        console.error('Error al cargar libros:', error);
+        this.toastService.showErrorToast("Error al cargar libros", error.message);
       }
     });
   }

@@ -147,7 +147,7 @@ export class SignupComponent implements OnInit{
     formData.ciudad = city;
     formData.direccion_envio = completeAddress;  
     
-    console.log(formData);
+    
     this.userService.register(formData).subscribe({
       
       next: (response) => {

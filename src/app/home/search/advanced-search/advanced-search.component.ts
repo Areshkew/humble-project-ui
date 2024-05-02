@@ -28,6 +28,5 @@ export class AdvancedSearchComponent implements OnInit{
   handleFiltersChanged(filters: any) {
     this.filters = filters
     this.filters.size = 27
-    console.log('datos busqueda avan', filters);
   }
 }

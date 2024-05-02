@@ -41,6 +41,6 @@ export class HomePageComponent implements OnInit{
   handleFiltersChanged(filters: any) {
     this.filters = filters
     this.filters.size = 18
-    console.log('datos busqueda catego', filters);
+    
   }
 }

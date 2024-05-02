@@ -23,6 +23,9 @@
                         @for (price of booksPrices; track $index) {
                             <li class="price" (click)="onPriceSelected(price)" [ngClass]="{'selected': price.id === currentIdPrice}">
                                 {{price.minPrice | currency: 'COP' }} - {{price.maxPrice | currency: 'COP' }}
+                                @if (price.maxPrice == null) {
+                                    Maximo
+                                }
                             </li>
                         }
                     </ul>

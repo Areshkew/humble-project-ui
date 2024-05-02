@@ -88,7 +88,7 @@ export class AdminsComponent implements OnInit, OnDestroy{
             },
             error: (error) => {
               this.toastService.showErrorToast("Error", error);
-              console.log(  JSON.stringify(error) )
+              
             }
           })
         }

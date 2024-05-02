@@ -1,6 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable } from 'rxjs';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,9 +32,10 @@ export class BookService {
     });
     return this.http.get("/api/book/explore", { params: params })
       .pipe(
-        catchError((error) => {
+        catchError((error: HttpErrorResponse) => {
           console.error('Error al cargar los libros', error);
-          throw error;
+          const message = `Error al cargar libros: No se encontraron libros`;
+          return throwError(() => new Error(message));
         })
       );
   }
