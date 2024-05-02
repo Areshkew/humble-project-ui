@@ -1,14 +1,14 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { IconComponent } from '../../shared/icon/icon.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { PaginatorModule } from 'primeng/paginator';
 import { BookService } from '@services/book.service';
 
 @Component({
   selector: 'app-books',
   standalone: true,
-  imports: [IconComponent, CommonModule, PaginatorModule],
+  imports: [IconComponent, CommonModule, PaginatorModule,],
   templateUrl: './books.component.html',
   styleUrl: './books.component.css'
 })
@@ -24,15 +24,17 @@ export class BooksComponent implements OnChanges{
   books: any[] = []
 
 
-  constructor(private bookService: BookService){}
+  constructor(private bookService: BookService, private viewportScroller: ViewportScroller){}
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log('Datos que llegan al books',this.filters);
     
     if (changes['filters'] && changes['filters'].currentValue !== changes['filters'].previousValue) {
-      this.filters.page = 1;
-      this.first = 0;
-      this.loadBooks();
+      setTimeout(() => {
+        this.filters.page = 1;
+        this.first = 0;
+        this.loadBooks();
+      }, 0);
     }
   }
 
@@ -53,7 +55,9 @@ export class BooksComponent implements OnChanges{
   onPaginateChange(event: any) {
     this.filters.page = event.page + 1; 
     this.first = event.first;
+    this.viewportScroller.scrollToPosition([0, 0])
     this.loadBooks();
+
   }
 
   getLanguageEmoji(languageCode: string): string {

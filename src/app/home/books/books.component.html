@@ -1,3 +1,4 @@
+<p-paginator [rows]="filters.size" [first]="first" [totalRecords]="totalRecords" (onPageChange)="onPaginateChange($event)"></p-paginator>
 <div class="books flex-container">
     @for (item of books ; track $index) {
     <div class="book-card flex-container" style="--flex-direction: row; --align-items: start;">

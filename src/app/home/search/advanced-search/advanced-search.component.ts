@@ -1,21 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BooksComponent } from '../../books/books.component';
 import { IconComponent } from '../../../shared/icon/icon.component';
 import { AccordionComponent } from '../accordion/accordion.component';
 import { NgClass } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-advanced-search',
   standalone: true,
-  imports: [BooksComponent, IconComponent, AccordionComponent, NgClass],
+  imports: [BooksComponent, IconComponent, AccordionComponent, NgClass, RouterLink],
   templateUrl: './advanced-search.component.html',
   styleUrl: './advanced-search.component.css'
 })
-export class AdvancedSearchComponent {
+export class AdvancedSearchComponent implements OnInit{
   accordionVisible = true;
   filters: any
   
+  ngOnInit(): void {
+    this.handleFiltersChanged({})
+  }
 
   showAccordion() {
     this.accordionVisible = !this.accordionVisible;

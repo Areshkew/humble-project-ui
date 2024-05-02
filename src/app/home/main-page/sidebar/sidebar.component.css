@@ -34,6 +34,15 @@
   text-decoration: underline;
 }
 
+.sidebar__categories a{
+  align-self: center;
+  margin: auto
+}
+
+.forms__links{
+  text-align: center;
+}
+
 .clear-button{
   all: unset;
   background-color: transparent;

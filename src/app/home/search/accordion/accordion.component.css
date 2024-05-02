@@ -36,7 +36,7 @@
 }
 
 .order {
-  font-size: var(--font-size-md);
+  font-size: 1.25rem;
 padding-left: 1rem;
 font-weight: bolder;;
 }
@@ -53,8 +53,19 @@ font-weight: bolder;;
   cursor: pointer;
   
 }
+.date{
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+  
+}
 
 .clear-button:hover{
   color: #f48b6b;
+}
+
+:host ::ng-deep .p-inputtext {
+  background-color: white;
+  box-shadow: 0 4px 2px -2px gray;;
 }
 

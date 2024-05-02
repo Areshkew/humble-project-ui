@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 
@@ -26,9 +26,13 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit{
   sidebarVisible = true;
   filters: any
+
+  ngOnInit(): void {
+    this.handleFiltersChanged({})
+  }
 
   showSidebar() {
     this.sidebarVisible = !this.sidebarVisible;

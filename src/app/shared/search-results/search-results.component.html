@@ -1,7 +1,12 @@
 <div class="search-results" [style.position]="absolute ? 'absolute' : 'static'">
     
         @if (!loading) {
-            <div class="search-results__text"> Resultados para: <div class="search-results__query">{{ receivedValue }}</div> </div>
+            <div class="flex-container" style="--flex-direction: row">
+
+                <div class="search-results__text"> Resultados para: <div class="search-results__query">{{ receivedValue }}</div> </div>
+                <a routerLink="/busqueda-avanzada"><span class="form__links">Busqueda avanzada</span></a>
+                
+            </div>
     
             @if ( isBookError() ) {
                 <br> {{ this.books }}

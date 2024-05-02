@@ -9,7 +9,7 @@
             </button>
         </div>
         <div class="accordion__categories">
-            <p-accordion  [activeIndex]="0">
+            <p-accordion [multiple]="true" [activeIndex]="[0, 1, 2, 3, 4]">
                 <p-accordionTab header="Categorias">
                     <ul>
                         @for (book of booksGenres; track $index) {
@@ -34,15 +34,23 @@
                 </p-accordionTab>
                 <p-accordionTab header="Estado" >
                     <ul>
-                        <li (click)="onStateSelected(true)" [ngClass]="{'selected': isNew == true}">Usado</li>
-                        <li (click)="onStateSelected(false)" [ngClass]="{'selected': isNew == false}">Nuevo</li>
+                        <li (click)="onStateSelected('true')" [ngClass]="{'selected': isNew === 'true'}">Nuevo</li>
+                        <li (click)="onStateSelected('false')" [ngClass]="{'selected': isNew === 'false'}">Usado</li>
                     </ul>
                 </p-accordionTab>
                 <p-accordionTab header="Idioma">
                     <ul>
                         <li (click)="onLanguageSelected('Español')" [ngClass]="{'selected': currentLanguage === 'Español'}">Español</li>
-                        <li (click)="onLanguageSelected('Ingles')" [ngClass]="{'selected': currentLanguage === 'Ingles'}">Inglés</li>
+                        <li (click)="onLanguageSelected('Inglés')" [ngClass]="{'selected': currentLanguage === 'Inglés'}">Inglés</li>
                     </ul>
+                </p-accordionTab>
+                <p-accordionTab header="Fecha Publicacion">
+                    <div class="date">
+                        <div class="date__content">
+                            <p-calendar [(ngModel)]="selectedDate" (ngModelChange)="onDateSeleted($event)" placeholder="Fecha" [defaultDate]="maxDate"
+                            [maxDate]="maxDate" dateFormat="dd/mm/yy"></p-calendar>
+                        </div>
+                    </div>
                 </p-accordionTab>
                 
 

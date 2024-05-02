@@ -4,12 +4,13 @@ import { BookService } from '@services/book.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { environment } from '../../../environments/environment';
 import { IconComponent } from '../icon/icon.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-search-results',
   standalone: true,
   imports: [
-    CommonModule, ProgressSpinnerModule, IconComponent
+    CommonModule, ProgressSpinnerModule, IconComponent, RouterLink
   ],
   templateUrl: "./search-results.component.html",
   styleUrl: './search-results.component.css'

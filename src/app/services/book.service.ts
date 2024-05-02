@@ -28,7 +28,7 @@ export class BookService {
         params = params.append(key, filters[key]);
       }
     });
-    return this.http.get("/api/book/getbooks", { params: params })
+    return this.http.get("/api/book/explore", { params: params })
       .pipe(
         catchError((error) => {
           console.error('Error al cargar los libros', error);
