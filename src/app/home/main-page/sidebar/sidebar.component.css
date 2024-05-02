@@ -34,8 +34,10 @@
   text-decoration: underline;
 }
 
-.sidebar__categories a{
-  align-self: center;
+.advanced-search{
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: auto
 }
 

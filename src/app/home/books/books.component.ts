@@ -27,6 +27,7 @@ export class BooksComponent implements OnChanges{
   constructor(private bookService: BookService, private viewportScroller: ViewportScroller){}
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.viewportScroller.scrollToPosition([0, 0])
     console.log('Datos que llegan al books',this.filters);
     
     if (changes['filters'] && changes['filters'].currentValue !== changes['filters'].previousValue) {
