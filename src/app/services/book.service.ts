@@ -1,8 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
-import { catchError, Observable } from 'rxjs';
-import { throwError } from 'rxjs';
+import { catchError, Observable, pipe, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +8,27 @@ import { throwError } from 'rxjs';
 export class BookService {
   constructor(private http: HttpClient) { }
 
+  getBook(ISSN: string): Observable<any>{
+    return this.http.get(`/api/book/${ISSN}`)
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error al cargar libro', error);
+          const message = `Error al cargar libro: ${error.error.detail}`;
+          return throwError(() => new Error(message));
+        })
+      );
+  }
+
+  createBook(data: any): Observable<any> {
+    return this.http.post(`/api/book/create-book`, data)
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error al cargar los libros', error);
+          const message = `Error al crear libro: ${error.error.detail}`;
+          return throwError(() => new Error(message));
+        })
+      );
+  }
   searchBooks(query: string): Observable<any>{
     const params = new HttpParams()
         .set("q", query)
@@ -17,7 +36,7 @@ export class BookService {
     return this.http.get("/api/book/search", { params })
       .pipe(
         catchError((error) => {
-          console.error('Error searching books:', error);
+          console.error('Error buscando libros:', error);
           throw error;
         })
     );
@@ -49,4 +68,15 @@ export class BookService {
     );
   }
 
+
+  deleteBooks(data: any): Observable<any> {
+    return this.http.post(`/api/book/delete-books`, data)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Error al cargar los libros', error);
+          const message = `Error al borrar libros.`;
+          return throwError(() => new Error(message));
+        })
+      );
+  }
 }

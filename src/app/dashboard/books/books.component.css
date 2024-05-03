@@ -1,3 +1,39 @@
-:host {
-  display: block;
+.edit-btns{
+  display: flex;
+  gap: 2rem;
+}
+
+.books{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.books__actions{
+  background-color: white;
+  padding: 1rem;
+  border-radius: 5px;
+  gap: 1rem;
+}
+.books__actions .add-admin{
+  background-color: lightgreen;
+  padding: .3rem;
+  font-size: var(--font-size-base);
+  border-radius: 5px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+.books__actions .remove-admin{
+  background-color: lightcoral;
+  padding: .3rem;
+  font-size: var(--font-size-base);
+  border-radius: 5px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.books__actions .add-admin:hover {
+  background-color: #76e07a; /* A slightly lighter green */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Soft shadow for depth */
+}
+.books__actions .remove-admin:hover {
+  background-color: #fa8072; /* A slightly lighter coral */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Soft shadow for depth */
 }

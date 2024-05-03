@@ -33,7 +33,7 @@ export const routes: Routes = [
     {
         path: 'editar-perfil',
         loadComponent: () => import('./user/edit-profile/edit-profile.component').then(m =>m.EditProfileComponent),
-        data: { Roles: ['cliente'] }, 
+        data: { Roles: ['cliente', "admin", "root"] },
         canActivate: [authGuard],
         children: [
             {path: '', redirectTo: 'informacion-personal', pathMatch: 'full'},

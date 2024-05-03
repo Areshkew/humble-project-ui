@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Dropdown, DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
@@ -13,6 +13,7 @@ import { ToastService } from '@services/utils/toast.service';
 import { CookieService } from '@services/utils/cookie.service';
 import { AuthService } from '@services/auth/auth.service';
 import { NormalizeSpacesDirective } from '../../../../shared/directives/normalizeSpace.directive';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -24,7 +25,7 @@ import { NormalizeSpacesDirective } from '../../../../shared/directives/normaliz
   templateUrl: './personal-info.component.html',
   styleUrl: './personal-info.component.css'
 })
-export class PersonalInfoComponent implements OnInit{
+export class PersonalInfoComponent implements OnInit, OnDestroy{
   editInfoForm!: FormGroup;
   editPassword!: FormGroup;
   countries!: any;
@@ -65,6 +66,8 @@ export class PersonalInfoComponent implements OnInit{
     "Vía"
   ] 
   initialUserData: any = {}
+  roleSubscription!: Subscription;
+  userRole!: string;
 
   @ViewChild('stateDropdown') stateDropdownComponent!: Dropdown;
   @ViewChild('cityDropdown') cityDropdownComponent!: Dropdown;
@@ -96,6 +99,9 @@ export class PersonalInfoComponent implements OnInit{
       'confirmar-clave': ['', [Validators.required]]
     })
 
+    this.roleSubscription = this.authService.role$.subscribe(role => {
+      this.userRole = role;
+    })
 
     this.userService.getCurrentUser(this.user).subscribe(
       user => {
@@ -112,11 +118,13 @@ export class PersonalInfoComponent implements OnInit{
           this.editInfoForm.get("pais")?.setValue(pais)
           this.onCountryChange();
 
-          const estado = pais.states.find((state: { name: any; }) => state.name === user.estado)
+          let estado = pais.states.find((state: { name: any; }) => state.name === user.estado)
+          estado = estado ? estado : { name: pais.name, cities: [] };
           this.editInfoForm.get("estado")?.setValue(estado)
           this.onStateChange();
           
-          const ciudad = estado.cities.find((city: { name: any; }) => city.name === user.ciudad)
+          let ciudad = estado.cities ? estado.cities.find((city: { name: any; }) => city.name === user.ciudad) : null
+          ciudad = ciudad ? ciudad : { name: pais.name };
           this.editInfoForm.get("ciudad")?.setValue(ciudad)
 
         
@@ -150,6 +158,11 @@ export class PersonalInfoComponent implements OnInit{
     this.minDate = new Date();
     const minBirtYear = this.minDate.getFullYear() - 101;
     this.minDate.setFullYear(minBirtYear);
+
+  }
+
+  ngOnDestroy(): void {
+    if(this.roleSubscription) this.roleSubscription.unsubscribe();
   }
 
   // 
@@ -173,7 +186,7 @@ export class PersonalInfoComponent implements OnInit{
     if(this.cityDropdownComponent) this.cityDropdownComponent.clear();
     if(!selectedState) return;
 
-    this.cities = selectedState.cities.length > 0 ? selectedState.cities : [{name: selectedCountry.name}];
+    this.cities = (selectedState.cities && selectedState.cities.length) > 0 ? selectedState.cities : [{name: selectedCountry.name}];
   }
 
 

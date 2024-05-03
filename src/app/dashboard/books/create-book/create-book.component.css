@@ -1,0 +1,105 @@
+.create-book__form{
+  display: grid;
+  gap: 1rem;
+  min-width: 380px;
+  border-radius: 10px;
+  margin: 2rem 0;
+}
+
+.form__logo img{
+  width: 130px;
+  height: 41px;
+  padding: .5rem;
+}
+
+.form__title{
+  font-weight: bolder;
+  justify-self: center;
+}
+
+.lib-button{
+  border-radius: 100px;
+  padding: 1rem;
+  width: 100%;
+  text-align: center;
+}
+.lib-input{
+  border-radius: 20px;
+}
+
+.form__submit{
+  width: 70%;
+  justify-self: center;
+  max-width: 500px;
+}
+.form__submit a{
+    font-size: var(--font-size-sm);
+    color: black;
+    text-decoration: none;
+    margin-bottom: 2rem;
+}
+
+.form__group{
+  flex-wrap: wrap;
+}
+.form__data{
+  width: 50%;
+  min-width: 300px;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form__group p{
+  font-size: var(--font-size-sm);
+  color: red;
+  margin: 0;
+}
+
+.input__group{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 70%;
+}
+
+.input__address{
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.input__group-address{
+  display: flex;
+  width: 70%;
+  gap: 0.5rem;
+}
+
+.input__field {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  gap: 0.5rem;
+}
+
+.input__field-dropdown{
+  width: 100%;
+}
+
+.input__field-number{
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+}
+
+
+.form__group label{
+  font-size: var(--font-size-sm);
+  font-weight: bold;
+}
+
+
+.form__group input{
+  box-shadow: 0 4px 2px -2px gray;
+}

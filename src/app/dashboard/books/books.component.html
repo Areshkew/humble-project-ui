@@ -1,0 +1,60 @@
+<p-confirmPopup></p-confirmPopup>
+
+<div class="books">
+    <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
+
+    <div class="books__actions flex-container">
+        <div class="add-admin flex-container pointer" (click)="show()">
+            <app-icon icon="add" color="darkgreen"></app-icon>
+            Nuevo libro
+        </div>
+
+        @if (selectedBooks && selectedBooks.length > 0) {
+            <div class="remove-admin flex-container pointer" (click)="confirm_multiple_delete($event)">
+                <app-icon icon="delete" color="darkred"></app-icon>
+                Borrar {{ selectedBooks.length }} libro/s
+            </div>
+        }
+
+    </div>
+    
+    <p-table [value]="books" [paginator]="true" [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalPages"
+            [rows]="8" [rowHover]="true" selectionMode="multiple" [(selection)]="selectedBooks" [metaKeySelection]="false" dataKey="ISSN"
+            [tableStyle]="{ 'min-width': '50rem' }">
+        
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ISSN</th>
+                <th>Autor</th>
+                <th>Título</th>
+                <th>Editorial</th>
+                <th>Estado</th>
+                <th>Fecha Pub.</th>
+                <th>Num. Páginas</th>
+                <th>Precio</th>
+                <th>Descuento</th>
+                <th></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-book>
+            <tr [pSelectableRow]="book">
+                <td>{{ book.ISSN }}</td>
+                <td>{{ book.autor }}</td>
+                <td>{{ book.titulo }}</td>
+                <td>{{ book.editorial }}</td>
+                <td>{{ book.estado ? 'Nuevo' : 'Usado'}}</td>
+                <td>{{ book.fecha_publicacion }}</td>
+                <td>{{ book.num_paginas }}</td>
+                <td>{{ book.precio }}</td>
+                <td>{{ book.descuento }}</td>
+                <td class="edit-btns">
+                    <button pButton pRipple icon="pi pi-shopping-bag" class="p-button-rounded p-button-help" title="Administrar Unidades"></button>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" (click)="editBook(book.ISSN)" title="Editar Libro"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="confirm_single_delete($event, book.ISSN)" title="Eliminar Libro"></button>
+                </td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

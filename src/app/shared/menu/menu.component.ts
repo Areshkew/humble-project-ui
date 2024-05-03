@@ -62,8 +62,8 @@ export class MenuComponent implements OnInit, OnDestroy {
 
         this.items = [
           {
-            label: 'Configuración',
-            icon: PrimeIcons.COG,
+            label: 'Cuenta',
+            icon: PrimeIcons.USER,
             routerLink: 'editar-perfil',
           },
           {

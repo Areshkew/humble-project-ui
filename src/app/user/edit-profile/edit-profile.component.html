@@ -12,7 +12,14 @@
             </div>
 
             <div class="form__group">
-                <p-tabMenu [model]="items" ></p-tabMenu>
+                @if (userRole != "admin" && userRole != "root") {
+                    <p-tabMenu [model]="items" ></p-tabMenu>
+                }
+
+                @if (userRole != "admin" && userRole != "root") {
+                    <p-tabMenu [model]="items" ></p-tabMenu>
+                }
+
                 <router-outlet></router-outlet>
             </div>
         </div>

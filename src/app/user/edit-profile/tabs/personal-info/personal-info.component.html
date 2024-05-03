@@ -1,118 +1,125 @@
 <div class="container">
-    <form class="edit-info__form" [formGroup]="editInfoForm" (ngSubmit)="onSubmit()">
-        <p class="edit-msg">Editar informacion</p>
-        <div class="form__group flex-container">
-            <div class="form__data flex-container" style="--flex-direction: column">
-                <div class="input__group">
-                    <label>Nombres</label>
-                    <input type="text" pInputText formControlName="nombre" normalizeSpaces
-                    [ngClass]="{'lib-invalid': editInfoForm.get('nombre')?.touched && editInfoForm.get('nombre')?.invalid}">
-                    @if (editInfoForm.get('nombre')?.touched && editInfoForm.get('nombre')?.invalid) {
-                        @if (editInfoForm.get('nombre')?.errors?.['required']) {
-                            <p>El Nombre es requerido</p>
+    @if (userRole != "root") {
+        <form class="edit-info__form" [formGroup]="editInfoForm" (ngSubmit)="onSubmit()">
+            <p class="edit-msg">Editar informacion</p>
+            <div class="form__group flex-container">
+                <div class="form__data flex-container" style="--flex-direction: column">
+                    <div class="input__group">
+                        <label>Nombres</label>
+                        <input type="text" pInputText formControlName="nombre" normalizeSpaces
+                        [ngClass]="{'lib-invalid': editInfoForm.get('nombre')?.touched && editInfoForm.get('nombre')?.invalid}">
+                        @if (editInfoForm.get('nombre')?.touched && editInfoForm.get('nombre')?.invalid) {
+                            @if (editInfoForm.get('nombre')?.errors?.['required']) {
+                                <p>El Nombre es requerido</p>
+                            }
+                            @if (editInfoForm.get('nombre')?.errors?.['maxlength']){
+                                <p>El Nombre no debe teener mas de 32 caracteres.</p>
+                            }
                         }
-                        @if (editInfoForm.get('nombre')?.errors?.['maxlength']){
-                            <p>El Nombre no debe teener mas de 32 caracteres.</p>
+                    </div>
+                    <div class="input__group">
+                        <label>Apellidos</label>
+                        <input type="text" pInputText formControlName="apellido" normalizeSpaces
+                        [ngClass]="{'lib-invalid': editInfoForm.get('apellido')?.touched && editInfoForm.get('apellido')?.invalid}">
+                        @if (editInfoForm.get('apellido')?.touched && editInfoForm.get('apellido')?.invalid) {
+                            @if (editInfoForm.get('apellido')?.errors?.['required']){
+                                <p>El Apellido es requerido.</p>
+                            }
+                            @if (editInfoForm.get('apellido')?.errors?.['maxlength']){
+                                <p>El Apellido no debe teener mas de 32 caracteres.</p>
+                            }
                         }
-                    }
+                    </div>
+                    <div class="input__group">
+                        <label>Pais</label>
+                        <p-dropdown [options]="countries" optionLabel="name" [filter]="true" (onChange)="onCountryChange()"
+                            formControlName="pais"
+                            [ngClass]="{'lib-invalid': editInfoForm.get('pais')?.touched && editInfoForm.get('pais')?.invalid}"></p-dropdown>
+                            @if (editInfoForm.get('pais')?.touched && editInfoForm.get('pais')?.invalid) {
+                                <p>El Pais es requerido.</p>
+                            }
+                    </div>
+                    <div class="input__group">
+                        <label>Estado</label>
+                        <p-dropdown #stateDropdown [options]="states" optionLabel="name" [filter]="true"
+                            (onChange)="onStateChange()" formControlName="estado"
+                            [ngClass]="{'lib-invalid': editInfoForm.get('estado')?.touched && editInfoForm.get('estado')?.invalid}"></p-dropdown>
+                            @if (editInfoForm.get('estado')?.touched && editInfoForm.get('estado')?.invalid) {
+                                <p>El Estado es requerido.</p>
+                            }
+                    </div>
+                    <div class="input__group">
+                        <label>Ciudad</label>
+                        <p-dropdown #cityDropdown [options]="cities" optionLabel="name" [filter]="true"
+                            formControlName="ciudad"
+                            [ngClass]="{'lib-invalid': editInfoForm.get('ciudad')?.touched && editInfoForm.get('ciudad')?.invalid}"></p-dropdown>
+                            @if (editInfoForm.get('ciudad')?.touched && editInfoForm.get('ciudad')?.invalid) {
+                                <p>La ciudad es requerida.</p>
+                            }
+                    </div>
                 </div>
-                <div class="input__group">
-                    <label>Apellidos</label>
-                    <input type="text" pInputText formControlName="apellido" normalizeSpaces
-                    [ngClass]="{'lib-invalid': editInfoForm.get('apellido')?.touched && editInfoForm.get('apellido')?.invalid}">
-                    @if (editInfoForm.get('apellido')?.touched && editInfoForm.get('apellido')?.invalid) {
-                        @if (editInfoForm.get('apellido')?.errors?.['required']){
-                            <p>El Apellido es requerido.</p>
-                        }
-                        @if (editInfoForm.get('apellido')?.errors?.['maxlength']){
-                            <p>El Apellido no debe teener mas de 32 caracteres.</p>
-                        }
-                    }
-                </div>
-                <div class="input__group">
-                    <label>Pais</label>
-                    <p-dropdown [options]="countries" optionLabel="name" [filter]="true" (onChange)="onCountryChange()"
-                        formControlName="pais"
-                        [ngClass]="{'lib-invalid': editInfoForm.get('pais')?.touched && editInfoForm.get('pais')?.invalid}"></p-dropdown>
-                        @if (editInfoForm.get('pais')?.touched && editInfoForm.get('pais')?.invalid) {
-                            <p>El Pais es requerido.</p>
-                        }
-                </div>
-                <div class="input__group">
-                    <label>Estado</label>
-                    <p-dropdown #stateDropdown [options]="states" optionLabel="name" [filter]="true"
-                        (onChange)="onStateChange()" formControlName="estado"
-                        [ngClass]="{'lib-invalid': editInfoForm.get('estado')?.touched && editInfoForm.get('estado')?.invalid}"></p-dropdown>
-                        @if (editInfoForm.get('estado')?.touched && editInfoForm.get('estado')?.invalid) {
-                            <p>El Estado es requerido.</p>
-                        }
-                </div>
-                <div class="input__group">
-                    <label>Ciudad</label>
-                    <p-dropdown #cityDropdown [options]="cities" optionLabel="name" [filter]="true"
-                        formControlName="ciudad"
-                        [ngClass]="{'lib-invalid': editInfoForm.get('ciudad')?.touched && editInfoForm.get('ciudad')?.invalid}"></p-dropdown>
-                        @if (editInfoForm.get('ciudad')?.touched && editInfoForm.get('ciudad')?.invalid) {
-                            <p>La ciudad es requerida.</p>
-                        }
-                </div>
-            </div>
-            <div class="form__data flex-container" style="--flex-direction: column">
-                <form class="flex-container" style="--justify-content: center; --align-items: center;"
-                        formGroupName="direccion_envio">
-                        <div class="input__address">
-                            <label>Direccion</label>
-                            <input pInputText type="text" placeholder="Direccion" formControlName="nombre_via" normalizeSpaces
-                                [ngClass]="{'lib-invalid': editInfoForm.get('direccion_envio.nombre_via')?.touched && editInfoForm.get('direccion_envio.nombre_via')?.invalid}">
-                                @if (editInfoForm.get('direccion_envio.nombre_via')?.touched && editInfoForm.get('direccion_envio.nombre_via')?.invalid) {
-                                    <p>La direccion es requerida</p>
-                                }
-                        </div>
-                        <div class="input__group-address">
-                            <div class="input__field input__field-dropdown">
-                                <label>Tipo</label>
-                                <p-dropdown class="road-type" [options]="roads" formControlName="tipo_via"
-                                    [ngClass]="{'lib-invalid': editInfoForm.get('direccion_envio.tipo_via')?.touched && editInfoForm.get('direccion_envio.tipo_via')?.invalid}"></p-dropdown>
-                                    @if (editInfoForm.get('direccion_envio.tipo_via')?.touched && editInfoForm.get('direccion_envio.tipo_via')?.invalid) {
-                                        <p>El tipo de via es requerido</p>
+                <div class="form__data flex-container" style="--flex-direction: column">
+                    <form class="flex-container" style="--justify-content: center; --align-items: center;"
+                            formGroupName="direccion_envio">
+                            <div class="input__address">
+                                <label>Direccion</label>
+                                <input pInputText type="text" placeholder="Direccion" formControlName="nombre_via" normalizeSpaces
+                                    [ngClass]="{'lib-invalid': editInfoForm.get('direccion_envio.nombre_via')?.touched && editInfoForm.get('direccion_envio.nombre_via')?.invalid}">
+                                    @if (editInfoForm.get('direccion_envio.nombre_via')?.touched && editInfoForm.get('direccion_envio.nombre_via')?.invalid) {
+                                        <p>La direccion es requerida</p>
                                     }
                             </div>
-                            <div class="input__field ">
-                                <label>Numero</label>
-                                <div class="input__field-number">
-                                    <input pInputText type="number" formControlName="numero_exterior" normalizeSpaces
-                                        [ngClass]="{'lib-invalid': editInfoForm.get('direccion_envio.numero_exterior')?.touched && editInfoForm.get('direccion_envio.numero_exterior')?.invalid}">
-                                    <input pInputText type="number" formControlName="numero_interior" normalizeSpaces
-                                        [ngClass]="{'lib-invalid': editInfoForm.get('direccion_envio.numero_interior')?.touched && editInfoForm.get('direccion_envio.numero_interior')?.invalid}">
+                            <div class="input__group-address">
+                                <div class="input__field input__field-dropdown">
+                                    <label>Tipo</label>
+                                    <p-dropdown class="road-type" [options]="roads" formControlName="tipo_via"
+                                        [ngClass]="{'lib-invalid': editInfoForm.get('direccion_envio.tipo_via')?.touched && editInfoForm.get('direccion_envio.tipo_via')?.invalid}"></p-dropdown>
+                                        @if (editInfoForm.get('direccion_envio.tipo_via')?.touched && editInfoForm.get('direccion_envio.tipo_via')?.invalid) {
+                                            <p>El tipo de via es requerido</p>
+                                        }
+                                </div>
+                                <div class="input__field ">
+                                    <label>Numero</label>
+                                    <div class="input__field-number">
+                                        <input pInputText type="number" formControlName="numero_exterior" normalizeSpaces
+                                            [ngClass]="{'lib-invalid': editInfoForm.get('direccion_envio.numero_exterior')?.touched && editInfoForm.get('direccion_envio.numero_exterior')?.invalid}">
+                                        <input pInputText type="number" formControlName="numero_interior" normalizeSpaces
+                                            [ngClass]="{'lib-invalid': editInfoForm.get('direccion_envio.numero_interior')?.touched && editInfoForm.get('direccion_envio.numero_interior')?.invalid}">
+                                    </div>
                                 </div>
                             </div>
+                        </form>
+                    <div class="input__group">
+                        <label>Genero</label>
+                        <p-dropdown [options]="genres" formControlName="genero"
+                        [ngClass]="{'lib-invalid': editInfoForm.get('genero')?.touched && editInfoForm.get('genero')?.invalid}"></p-dropdown>
+                    </div>
+                    <div class="input__group">
+                        <label>Nacimiento</label>
+                        <p-calendar formControlName="fecha_nacimiento" [defaultDate]="maxDate" [maxDate]="maxDate" [minDate]="minDate" dateFormat="dd/mm/yy"
+                        [ngClass]="{'lib-invalid': editInfoForm.get('fecha_nacimiento')?.touched && editInfoForm.get('fecha_nacimiento')?.invalid}">
+                        </p-calendar>
+                    </div>
+
+                    @if (userRole != "admin") {
+                        <div class="input__group">
+                            <label>Temas literarios</label>
+                            <p-multiSelect display="chip" [selectionLimit]="3" [options]="bookGenres" optionLabel="genero" formControlName="preferencias"
+                            [ngClass]="{'lib-invalid': editInfoForm.get('preferencias')?.touched && editInfoForm.get('preferencias')?.invalid}"></p-multiSelect>
                         </div>
-                    </form>
-                <div class="input__group">
-                    <label>Genero</label>
-                    <p-dropdown [options]="genres" formControlName="genero"
-                    [ngClass]="{'lib-invalid': editInfoForm.get('genero')?.touched && editInfoForm.get('genero')?.invalid}"></p-dropdown>
-                </div>
-                <div class="input__group">
-                    <label>Nacimiento</label>
-                    <p-calendar formControlName="fecha_nacimiento" [defaultDate]="maxDate" [maxDate]="maxDate" [minDate]="minDate" dateFormat="dd/mm/yy"
-                    [ngClass]="{'lib-invalid': editInfoForm.get('fecha_nacimiento')?.touched && editInfoForm.get('fecha_nacimiento')?.invalid}">
-                    </p-calendar>
-                </div>
-                <div class="input__group">
-                    <label>Temas literarios</label>
-                    <p-multiSelect display="chip" [selectionLimit]="3" [options]="bookGenres" optionLabel="genero" formControlName="preferencias"
-                    [ngClass]="{'lib-invalid': editInfoForm.get('preferencias')?.touched && editInfoForm.get('preferencias')?.invalid}"></p-multiSelect>
+                    }
+
                 </div>
             </div>
-        </div>
-        <div class="form__submit flex-container" style="--flex-direction: column;">
-            <button class="lib-button" type="submit" [ngClass]="{'lib-button-disabled': !editInfoForm.valid}" 
-            [disabled]="!editInfoForm.valid">
-                Guardar
-            </button>
-        </div>
-    </form>
+            <div class="form__submit flex-container" style="--flex-direction: column;">
+                <button class="lib-button" type="submit" [ngClass]="{'lib-button-disabled': !editInfoForm.valid}" 
+                [disabled]="!editInfoForm.valid">
+                    Guardar
+                </button>
+            </div>
+        </form>
+    }
+    
 
 
     <form class="edit-info__form" [formGroup]="editPassword" (ngSubmit)="onSubmitPass()">

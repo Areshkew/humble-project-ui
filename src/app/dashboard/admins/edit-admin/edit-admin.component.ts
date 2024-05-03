@@ -111,11 +111,13 @@ export class EditAdminComponent implements OnInit {
           this.editInfoForm.get("pais")?.setValue(pais)
           this.onCountryChange();
 
-          const estado = pais.states.find((state: { name: any; }) => state.name === user.estado)
+          let estado = pais.states.find((state: { name: any; }) => state.name === user.estado)
+          estado = estado ? estado : { name: pais.name, cities: [] };
           this.editInfoForm.get("estado")?.setValue(estado)
           this.onStateChange();
           
-          const ciudad = estado.cities.find((city: { name: any; }) => city.name === user.ciudad)
+          let ciudad = estado.cities ? estado.cities.find((city: { name: any; }) => city.name === user.ciudad) : null
+          ciudad = ciudad ? ciudad : { name: pais.name };
           this.editInfoForm.get("ciudad")?.setValue(ciudad)
 
         
@@ -172,7 +174,7 @@ export class EditAdminComponent implements OnInit {
     if(this.cityDropdownComponent) this.cityDropdownComponent.clear();
     if(!selectedState) return;
 
-    this.cities = selectedState.cities.length > 0 ? selectedState.cities : [{name: selectedCountry.name}];
+    this.cities = (selectedState.cities && selectedState.cities.length) > 0 ? selectedState.cities : [{name: selectedCountry.name}];
   }
 
 

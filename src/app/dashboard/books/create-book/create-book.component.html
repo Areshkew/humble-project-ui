@@ -1,0 +1,188 @@
+<div class="create-book flex-container">
+    <div class="create-book__content flex-container" style="--justify-content: center; --align-items: center;">
+        <form class="create-book__form" [formGroup]="createbookForm" (ngSubmit)="onSubmit()">
+
+            <div class="form__group flex-container">
+                <div class="form__data flex-container" style="--flex-direction: column;">
+                    <div class="input__group">
+                        <label>ISSN</label>
+                        <input type="text" placeholder="ISSN" pInputText formControlName="ISSN"
+                            [ngClass]="{'lib-invalid': createbookForm.get('ISSN')?.touched && createbookForm.get('ISSN')?.invalid}">
+                            @if (createbookForm.get('ISSN')?.touched && createbookForm.get('ISSN')?.invalid) {
+                                @if (createbookForm.get('ISSN')?.errors?.['required']) {
+                                    <p>El ISSN es requerido.</p>
+                                }
+                                @if (createbookForm.get('ISSN')?.errors?.['pattern']) {
+                                    <p>El ISSN debe tener exactamente 13 caracteres.</p>
+                                }
+                            }
+                    </div>
+                    
+
+                    <div class="input__group">
+                        <label>Título</label>
+                        <input type="text" placeholder="Título" pInputText formControlName="titulo"
+                            [ngClass]="{'lib-invalid': createbookForm.get('titulo')?.touched && createbookForm.get('titulo')?.invalid}">
+                            @if (createbookForm.get('titulo')?.touched && createbookForm.get('titulo')?.invalid) {
+                                @if (createbookForm.get('titulo')?.errors?.['required']) {
+                                    <p>El título es requerido.</p>
+                                }
+                                @if (createbookForm.get('titulo')?.errors?.['maxlength']) {
+                                    <p>El título no debe superar los 200 caracteres.</p>
+                                }
+                            }
+                    </div>
+
+                    <div class="input__group">
+                        <label>Autor</label>
+                        <input type="text" placeholder="Autor" pInputText formControlName="autor"
+                            [ngClass]="{'lib-invalid': createbookForm.get('autor')?.touched && createbookForm.get('autor')?.invalid}">
+                        @if (createbookForm.get('autor')?.touched && createbookForm.get('autor')?.invalid) {
+                            @if (createbookForm.get('autor')?.errors?.['required']) {
+                                <p>El autor es requerido.</p>
+                            }
+                            @if (createbookForm.get('autor')?.errors?.['maxlength']) {
+                                <p>El autor no debe superar los 100 caracteres.</p>
+                            }
+                        }
+                    </div>
+
+                    <div class="input__group">
+                        <label>Reseña</label>
+                        <textarea placeholder="Reseña" pInputTextarea cols="30" formControlName="resenia"
+                            [ngClass]="{'lib-invalid': createbookForm.get('resenia')?.touched && createbookForm.get('resenia')?.invalid}"></textarea>
+                        @if (createbookForm.get('resenia')?.touched && createbookForm.get('resenia')?.invalid) {
+                            @if (createbookForm.get('resenia')?.errors?.['required']) {
+                                <p>La reseña es requerida.</p>
+                            }
+                            @if (createbookForm.get('resenia')?.errors?.['maxlength']) {
+                                <p>La reseña no debe superar los 500 caracteres.</p>
+                            }
+                        }                            
+                    </div>
+
+                    <div class="input__group">
+                        <label>Número de Páginas</label>
+                        <input type="number" placeholder="Número de Páginas" pInputText formControlName="num_paginas"
+                            [ngClass]="{'lib-invalid': createbookForm.get('num_paginas')?.touched && createbookForm.get('num_paginas')?.invalid}">
+                        @if (createbookForm.get('num_paginas')?.touched && createbookForm.get('num_paginas')?.invalid) {
+                            @if (createbookForm.get('num_paginas')?.errors?.['required']) {
+                                <p>El número de páginas es requerido.</p>
+                            }
+                            @if (createbookForm.get('num_paginas')?.errors?.['min']) {
+                                <p>El número de páginas debe ser mayor que 0.</p>
+                            }
+                        }
+                    </div>
+
+                    <div class="input__group">
+                        <label>Idioma</label>
+                        <input type="text" placeholder="Idioma" pInputText formControlName="idioma"
+                            [ngClass]="{'lib-invalid': createbookForm.get('idioma')?.touched && createbookForm.get('idioma')?.invalid}">
+                        @if (createbookForm.get('idioma')?.touched && createbookForm.get('idioma')?.invalid) {
+                            @if (createbookForm.get('idioma')?.errors?.['required']) {
+                                <p>El idioma es requerido.</p>
+                            }
+                            @if (createbookForm.get('idioma')?.errors?.['maxlength']) {
+                                <p>El idioma no debe superar los 32 caracteres.</p>
+                            }
+                        }
+                            
+                    </div>
+
+                </div>
+
+                <div class="form__data flex-container" style="--flex-direction: column;">
+                    <div class="input__group">
+                        <label>Fecha de Publicación</label>
+                        <p-calendar placeholder="Fecha de Publicación" formControlName="fecha_publicacion" dateFormat="dd/mm/yy" [maxDate]="maxDate"
+                            [ngClass]="{'lib-invalid': createbookForm.get('fecha_publicacion')?.touched && createbookForm.get('fecha_publicacion')?.invalid}"></p-calendar>
+                    </div>
+                    @if (createbookForm.get('fecha_publicacion')?.touched && createbookForm.get('fecha_publicacion')?.invalid) {
+                        @if (createbookForm.get('fecha_publicacion')?.errors?.['required']) {
+                            <p>La fecha de publicación es requerida.</p>
+                        }
+                    }
+
+                    <div class="input__group">
+                        <label>Estado</label>
+                        <p-dropdown [options]="bookStatus" placeholder="Estado" formControlName="estado"
+                            [ngClass]="{'lib-invalid': createbookForm.get('estado')?.touched && createbookForm.get('estado')?.invalid}"></p-dropdown>
+                        @if (createbookForm.get('estado')?.touched && createbookForm.get('estado')?.invalid) {
+                            @if (createbookForm.get('estado')?.errors?.['required']) {
+                                <p>El estado es requerido.</p>
+                            }
+                        }
+                    </div>
+
+
+                    <div class="input__group">
+                        <label>Precio</label>
+                        <input type="text" placeholder="Precio" pInputText formControlName="precio"
+                            [ngClass]="{'lib-invalid': createbookForm.get('precio')?.touched && createbookForm.get('precio')?.invalid}">
+                        @if (createbookForm.get('precio')?.touched && createbookForm.get('precio')?.invalid) {
+                            @if (createbookForm.get('precio')?.errors?.['required']) {
+                                <p>El precio es requerido.</p>
+                            }
+                            @if (createbookForm.get('precio')?.errors?.['min']) {
+                                <p>El precio debe ser mayor o igual a 0.</p>
+                            }
+                        }
+                    </div>
+
+                    <div class="input__group">
+                        <label>Descuento</label>
+                        <input type="text" placeholder="Descuento" pInputText formControlName="descuento"
+                            [ngClass]="{'lib-invalid': createbookForm.get('descuento')?.touched && createbookForm.get('descuento')?.invalid}">
+                        @if (createbookForm.get('descuento')?.touched && createbookForm.get('descuento')?.invalid) {
+                            @if (createbookForm.get('descuento')?.errors?.['min']) {
+                                <p>El descuento debe ser mayor o igual a 0.</p>
+                            }
+                        }
+                    </div>
+
+                    <div class="input__group">
+                        <label>Editorial</label>
+                        <input type="text" placeholder="Editorial" pInputText formControlName="editorial"
+                            [ngClass]="{'lib-invalid': createbookForm.get('editorial')?.touched && createbookForm.get('editorial')?.invalid}">
+                        @if (createbookForm.get('editorial')?.touched && createbookForm.get('editorial')?.invalid) {
+                            @if (createbookForm.get('editorial')?.errors?.['required']) {
+                                <p>La editorial es requerida.</p>
+                            }
+                            @if (createbookForm.get('editorial')?.errors?.['maxlength']) {
+                                <p>La editorial no debe superar los 100 caracteres.</p>
+                            }
+                        }
+                            
+                    </div>
+
+                    <div class="input__group">
+                        <label>Género</label>
+                        <p-dropdown [options]="bookGenres" placeholder="Género" optionLabel="genero" formControlName="genero"
+                            [ngClass]="{'lib-invalid': createbookForm.get('genero')?.touched && createbookForm.get('genero')?.invalid}"></p-dropdown>
+                        @if (createbookForm.get('genero')?.touched && createbookForm.get('genero')?.invalid) {
+                            @if (createbookForm.get('genero')?.errors?.['required']) {
+                                <p>El género es requerido.</p>
+                            }
+                        }
+                    </div>
+
+                    
+                </div>
+                <div class="input__group">
+                    <label>Portada del libro</label>
+                    <p-fileUpload mode="advanced" chooseLabel="Portada"  accept="image/*" #coverUpload [customUpload]="true" (onSelect)="uploadFile($event)"
+                                name="cover[]" accept="image/*" [maxFileSize]="1000000" [showCancelButton]="true" [showUploadButton]="false" cancelLabel="Cancelar">
+                    </p-fileUpload>
+                </div>
+            </div>
+
+            <div class="form__submit flex-container" style="--flex-direction: column;">
+                <button class="lib-button" type="submit" [ngClass]="{'lib-button-disabled': !createbookForm.valid}"
+                    [disabled]="!createbookForm.valid">
+                    Crear Libro
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

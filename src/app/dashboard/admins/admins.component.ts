@@ -55,9 +55,10 @@ export class AdminsComponent implements OnInit, OnDestroy{
       next: admins => {
         this.admins = admins;
       },
-      error: () => {
+      error: (e) => {
         this.admins = []
         this.selectedAdmins = []
+        this.toastService.showErrorToast("Error", e)
       }
     })
   }
