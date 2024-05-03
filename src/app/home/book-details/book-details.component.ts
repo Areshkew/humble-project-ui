@@ -18,7 +18,8 @@ export class BookDetailsComponent {
   book: any
   role: any
 
-  constructor(private route: ActivatedRoute, private bookService: BookService, private viewportScroller: ViewportScroller, private authService: AuthService,) {}
+  constructor(private route: ActivatedRoute, private bookService: BookService, private viewportScroller: ViewportScroller, 
+    private authService: AuthService,) {}
 
   ngOnInit(): void {
     this.role = this.authService.getUserRoleFromToken()

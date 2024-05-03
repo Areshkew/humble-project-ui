@@ -1,5 +1,5 @@
-<div class="search-results" [style.position]="absolute ? 'absolute' : 'static'">
-    
+<div class="search-results" [style.position]="absolute ? 'absolute' : 'static'" (mouseenter)="mouseenter.emit()" 
+(mouseleave)="mouseleave.emit()" >
         @if (!loading) {
             <div class="flex-container" style="--flex-direction: row">
 

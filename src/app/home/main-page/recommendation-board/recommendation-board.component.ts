@@ -4,11 +4,12 @@ import { IconComponent } from '../../../shared/icon/icon.component';
 import { CarouselModule } from 'primeng/carousel';
 import { GENRES } from '@models/genres';
 import { BookService } from '@services/book.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-recommendation-board',
   standalone: true,
-  imports: [IconComponent, CarouselModule],
+  imports: [IconComponent, CarouselModule,  RouterLink ],
   templateUrl: './recommendation-board.component.html',
   styleUrl: './recommendation-board.component.css'
 })

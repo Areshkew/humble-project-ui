@@ -43,6 +43,10 @@ export class MenuComponent implements OnInit, OnDestroy {
   searchRequestValue!: string;
   userRole!: string | null;
   inputHasFocus: boolean = false;
+  hoveringOverResults: boolean = false;
+
+
+
 
   constructor(
     private loadingService: LoadingService,
@@ -114,5 +118,9 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.searchRequestValue = "";
     this.displayResults = false;
     this.searchControl.setValue("");
+  }
+
+  setHoveringOverResults(state: boolean) {
+    this.hoveringOverResults = state;
   }
 }

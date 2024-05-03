@@ -6,8 +6,9 @@
             <input class="lib-input" type="text" [formControl]="searchControl" placeholder="Busqueda de Libros "
                         (focus)="inputHasFocus = true" 
                         (blur)="inputHasFocus = false">
-            @if (displayResults && inputHasFocus) {
-                <app-search-results [receivedValue]="searchRequestValue"></app-search-results>
+            @if (displayResults &&( inputHasFocus || hoveringOverResults)) {
+                <app-search-results [receivedValue]="searchRequestValue" (mouseenter)="setHoveringOverResults(true)" 
+                (mouseleave)="setHoveringOverResults(false)" ></app-search-results>
             }
             <button class="lib-button">
                 <app-icon icon="search" [size]=28></app-icon>

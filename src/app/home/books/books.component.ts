@@ -6,6 +6,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { BookService } from '@services/book.service';
 import { ToastService } from '@services/utils/toast.service';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '@services/auth/auth.service';
 
 @Component({
   selector: 'app-books',
@@ -24,11 +25,15 @@ export class BooksComponent implements OnChanges{
   first: number = 0; 
 
   books: any[] = []
+  role: any
 
 
-  constructor(private bookService: BookService, private viewportScroller: ViewportScroller, private toastService: ToastService){}
+  constructor(private bookService: BookService, private viewportScroller: ViewportScroller, private toastService: ToastService,
+    private authService: AuthService
+  ){}
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.role = this.authService.getUserRoleFromToken()
     this.viewportScroller.scrollToPosition([0, 0])
     
     
