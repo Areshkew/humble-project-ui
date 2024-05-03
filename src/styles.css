@@ -107,6 +107,13 @@ p-calendar, p-multiselect, p-dropdown{
     width: auto;
     height: auto;
 }
+
+
+.book-link {
+    text-decoration: none; 
+    color: inherit;
+    display: block; 
+  }
   
 /* CSS Hiding */
 /* For Chrome, Safari, Edge, Opera */

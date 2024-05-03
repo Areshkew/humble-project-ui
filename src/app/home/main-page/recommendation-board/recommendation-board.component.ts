@@ -36,12 +36,11 @@ export class RecommendationBoardComponent implements OnInit{
       page: 1,
       size: 1,
     };
-
+    
     this.bookService.getBooks(filters).subscribe({
       next: (response) => {       
         if (response.books.length > 0) {
           this.books = [...this.books, response.books[0]];
-          
         }
       },
       error: (error) => {

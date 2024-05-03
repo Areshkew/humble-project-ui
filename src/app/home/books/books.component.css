@@ -118,3 +118,9 @@
 .book-card:hover .book-info{
   filter: blur(1px);
 }
+
+.book-link {
+  text-decoration: none; 
+  color: inherit;
+  display: block; 
+}

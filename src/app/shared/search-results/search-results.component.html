@@ -4,7 +4,7 @@
             <div class="flex-container" style="--flex-direction: row">
 
                 <div class="search-results__text"> Resultados para: <div class="search-results__query">{{ receivedValue }}</div> </div>
-                <a routerLink="/busqueda-avanzada"><span class="form__links">Busqueda avanzada</span></a>
+                <a class="book-link" routerLink="/busqueda-avanzada"><span class="form__links">Busqueda avanzada</span></a>
                 
             </div>
     
@@ -14,6 +14,7 @@
                 
                 <div class="search-results__hits">
                     @for (item of this.books; track $index) {
+                        <a class="book-link"  [routerLink]="['/libro', item.ISSN]">
                         <div class="card" [title]="item.titulo">
                             <img [src]="imageUrl + '/' + item.portada" alt="{{ item.titulo }}" class="card-image">
                             <div class="card-info">
@@ -25,6 +26,7 @@
                                 </div>
                             </div>
                         </div>
+                    </a>
                     }
                 </div>
     

@@ -40,4 +40,13 @@ export class BookService {
       );
   }
 
+  getBookByISSN(issn: string): Observable<any> {
+    return this.http.get(`/api/book/${issn}`).pipe(
+      catchError(error => {
+        console.error('Error fetching book by ISSN:', error);
+        throw error;
+      })
+    );
+  }
+
 }

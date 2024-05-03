@@ -5,11 +5,12 @@ import { CommonModule, ViewportScroller } from '@angular/common';
 import { PaginatorModule } from 'primeng/paginator';
 import { BookService } from '@services/book.service';
 import { ToastService } from '@services/utils/toast.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-books',
   standalone: true,
-  imports: [IconComponent, CommonModule, PaginatorModule,],
+  imports: [IconComponent, CommonModule, PaginatorModule, RouterLink],
   templateUrl: './books.component.html',
   styleUrl: './books.component.css'
 })
@@ -32,11 +33,11 @@ export class BooksComponent implements OnChanges{
     
     
     if (changes['filters'] && changes['filters'].currentValue !== changes['filters'].previousValue) {
-      setTimeout(() => {
+      
         this.filters.page = 1;
         this.first = 0;
         this.loadBooks();
-      }, 0);
+      
     }
   }
 

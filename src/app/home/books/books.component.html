@@ -1,8 +1,8 @@
 <p-paginator [rows]="filters.size" [first]="first" [totalRecords]="totalRecords" (onPageChange)="onPaginateChange($event)"></p-paginator>
 <div class="books flex-container">
     @for (item of books ; track $index) {
+        <a class="book-link"  [routerLink]="['/libro', item.ISSN]">
     <div class="book-card flex-container" style="--flex-direction: row; --align-items: start;">
-        
         <div class="card-image-container">
             <img class="card-image" [src]="imageUrl +'/' + item.portada" alt="{{ item.titulo }}">
         </div>
@@ -31,6 +31,7 @@
             <button class="btn"><app-icon icon="payments" [size]="30" color="white"></app-icon>Comprar</button>
         </div>
     </div>
+</a>
     }
 </div>  
 <p-paginator [rows]="filters.size" [first]="first" [totalRecords]="totalRecords" (onPageChange)="onPaginateChange($event)"></p-paginator>

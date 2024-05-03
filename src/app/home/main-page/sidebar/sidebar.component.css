@@ -43,6 +43,13 @@
 
 .forms__links{
   text-align: center;
+  text-decoration: none;
+}
+
+.book-link {
+  text-decoration: none; 
+  color: inherit;
+  display: block; 
 }
 
 .clear-button{
