@@ -64,9 +64,9 @@
   }
 
 .book-actions{
-    width: 60%;
+    width: 70%;
     justify-content: space-between;
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-md);
     padding-top: 3rem;
 }
 
@@ -74,7 +74,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px ;
+    padding: 15px ;
     border: none;
     background-color: #002122;
     color: white; 
