@@ -1,0 +1,127 @@
+.book-details {
+    width: 100%;  
+    margin: auto;
+    background-color: rgb(249, 249, 249);
+  }
+
+.book-details__content {
+    width: 80%;
+    height: 100%;
+    margin-top: 5rem;
+}
+
+.book-details__upper {
+    align-items: center; 
+    margin-top: 2rem;
+    z-index: 1;
+    
+}
+
+.book-details__img{
+    width: 50%;
+}
+
+.book-img{
+    width: 300px;
+    box-shadow: -20px 20px 20px 0 rgba(0, 0, 0, 0.5);
+}
+
+.book-info__upper{
+    width: 50%;
+    height: 100%;
+}
+
+.title {
+    font-size: var(--font-size-xxl);
+    font-weight: bolder;
+}
+
+.autor {
+    font-size: var(--font-size-md);
+    font-weight: bolder;
+}
+
+.prices-container {
+    display: flex;
+    flex-direction: column;      
+    margin-top: 2rem;
+    
+  }
+  
+  .price-original {
+    text-decoration: line-through;
+    color: #999; 
+    font-size: var(--font-size-xxl);
+  }
+  
+  .price-discount {
+    color: #ff6347; 
+    font-weight: bold;
+    font-size: var(--font-size-xxl);
+  }
+
+.book-actions{
+    width: 60%;
+    justify-content: space-between;
+    font-size: var(--font-size-lg);
+    padding-top: 3rem;
+}
+
+  .btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px ;
+    border: none;
+    background-color: #002122;
+    color: white; 
+    border-radius: 50px; 
+    cursor: pointer; 
+    font-weight: bold;
+  }
+  
+  .btn:hover {
+    background-color: #fd6c40
+  }
+
+.book-details__lower {
+    align-items: start;
+    justify-content: center;
+    background-color: white;
+    margin-top: -10rem;  
+    padding-top: 15rem;
+    padding-bottom: 5rem;
+}
+
+.book-details__review {
+    width: 50%;
+    padding-left: 5rem;
+    font-size: var(--font-size-md);
+
+}
+
+.review {
+    text-align: justify;
+}
+
+.book-details__info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    width: 50%;
+    margin: 0 2rem;
+    font-size: var(--font-size-md);
+    height: 100%;
+    padding-left: 8rem;
+}
+
+.info-label {
+    font-weight: bold; 
+    display: block;
+}
+
+.info-item {
+    margin-bottom: 1rem; 
+}
+
+

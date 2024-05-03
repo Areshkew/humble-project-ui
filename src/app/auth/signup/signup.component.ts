@@ -147,7 +147,9 @@ export class SignupComponent implements OnInit{
     formData.ciudad = city;
     formData.direccion_envio = completeAddress;  
     
+    
     this.userService.register(formData).subscribe({
+      
       next: (response) => {
         if (response.token) {
           this.toastService.showSuccessToast("Registro Exitoso", "Te damos la bienvenida a LibHub")

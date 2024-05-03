@@ -1,0 +1,15 @@
+<div class="search-page flex-container">
+    <div class="search-page__content flex-container" style="--flex-direction: column;">
+        <div class="books-category-container flex-container" style="--flex-direction: row">
+            <div class="filters flex-container">
+                <app-accordion (filtersChanged)="handleFiltersChanged($event)" [ngClass]="{'hidden': !accordionVisible}" ></app-accordion>
+            </div>
+            <div>
+                <button class="toggle-button" (click)="showAccordion()">
+                    <app-icon icon="menu" [size]=28></app-icon>
+                </button>
+            </div>
+            <app-books [filters]="filters" ></app-books>
+        </div>
+    </div>
+</div>

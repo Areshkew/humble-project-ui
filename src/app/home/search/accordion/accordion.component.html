@@ -1,0 +1,63 @@
+<div class="accordion flex-container">
+    <div class="accordion__content flex-container" style="--flex-direction: column">
+        <div class="accordion__title flex-container" style="--flex-direction: row">
+            <h2>Filtrado</h2>
+            <button class="clear-button" (click)="clearSelection()">
+                <abbr title="Limpiar filtros">
+                    <app-icon icon="ink_eraser" [size]=28></app-icon>
+                </abbr>
+            </button>
+        </div>
+        <div class="accordion__categories">
+            <p-accordion [multiple]="true" [activeIndex]="[0, 1, 2, 3, 4]">
+                <p-accordionTab header="Categorias">
+                    <ul>
+                        @for (book of booksGenres; track $index) {
+                        <li (click)="onCategorySelected(book)" [ngClass]="{'selected': book.genero === currentGenre}">
+                            {{book.genero}}</li>
+                        }
+                    </ul>
+                </p-accordionTab>
+                <p-accordionTab header="Precio">
+                    <ul>
+                        @for (price of booksPrices; track $index) {
+                            <li class="price" (click)="onPriceSelected(price)" [ngClass]="{'selected': price.id === currentIdPrice}">
+                                {{price.minPrice | currency: 'COP' }} - {{price.maxPrice | currency: 'COP' }}
+                                @if (price.maxPrice == null) {
+                                    Maximo
+                                }
+                            </li>
+                        }
+                    </ul>
+                    <div class="order">Ordenar por:</div>
+                    <ul>
+                        <li (click)="onSortSelected('min_max')" [ngClass]="{'selected': sortOrder === 'min_max'}">Menor a Mayor</li>
+                        <li (click)="onSortSelected('max_min')" [ngClass]="{'selected': sortOrder === 'max_min'}">Mayor a Menor</li>
+                    </ul>
+                </p-accordionTab>
+                <p-accordionTab header="Estado" >
+                    <ul>
+                        <li (click)="onStateSelected('true')" [ngClass]="{'selected': isNew === 'true'}">Nuevo</li>
+                        <li (click)="onStateSelected('false')" [ngClass]="{'selected': isNew === 'false'}">Usado</li>
+                    </ul>
+                </p-accordionTab>
+                <p-accordionTab header="Idioma">
+                    <ul>
+                        <li (click)="onLanguageSelected('Español')" [ngClass]="{'selected': currentLanguage === 'Español'}">Español</li>
+                        <li (click)="onLanguageSelected('Inglés')" [ngClass]="{'selected': currentLanguage === 'Inglés'}">Inglés</li>
+                    </ul>
+                </p-accordionTab>
+                <p-accordionTab header="Fecha Publicacion">
+                    <div class="date">
+                        <div class="date__content">
+                            <p-calendar [(ngModel)]="selectedDate" (ngModelChange)="onDateSeleted($event)" placeholder="Fecha" [defaultDate]="maxDate"
+                            [maxDate]="maxDate" dateFormat="dd/mm/yy"></p-calendar>
+                        </div>
+                    </div>
+                </p-accordionTab>
+                
+
+            </p-accordion>
+        </div>
+    </div>
+</div>

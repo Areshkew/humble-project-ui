@@ -1,0 +1,126 @@
+.books {
+  flex-wrap: wrap;
+  padding-right: 3rem;
+  padding-top: 2rem;
+  justify-content: space-around;
+}
+
+.book-card {
+  display: flex;
+  width: 400px;
+  height: 250px;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, color 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+}
+
+.card-image-container {
+  width: 150px;
+  height: 250px;
+}
+
+.card-image {
+  width: 150px;
+  height: 250px;
+}
+
+.book-info {
+  flex: 1;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: var(--font-size-base);
+  display: -webkit-box;            /* Utiliza el modelo de caja flexible de webkit */
+    -webkit-box-orient: vertical;    /* Orienta el contenido del contenedor verticalmente */
+    -webkit-line-clamp: 2;           /* Limita el texto a dos líneas */
+    overflow: hidden;                /* Oculta el contenido que sobrepasa el contenedor */
+    text-overflow: ellipsis; 
+    
+}
+
+.price-discount-container {
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-end; 
+  
+  font-size: var(--font-size-md);
+}
+
+.price-original {
+  text-decoration: line-through;
+  color: #999; 
+}
+
+.price-discount {
+  color: #ff6347; 
+  font-weight: bold;
+}
+
+.icon-text {
+  display: flex;
+  align-items: center;
+}
+
+
+
+.card-buttons {
+  position: absolute;
+  bottom: 10px; 
+  left: 50%;
+  transform: translateX(-80%); 
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  display: flex;
+  gap: 5px;
+  font-size: var(--font-size-sm);
+}
+
+.book-card:hover .card-buttons {
+  opacity: 1;
+  visibility: visible;
+}
+
+.btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 10px;
+  border: none;
+  background-color: #fd6c40;
+  color: white; 
+  border-radius: 5px; 
+  cursor: pointer; 
+  font-weight: bold;
+}
+
+
+
+.btn:hover {
+  background-color: #c76352;
+}
+
+.book-card:hover {
+  color: #f48b6b;
+  transform: scale(1.1);
+}
+
+.book-card:hover .book-info{
+  filter: blur(1px);
+}
+
+.book-link {
+  text-decoration: none; 
+  color: inherit;
+  display: block; 
+}

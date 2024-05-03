@@ -1,0 +1,67 @@
+<div class="book-details flex-container" style="--aling-items: center; --justify-content: center">
+    <div class="book-details__content flex-container" style="--flex-direction: column">
+        <div class="book-details__upper flex-container " style="--flex-direction: row; --aling-items: center; --justify-content: center">
+            <div class="book-details__img flex-container" style="--justify-content: center">
+                <img class="book-img" [src]="imageUrl +'/' + book.portada" alt="">
+            </div>
+            <div class="book-info__upper">
+                <div class="title"> {{book.titulo}}</div>
+                <div class="autor">{{book.autor}}</div>
+                <div class="prices-container">
+                    @if (book.descuento === book.precio) {
+                        <div class="price-discount">{{ book.precio | currency: 'COP' }}</div>
+                    }@else {
+                        <div class="price-original">{{ book.precio | currency: 'COP' }}</div>
+                        <div class="price-discount">{{ book.descuento | currency: 'COP' }}</div>
+                    }
+                </div>
+                <div class="book-actions flex-container" style="--flex-direction: row">
+                    @if (role === 'admin'){
+                        <button class="btn"><app-icon icon="edit" [size]="30" color="white"></app-icon>Editar</button>
+                        <button class="btn"><app-icon icon="add" [size]="30" color="white"></app-icon>Agregar Unidades</button>
+                    }@else if(role === 'root'){
+                    }@else {
+                        <button class="btn"><app-icon icon="shopping_cart" [size]="30" color="white"></app-icon>Carrito</button>
+                        <button class="btn"><app-icon icon="payments" [size]="30" color="white"></app-icon>Comprar</button>                        
+                    }
+                </div>
+            </div>
+
+        </div>
+        <div class="book-details__lower flex-container" style="--flex-direction: row">
+            <div class="book-details__review">
+                <div class="review">{{book.resenia}}</div>
+            </div>
+            <div class="book-details__info flex-container" style="--flex-direction: column; --align-items: center">
+                <div class="info-item">
+                    <div class="info-label">ISSN</div>
+                    <div class="info-value">{{book.ISSN}}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Estado</div>
+                    <div class="info-value">{{getState(book.estado)}}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Idioma</div>
+                    <div class="info-value">{{book.idioma}}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Fecha de Publicación</div>
+                    <div class="info-value">{{book.fecha_publicacion}}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Número de Páginas</div>
+                    <div class="info-value">{{book.num_paginas}}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Editorial</div>
+                    <div class="info-value">{{book.editorial}}</div>
+                </div>
+            </div>
+            
+            
+
+        </div>
+
+    </div>
+</div>

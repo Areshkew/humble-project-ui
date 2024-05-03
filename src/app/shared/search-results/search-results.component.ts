@@ -4,12 +4,13 @@ import { BookService } from '@services/book.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { environment } from '../../../environments/environment';
 import { IconComponent } from '../icon/icon.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-search-results',
   standalone: true,
   imports: [
-    CommonModule, ProgressSpinnerModule, IconComponent
+    CommonModule, ProgressSpinnerModule, IconComponent, RouterLink
   ],
   templateUrl: "./search-results.component.html",
   styleUrl: './search-results.component.css'
@@ -32,6 +33,7 @@ export class SearchResultsComponent implements OnChanges {
       this.bookService.searchBooks(this.receivedValue).subscribe({
         next: (response) => {
           if(response.success) this.books = response.results;
+          
         },
         error: (response) => {
           this.books = response.error.detail;
@@ -50,7 +52,7 @@ export class SearchResultsComponent implements OnChanges {
 
   getLanguageEmoji(languageCode: string): string {
     const languageMap: any = {
-      "inglés": 'language_gb_english',
+      "inglés": 'language_us',
       "español": 'language_spanish'
     };
 

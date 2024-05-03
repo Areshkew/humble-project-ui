@@ -1,0 +1,25 @@
+    <div class="sidebar flex-container">
+        <div class="sidebar__content flex-container" style="--flex-direction: column">
+            <div class="sidebar__title flex-container" style="--flex-direction: row">
+                <h3>Categorias</h3> 
+               
+                <button class="clear-button"  (click)="clearSelection()" >
+                    <abbr title="Limpiar filtros">
+                        <app-icon icon="ink_eraser" [size]=28></app-icon>
+                        
+                    </abbr>
+                </button>
+            </div>
+            <div class="sidebar__categories">
+                <div class="advanced-search">
+
+                    <a class="book-link" routerLink="/busqueda-avanzada"><span class="form__links">Busqueda avanzada</span></a>
+                </div>
+                <ul>
+                    @for (book of booksGenres; track $index) {
+                    <li (click)="onCategorySelected(book)" [ngClass]="{'selected': book.genero === currentGenre}">{{book.genero}}</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
