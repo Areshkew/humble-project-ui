@@ -18,8 +18,13 @@
     border-radius: 25px;
     padding: 20px;
     overflow: hidden;
+    transition: transform 0.3s ease, color 0.3s ease, background 0.3s ease;
   }
   
+  .recommendation-board__content:hover{
+    transform: scale(1.1);
+
+  }
   
   .carousel-content{
   
@@ -34,6 +39,7 @@
     overflow: hidden;
     cursor: pointer;
   }
+
   
   .book-info {
     padding: 10px;

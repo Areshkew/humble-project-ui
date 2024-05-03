@@ -2,8 +2,8 @@
     <div class="recommendation-board__content">
         <p-carousel [value]="books" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]=3000>
             <ng-template let-book pTemplate="item">
+                <a class="book-link"  [routerLink]="['/libro', book.ISSN]">
                 <div class="carousel-content flex-container" style="--flex-direction: row; --align-items: start;">
-
                     <div class="book-info">
                         <div class="carousel-title">{{ book.titulo }}</div>
                         <div class="carousel-details">
@@ -29,6 +29,7 @@
                             [alt]="book.titulo">
                     </div>
                 </div>
+            </a>
             </ng-template>
 
         </p-carousel>

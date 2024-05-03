@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { BookService } from '@services/book.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { environment } from '../../../environments/environment';
@@ -23,6 +23,10 @@ export class SearchResultsComponent implements OnChanges {
 
   @Input() absolute: boolean = true; 
   @Input() receivedValue!: string;
+
+  @Output() mouseenter = new EventEmitter<void>();
+@Output() mouseleave = new EventEmitter<void>();
+
 
   constructor(private bookService: BookService){}
 
