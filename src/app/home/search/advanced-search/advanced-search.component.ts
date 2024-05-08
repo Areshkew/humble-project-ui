@@ -23,7 +23,6 @@ export class AdvancedSearchComponent implements OnInit{
   
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      // Crear un objeto para todos los filtros basados en los parámetros de la URL
       const filters = {
         category: params['categoria'] || null,
         min_price: params['precioMin'] || null,
@@ -33,7 +32,6 @@ export class AdvancedSearchComponent implements OnInit{
         language: params['idioma'] || null,
         publication_date: params['fecha'] || null,
         
-        // Agrega aquí más filtros si los tienes
       };
 
       this.handleFiltersChanged(filters);

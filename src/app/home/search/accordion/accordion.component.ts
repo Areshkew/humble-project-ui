@@ -276,7 +276,6 @@ export class AccordionComponent implements OnInit{
       page: null,
     };
     this.filtersChanged.emit(filters);
-    console.log(filters);
     
   }
 }
