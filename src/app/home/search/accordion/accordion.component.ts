@@ -69,6 +69,41 @@ export class AccordionComponent {
     this.emitFilters()
   }
 
+  clearCategory(event: MouseEvent) {
+    event.stopPropagation();
+    this.currentGenre = null;
+    this.currentGenreKey = null;
+    this.emitFilters();
+}
+
+clearPrice(event: MouseEvent) {
+    event.stopPropagation();
+    this.currentIdPrice = null;
+    this.currentMinPrice = null;
+    this.currentMaxPrice = null;
+    this.sortOrder = null;
+    this.emitFilters();
+}
+
+clearState(event: MouseEvent) {
+    event.stopPropagation();
+    this.isNew = null;
+    this.emitFilters();
+}
+
+clearLanguage(event: MouseEvent) {
+    event.stopPropagation();
+    this.currentLanguage = null;
+    this.emitFilters();
+}
+
+clearPublicationDate(event: MouseEvent) {
+    event.stopPropagation();
+    this.selectedDate = null;
+    this.selectedDateFormated = null;
+    this.emitFilters();
+}
+
 
   clearSelection() {
     this.currentGenre = null;

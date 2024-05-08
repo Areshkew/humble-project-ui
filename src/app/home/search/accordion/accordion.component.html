@@ -10,7 +10,18 @@
         </div>
         <div class="accordion__categories">
             <p-accordion [multiple]="true" [activeIndex]="[0, 1, 2, 3, 4]">
-                <p-accordionTab header="Categorias">
+                <p-accordionTab>
+                    <ng-template pTemplate="header">
+                        <div class="custom-header flex-container" style="--flex-direction: row">
+                            <div>Categorias</div>
+                            <button class="clear-button" (click)="clearCategory($event)">
+                                <abbr title="Limpiar">
+                                    <app-icon icon="ink_eraser" [size]=28></app-icon>
+                                </abbr>
+                            </button>
+                        </div>
+                    </ng-template>
+                    
                     <ul>
                         @for (book of booksGenres; track $index) {
                         <li (click)="onCategorySelected(book)" [ngClass]="{'selected': book.genero === currentGenre}">
@@ -18,7 +29,17 @@
                         }
                     </ul>
                 </p-accordionTab>
-                <p-accordionTab header="Precio">
+                <p-accordionTab>
+                    <ng-template pTemplate="header">
+                        <div class="custom-header flex-container" style="--flex-direction: row">
+                            <div>Precio</div>
+                            <button class="clear-button" (click)="clearPrice($event)">
+                                <abbr title="Limpiar">
+                                    <app-icon icon="ink_eraser" [size]=28></app-icon>
+                                </abbr>
+                            </button>
+                        </div>
+                    </ng-template>
                     <ul>
                         @for (price of booksPrices; track $index) {
                             <li class="price" (click)="onPriceSelected(price)" [ngClass]="{'selected': price.id === currentIdPrice}">
@@ -35,19 +56,49 @@
                         <li (click)="onSortSelected('max_min')" [ngClass]="{'selected': sortOrder === 'max_min'}">Mayor a Menor</li>
                     </ul>
                 </p-accordionTab>
-                <p-accordionTab header="Estado" >
+                <p-accordionTab>
+                    <ng-template pTemplate="header">
+                        <div class="custom-header flex-container" style="--flex-direction: row">
+                            <div>Estado</div>
+                            <button class="clear-button" (click)="clearState($event)">
+                                <abbr title="Limpiar">
+                                    <app-icon icon="ink_eraser" [size]=28></app-icon>
+                                </abbr>
+                            </button>
+                        </div>
+                    </ng-template>
                     <ul>
                         <li (click)="onStateSelected('true')" [ngClass]="{'selected': isNew === 'true'}">Nuevo</li>
                         <li (click)="onStateSelected('false')" [ngClass]="{'selected': isNew === 'false'}">Usado</li>
                     </ul>
                 </p-accordionTab>
-                <p-accordionTab header="Idioma">
+                <p-accordionTab>
+                    <ng-template pTemplate="header">
+                        <div class="custom-header flex-container" style="--flex-direction: row">
+                            <div>Idioma</div>
+                            <button class="clear-button" (click)="clearLanguage($event)">
+                                <abbr title="Limpiar">
+                                    <app-icon icon="ink_eraser" [size]=28></app-icon>
+                                </abbr>
+                            </button>
+                        </div>
+                    </ng-template>
                     <ul>
                         <li (click)="onLanguageSelected('Español')" [ngClass]="{'selected': currentLanguage === 'Español'}">Español</li>
                         <li (click)="onLanguageSelected('Inglés')" [ngClass]="{'selected': currentLanguage === 'Inglés'}">Inglés</li>
                     </ul>
                 </p-accordionTab>
-                <p-accordionTab header="Fecha Publicacion">
+                <p-accordionTab>
+                    <ng-template pTemplate="header">
+                        <div class="custom-header flex-container" style="--flex-direction: row">
+                            <div>Fecha Publicacion</div>
+                            <button class="clear-button" (click)="clearCategory($event)">
+                                <abbr title="Limpiar">
+                                    <app-icon icon="ink_eraser" [size]=28></app-icon>
+                                </abbr>
+                            </button>
+                        </div>
+                    </ng-template>
                     <div class="date">
                         <div class="date__content">
                             <p-calendar [(ngModel)]="selectedDate" (ngModelChange)="onDateSeleted($event)" placeholder="Fecha" [defaultDate]="maxDate"
