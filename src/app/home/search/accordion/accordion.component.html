@@ -9,7 +9,7 @@
             </button>
         </div>
         <div class="accordion__categories">
-            <p-accordion [multiple]="true" [activeIndex]="[0, 1, 2, 3, 4]">
+            <p-accordion [multiple]="true" [activeIndex]="[0, 1]">
                 <p-accordionTab>
                     <ng-template pTemplate="header">
                         <div class="custom-header flex-container" style="--flex-direction: row">
@@ -59,6 +59,28 @@
                 <p-accordionTab>
                     <ng-template pTemplate="header">
                         <div class="custom-header flex-container" style="--flex-direction: row">
+                            <div>Numero de paginas</div>
+                            <button class="clear-button" (click)="clearPage($event)">
+                                <abbr title="Limpiar">
+                                    <app-icon icon="ink_eraser" [size]=28></app-icon>
+                                </abbr>
+                            </button>
+                        </div>
+                    </ng-template>
+                    <ul>
+                        @for (page of booksPages; track $index) {
+                            <li class="pages" (click)="onPageSelected(page)" [ngClass]="{'selected': page.id == currentIdPage}">
+                                {{page.minPage}} - {{page.maxPage}}
+                                @if (page.maxPage == null) {
+                                    Maximo
+                                }
+                            </li>
+                        }
+                    </ul>
+                </p-accordionTab>
+                <p-accordionTab>
+                    <ng-template pTemplate="header">
+                        <div class="custom-header flex-container" style="--flex-direction: row">
                             <div>Estado</div>
                             <button class="clear-button" (click)="clearState($event)">
                                 <abbr title="Limpiar">
@@ -92,16 +114,22 @@
                     <ng-template pTemplate="header">
                         <div class="custom-header flex-container" style="--flex-direction: row">
                             <div>Fecha Publicacion</div>
-                            <button class="clear-button" (click)="clearCategory($event)">
+                            <button class="clear-button" (click)="clearPublicationDate($event)">
                                 <abbr title="Limpiar">
                                     <app-icon icon="ink_eraser" [size]=28></app-icon>
                                 </abbr>
                             </button>
                         </div>
                     </ng-template>
-                    <div class="date">
+                    <div class="date flex-container" style="--flex-direction: column" >
+                        <div>Desde</div>
                         <div class="date__content">
-                            <p-calendar [(ngModel)]="selectedDate" (ngModelChange)="onDateSeleted($event)" placeholder="Fecha" [defaultDate]="maxDate"
+                            <p-calendar [(ngModel)]="selectedStartDate" (ngModelChange)="onDateStartSelected($event)" placeholder="Fecha" 
+                            [maxDate]="maxDate" dateFormat="dd/mm/yy"></p-calendar>
+                        </div>
+                        <div>Hasta</div>
+                        <div class="date__content">
+                            <p-calendar [(ngModel)]="selectedEndDate" (ngModelChange)="onDateEndSelected($event)" placeholder="Fecha" [defaultDate]="maxDate"
                             [maxDate]="maxDate" dateFormat="dd/mm/yy"></p-calendar>
                         </div>
                     </div>
