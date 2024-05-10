@@ -59,15 +59,6 @@ export class BookService {
       );
   }
 
-  getBookByISSN(issn: string): Observable<any> {
-    return this.http.get(`/api/book/${issn}`).pipe(
-      catchError(error => {
-        console.error('Error fetching book by ISSN:', error);
-        throw error;
-      })
-    );
-  }
-
 
   deleteBooks(data: any): Observable<any> {
     return this.http.post(`/api/book/delete-books`, data)

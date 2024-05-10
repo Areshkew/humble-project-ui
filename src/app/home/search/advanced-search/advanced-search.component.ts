@@ -3,7 +3,7 @@ import { BooksComponent } from '../../books/books.component';
 import { IconComponent } from '../../../shared/icon/icon.component';
 import { AccordionComponent } from '../accordion/accordion.component';
 import { NgClass } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 
 @Component({
@@ -17,8 +17,25 @@ export class AdvancedSearchComponent implements OnInit{
   accordionVisible = true;
   filters: any
   
+  constructor(private route: ActivatedRoute) { 
+    
+  }
+  
   ngOnInit(): void {
-    this.handleFiltersChanged({})
+    this.route.queryParams.subscribe(params => {
+      const filters = {
+        category: params['categoria'] || null,
+        min_price: params['precioMin'] || null,
+        max_price: params['precioMax'] || null,
+        price_order: params['orden'] || null,
+        state: params['estado'] || null,
+        language: params['idioma'] || null,
+        publication_date: params['fecha'] || null,
+        
+      };
+
+      this.handleFiltersChanged(filters);
+    });
   }
 
   showAccordion() {
@@ -26,7 +43,7 @@ export class AdvancedSearchComponent implements OnInit{
   }
 
   handleFiltersChanged(filters: any) {
-    this.filters = filters
+    this.filters = {...this.filters, ...filters};
     this.filters.size = 27
   }
 }

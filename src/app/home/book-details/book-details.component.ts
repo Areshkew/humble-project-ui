@@ -33,7 +33,7 @@ export class BookDetailsComponent {
   }
 
   loadBookDetails(issn: string): void {
-    this.bookService.getBookByISSN(issn).subscribe(book => {
+    this.bookService.getBook(issn).subscribe(book => {
       this.book = book;
     }, error => {
       console.error('Error al cargar los detalles del libro:', error);

@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit, OnDestroy{
-  hiddenURLS = ["/panel-admin"];
+  hiddenURLS = ["/panel-admin",];
   inactivitySubscription!: Subscription;
 
   @HostListener('document:mousemove', ['$event'])
