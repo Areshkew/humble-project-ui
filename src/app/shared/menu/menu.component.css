@@ -57,3 +57,8 @@
   }
 
 }
+
+/* Menu Scrolling Fix */
+:host ::ng-deep .p-menu.p-menu-overlay {
+  top: 46px !important;
+}
