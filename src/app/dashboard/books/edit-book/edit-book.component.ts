@@ -53,12 +53,12 @@ export class EditBookComponent implements OnInit {
       'ISSN': ['', [Validators.required, Validators.pattern(/^\d{13}$/)]],
       'titulo': ['', [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
       'autor': ['', [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
-      'resenia': ['', [Validators.required, Validators.minLength(1), Validators.maxLength(1500)]],
+      'resenia': ['', [Validators.required, Validators.minLength(1), Validators.maxLength(4000)]],
       'num_paginas': ['', [Validators.required, Validators.min(1)]],
       'idioma': ['', [Validators.required, Validators.minLength(1), Validators.maxLength(32)]],
       'fecha_publicacion': ['', [Validators.required]],  
       'estado': ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-      'portada': [null],
+      'portada': [""],
       'precio': ['', [Validators.required, Validators.min(0)]],
       'descuento': [null, [Validators.min(0)]],
       'editorial': ['', [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
@@ -112,31 +112,31 @@ export class EditBookComponent implements OnInit {
       
       return;
     }
+    const genero = this.editInfoForm.get('genero')?.value.id;
+    const precio = this.editInfoForm.get('precio')?.value;
 
     const formData: User = Object.assign({}, this.editInfoForm.value);
-
+    formData.genero = genero;
+    
     const changedData = this.getChangedData(formData);
+    if(changedData.descuento == '' || changedData.descuento > precio)
+        changedData.descuento = precio;
 
-    // this.rootService.editAdmin(this.ISSN, changedData).subscribe({
-    //   next: (r) => {
-    //     if(r.success) this.toastService.showSuccessToast("Exito", "Se actualizaron los detalles de la cuenta.")
-    //   },
-    //   error: (error) => {
-    //     this.toastService.showErrorToast("Error", error);
-    //   }
-    // });
+    this.bookService.editBook(this.ISSN, changedData).subscribe({
+      next: (r) => {
+        if(r.success) this.toastService.showSuccessToast("Exito", "Se actualizaron los detalles del libro.");
+        this.ref.close();
+      },
+      error: (error) => {
+        this.toastService.showErrorToast("Error", error);
+      }
+    });
+
   }
 
   private convertToLocalDate(dateString: string) {
     const [year, month, day] = dateString.split('-').map(Number);
     return new Date(year, month - 1, day);
-  }
-
-  private formatDateToYYYYMMDD(date: Date): string {
-    const year = date.getFullYear().toString();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-indexed
-    const day = date.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
   }
 
   private getChangedData(formData: any) {
@@ -147,8 +147,8 @@ export class EditBookComponent implements OnInit {
       if (formData[key] !== this.initialBookData[key]) {
 
         if (key === 'fecha_publicacion' && formData[key] instanceof Date) {
-          const date = formData[key] as Date;
-          const formattedDate = this.formatDateToYYYYMMDD(date);
+          const date = this.initialBookData[key];
+          const formattedDate = this.convertToLocalDate(date);
 
           if(formattedDate !== this.initialBookData[key]) changedData[key] = formattedDate;
         } else {

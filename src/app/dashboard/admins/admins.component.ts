@@ -70,7 +70,10 @@ export class AdminsComponent implements OnInit, OnDestroy{
         DNI: DNI
       }
     });
-1
+
+    this.ref.onClose.subscribe(() => {
+      this.fetchAdmins();
+    })
   }
 
   confirm_single_delete(event: Event, DNI: string) {

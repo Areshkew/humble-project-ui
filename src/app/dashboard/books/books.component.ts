@@ -8,6 +8,7 @@ import { TableLazyLoadEvent } from 'primeng/table';
 import { BookService } from '@services/book.service';
 import { CreateBookComponent } from './create-book/create-book.component';
 import { EditBookComponent } from './edit-book/edit-book.component';
+import { AddUnitsComponent } from './add-units/add-units.component';
 
 @Component({
   selector: 'app-books',
@@ -83,7 +84,21 @@ export class BooksComponent implements OnInit, OnDestroy{
         ISSN: ISSN
       }
     });
+
+    this.ref.onClose.subscribe(() => {
+      this.fetchBooks(1);
+    })
   }
+
+  addUnits(ISSN: string){ 
+    this.ref = this.dialogService.open(AddUnitsComponent, { 
+      header: `Editando unidades por tienda, libro con ISSN: ${ISSN}.`,
+      data: {
+        ISSN: ISSN
+      }
+    });
+  }
+
 
   confirm_single_delete(event: Event, ISSN: string) {
     this.confirmationService.confirm({

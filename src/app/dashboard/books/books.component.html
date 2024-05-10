@@ -49,7 +49,7 @@
                 <td>{{ book.precio }}</td>
                 <td>{{ book.descuento }}</td>
                 <td class="edit-btns">
-                    <button pButton pRipple icon="pi pi-shopping-bag" class="p-button-rounded p-button-help" title="Administrar Unidades"></button>
+                    <button pButton pRipple icon="pi pi-shopping-bag" class="p-button-rounded p-button-help" title="Administrar Unidades" (click)="addUnits(book.ISSN)"></button>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" (click)="editBook(book.ISSN)" title="Editar Libro"></button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="confirm_single_delete($event, book.ISSN)" title="Eliminar Libro"></button>
                 </td>

@@ -5,14 +5,14 @@
             <div class="form__data flex-container" style="--flex-direction: column">
                 <div class="input__group">
                     <label>ISSN</label>
-                    <input type="text" placeholder="ISSN" pInputText formControlName="ISSN"
+                    <input type="text" placeholder="ISSN" pInputText formControlName="ISSN" normalizeSpaces  
                         [ngClass]="{'lib-invalid': editInfoForm.get('ISSN')?.touched && editInfoForm.get('ISSN')?.invalid}">
                         @if (editInfoForm.get('ISSN')?.touched && editInfoForm.get('ISSN')?.invalid) {
                             @if (editInfoForm.get('ISSN')?.errors?.['required']) {
                                 <p>El ISSN es requerido.</p>
                             }
                             @if (editInfoForm.get('ISSN')?.errors?.['pattern']) {
-                                <p>El ISSN debe tener exactamente 13 caracteres.</p>
+                                <p>El ISSN debe tener exactamente 13 digitos.</p>
                             }
                         }
                 </div>
@@ -20,7 +20,7 @@
 
                 <div class="input__group">
                     <label>Título</label>
-                    <input type="text" placeholder="Título" pInputText formControlName="titulo"
+                    <input type="text" placeholder="Título" pInputText formControlName="titulo" normalizeSpaces 
                         [ngClass]="{'lib-invalid': editInfoForm.get('titulo')?.touched && editInfoForm.get('titulo')?.invalid}">
                         @if (editInfoForm.get('titulo')?.touched && editInfoForm.get('titulo')?.invalid) {
                             @if (editInfoForm.get('titulo')?.errors?.['required']) {
@@ -34,7 +34,7 @@
 
                 <div class="input__group">
                     <label>Autor</label>
-                    <input type="text" placeholder="Autor" pInputText formControlName="autor"
+                    <input type="text" placeholder="Autor" pInputText formControlName="autor" normalizeSpaces
                         [ngClass]="{'lib-invalid': editInfoForm.get('autor')?.touched && editInfoForm.get('autor')?.invalid}">
                     @if (editInfoForm.get('autor')?.touched && editInfoForm.get('autor')?.invalid) {
                         @if (editInfoForm.get('autor')?.errors?.['required']) {
@@ -62,7 +62,7 @@
 
                 <div class="input__group">
                     <label>Número de Páginas</label>
-                    <input type="number" placeholder="Número de Páginas" pInputText formControlName="num_paginas"
+                    <input type="number" placeholder="Número de Páginas" pInputText formControlName="num_paginas" normalizeSpaces
                         [ngClass]="{'lib-invalid': editInfoForm.get('num_paginas')?.touched && editInfoForm.get('num_paginas')?.invalid}">
                     @if (editInfoForm.get('num_paginas')?.touched && editInfoForm.get('num_paginas')?.invalid) {
                         @if (editInfoForm.get('num_paginas')?.errors?.['required']) {
@@ -76,7 +76,7 @@
 
                 <div class="input__group">
                     <label>Idioma</label>
-                    <input type="text" placeholder="Idioma" pInputText formControlName="idioma"
+                    <input type="text" placeholder="Idioma" pInputText formControlName="idioma" normalizeSpaces
                         [ngClass]="{'lib-invalid': editInfoForm.get('idioma')?.touched && editInfoForm.get('idioma')?.invalid}">
                     @if (editInfoForm.get('idioma')?.touched && editInfoForm.get('idioma')?.invalid) {
                         @if (editInfoForm.get('idioma')?.errors?.['required']) {
@@ -117,7 +117,7 @@
 
                 <div class="input__group">
                     <label>Precio</label>
-                    <input type="text" placeholder="Precio" pInputText formControlName="precio"
+                    <input type="number" placeholder="Precio" pInputText formControlName="precio" normalizeSpaces
                         [ngClass]="{'lib-invalid': editInfoForm.get('precio')?.touched && editInfoForm.get('precio')?.invalid}">
                     @if (editInfoForm.get('precio')?.touched && editInfoForm.get('precio')?.invalid) {
                         @if (editInfoForm.get('precio')?.errors?.['required']) {
@@ -131,7 +131,7 @@
 
                 <div class="input__group">
                     <label>Descuento</label>
-                    <input type="text" placeholder="Descuento" pInputText formControlName="descuento"
+                    <input type="number" placeholder="Descuento" pInputText formControlName="descuento" normalizeSpaces
                         [ngClass]="{'lib-invalid': editInfoForm.get('descuento')?.touched && editInfoForm.get('descuento')?.invalid}">
                     @if (editInfoForm.get('descuento')?.touched && editInfoForm.get('descuento')?.invalid) {
                         @if (editInfoForm.get('descuento')?.errors?.['min']) {
@@ -142,7 +142,7 @@
 
                 <div class="input__group">
                     <label>Editorial</label>
-                    <input type="text" placeholder="Editorial" pInputText formControlName="editorial"
+                    <input type="text" placeholder="Editorial" pInputText formControlName="editorial" normalizeSpaces
                         [ngClass]="{'lib-invalid': editInfoForm.get('editorial')?.touched && editInfoForm.get('editorial')?.invalid}">
                     @if (editInfoForm.get('editorial')?.touched && editInfoForm.get('editorial')?.invalid) {
                         @if (editInfoForm.get('editorial')?.errors?.['required']) {

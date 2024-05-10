@@ -70,4 +70,15 @@ export class BookService {
         })
       );
   }
+
+  editBook(issn: string, data: any): Observable<any> {
+    return this.http.post(`api/book/edit-book/${issn}`, data)
+    .pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error al editar libro: ', error);
+        const message = `Error al editar libro.`;
+        return throwError(() => new Error(message));
+      })
+    )
+  }
 }

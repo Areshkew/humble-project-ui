@@ -210,6 +210,7 @@ export class EditAdminComponent implements OnInit {
     this.rootService.editAdmin(this.DNI, changedData).subscribe({
       next: (r) => {
         if(r.success) this.toastService.showSuccessToast("Exito", "Se actualizaron los detalles de la cuenta.")
+          this.ref.close();
       },
       error: (error) => {
         this.toastService.showErrorToast("Error", error);
@@ -260,6 +261,7 @@ export class EditAdminComponent implements OnInit {
             this.editPassword.get("confirmar-clave")?.setValue("");
             this.editPassword.get("clave_actual")?.setValue("");
             if(r.success) this.toastService.showSuccessToast("Exito", "Se actualiza la clave de la cuenta.");
+            this.ref.close();
           },
           error: (error) => {
             this.toastService.showErrorToast("Error", error);
