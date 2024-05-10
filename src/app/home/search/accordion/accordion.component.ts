@@ -7,7 +7,7 @@ import { PRICES } from '@models/prices';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { concatAll } from 'rxjs';
+import { DropdownModule } from 'primeng/dropdown';
 import { PAGES } from '@models/bookPages';
 
 @Component({
@@ -20,6 +20,7 @@ import { PAGES } from '@models/bookPages';
     CommonModule,
     CalendarModule,
     FormsModule,
+    DropdownModule
   ],
   templateUrl: './accordion.component.html',
   styleUrl: './accordion.component.css',
@@ -31,6 +32,7 @@ export class AccordionComponent implements OnInit{
   booksPrices = PRICES;
   booksPages = PAGES;
   showTooltip = false;
+  years: any[] = [];
 
   currentGenre: string | null = null;
   currentGenreKey: string | null = null;
@@ -47,12 +49,20 @@ export class AccordionComponent implements OnInit{
   selectedStartDateFormated: string | null = null;
   selectedEndDate: Date | null = null;
   selectedEndDateFormated: string | null = null;
+  selectedYear: string | null = null;
+  yearDrop: string | null = null
 
   maxDate: Date = new Date();
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
+    const currentYear = new Date().getFullYear();
+    this.years = [];  
+    for (let year = currentYear; year >= 1990; year--) {
+        this.years.push({label: year.toString(), value: year});
+    }
+    
     this.activatedRoute.queryParams.subscribe(params => {
       const categoryKey = params['categoria'];
       const price = params['precioId']
@@ -83,15 +93,11 @@ export class AccordionComponent implements OnInit{
         this.currentLanguage = languaje
       }
       if (params['fechaInicio']) {
-        
-        
         const dateParts = params['fechaInicio'].split('-').map(Number);
         this.selectedStartDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
       } 
     
       if (params['fechaFinal']) {
-        
-        
         const dateParts = params['fechaFinal'].split('-').map(Number);
         this.selectedEndDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
       } 
@@ -99,6 +105,14 @@ export class AccordionComponent implements OnInit{
         this.currentIdPage = page
         this.currentMinPage = params['paginaMin']
         this.currentMaxPage = params['paginaMax']
+      }
+      if(params['año']){
+        this.selectedYear = params['año'];
+        const selectedYearObj = this.years.find(year => year.value.toString() === params['año']);
+        if (selectedYearObj) {
+            this.yearDrop = selectedYearObj;
+        } 
+        
       }
 
     });
@@ -177,6 +191,22 @@ export class AccordionComponent implements OnInit{
       relativeTo: this.activatedRoute,
       queryParams: {
         orden: this.sortOrder,
+    },
+      queryParamsHandling: 'merge' 
+    });
+    this.emitFilters();
+  }
+
+  onYearSelected(year: any) {
+    this.selectedYear = year.label;
+    this.yearDrop = year;
+    console.log(this.yearDrop);
+    
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        año: this.selectedYear,
+        añoDrop: this.yearDrop
     },
       queryParamsHandling: 'merge' 
     });
@@ -291,6 +321,21 @@ export class AccordionComponent implements OnInit{
     this.emitFilters();
   }
 
+  clearYear(event: MouseEvent){
+    event.stopPropagation();
+    this.selectedYear = null;
+    this.yearDrop = null;
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        año: null,
+        añoDrop: null,
+    },
+      queryParamsHandling: 'merge' 
+    });
+    this.emitFilters();
+  }
+
   clearPublicationDate(event: MouseEvent) {
     event.stopPropagation();
     this.selectedStartDate = null;
@@ -317,6 +362,8 @@ export class AccordionComponent implements OnInit{
     this.isNew = null;
     this.currentLanguage = null;
     this.sortOrder = null;
+    this.selectedYear = null;
+    this.yearDrop = null,
     this.selectedStartDate = null;
     this.selectedStartDateFormated = null;
     this.selectedEndDate = null;
@@ -336,6 +383,8 @@ export class AccordionComponent implements OnInit{
           paginaId: null,
           paginaMax: null,
           paginaMin: null,
+          año: null,
+          añoDrop: null,
       },
       queryParamsHandling: 'merge'
   });
@@ -354,6 +403,7 @@ export class AccordionComponent implements OnInit{
       end_date: this.selectedEndDateFormated,
       min_page: this.currentMinPage,
       max_page: this.currentMaxPage,
+      year_filter: this.selectedYear,
       size: null,
       page: null,
     };

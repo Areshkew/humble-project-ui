@@ -34,7 +34,7 @@ export class AdvancedSearchComponent implements OnInit{
         end_date: params['fechaFinal'] || null,
         min_page: params['paginaMin'] || null,
         max_page: params['paginaMax'] || null,
-        
+        year_filter: params['año'] || null,
       };
 
       this.handleFiltersChanged(filters);

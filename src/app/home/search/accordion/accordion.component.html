@@ -9,7 +9,7 @@
             </button>
         </div>
         <div class="accordion__categories">
-            <p-accordion [multiple]="true" [activeIndex]="[0, 1]">
+            <p-accordion [multiple]="true" [activeIndex]="[0, 1, 2, 3, 4, 5, 6, 7]">
                 <p-accordionTab>
                     <ng-template pTemplate="header">
                         <div class="custom-header flex-container" style="--flex-direction: row">
@@ -109,6 +109,24 @@
                         <li (click)="onLanguageSelected('Español')" [ngClass]="{'selected': currentLanguage === 'Español'}">Español</li>
                         <li (click)="onLanguageSelected('Inglés')" [ngClass]="{'selected': currentLanguage === 'Inglés'}">Inglés</li>
                     </ul>
+                </p-accordionTab>
+                <p-accordionTab>
+                    <ng-template pTemplate="header">
+                        <div class="custom-header flex-container" style="--flex-direction: row">
+                            <div>Año de Publicación</div>
+                            <button class="clear-button" (click)="clearYear($event)">
+                                <abbr title="Limpiar">
+                                    <app-icon icon="ink_eraser" [size]=28></app-icon>
+                                </abbr>
+                            </button>
+                        </div>
+                    </ng-template>
+                    <div class="flex-container" style="--flex-direction: column">
+                        <div class="year__content">
+                            <p-dropdown [options]="years" [(ngModel)]="yearDrop" placeholder="Seleccione un año"
+                                        (onChange)="onYearSelected($event.value)" optionLabel="value" [filter]="true"></p-dropdown>
+                        </div>
+                    </div>
                 </p-accordionTab>
                 <p-accordionTab>
                     <ng-template pTemplate="header">
