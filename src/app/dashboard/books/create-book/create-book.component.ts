@@ -14,6 +14,7 @@ import { DashboardShared } from '../../dashboard.shared';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { NormalizeSpacesDirective } from '../../../shared/directives/normalizeSpace.directive';
 import { BookService } from '@services/book.service';
+import { LANGUAGES } from '@models/languages';
 
 @Component({
   selector: 'app-create-book',
@@ -31,6 +32,7 @@ export class CreateBookComponent implements OnInit{
     "Nuevo",
     "Usado"
   ]
+  bookLanguages = LANGUAGES;
   createbookForm!: FormGroup;
   maxDate: Date = new Date();
 
@@ -83,7 +85,7 @@ export class CreateBookComponent implements OnInit{
       return;
     }
     const genero = this.createbookForm.get('genero')?.value.id;
-    const estado = this.createbookForm.get('genero')?.value == "Nuevo" ? 'True' : 'False';
+    const estado = this.createbookForm.get('estado')?.value == "Nuevo" ? 'True' : 'False';
 
     const formData = Object.assign({}, this.createbookForm.value); // Deep copy 
 

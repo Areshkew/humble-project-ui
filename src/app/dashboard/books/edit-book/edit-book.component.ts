@@ -13,6 +13,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BookService } from '@services/book.service';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FileUpload, FileUploadHandlerEvent, FileUploadModule } from 'primeng/fileupload';
+import { LANGUAGES } from '@models/languages';
 
 @Component({
   selector: 'app-edit-book',
@@ -35,6 +36,7 @@ export class EditBookComponent implements OnInit {
     "Nuevo",
     "Usado"
   ]
+  bookLanguages = LANGUAGES;
   ISSN!: string;
   book!: any;
   initialBookData: any = {};
@@ -71,7 +73,7 @@ export class EditBookComponent implements OnInit {
 
       this.initialBookData = b;
       this.initialBookData.genero = genero[0];
-      this.initialBookData.estado = (b.estado ? 'Nuevo' : 'Usado');
+      
       
       this.editInfoForm.patchValue({
         ISSN: b.ISSN,
@@ -114,9 +116,11 @@ export class EditBookComponent implements OnInit {
     }
     const genero = this.editInfoForm.get('genero')?.value.id;
     const precio = this.editInfoForm.get('precio')?.value;
+    const estado = this.editInfoForm.get('estado')?.value == "Nuevo" ? 'True' : 'False';
 
     const formData: User = Object.assign({}, this.editInfoForm.value);
     formData.genero = genero;
+    formData.estado = estado;
     
     const changedData = this.getChangedData(formData);
     if(changedData.descuento == '' || changedData.descuento > precio)

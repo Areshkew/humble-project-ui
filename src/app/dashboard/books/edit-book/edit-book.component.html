@@ -76,8 +76,8 @@
 
                 <div class="input__group">
                     <label>Idioma</label>
-                    <input type="text" placeholder="Idioma" pInputText formControlName="idioma" normalizeSpaces
-                        [ngClass]="{'lib-invalid': editInfoForm.get('idioma')?.touched && editInfoForm.get('idioma')?.invalid}">
+                    <p-dropdown [options]="bookLanguages" placeholder="Idioma" formControlName="idioma" [filter]="true"
+                            [ngClass]="{'lib-invalid': editInfoForm.get('idioma')?.touched && editInfoForm.get('idioma')?.invalid}"></p-dropdown>
                     @if (editInfoForm.get('idioma')?.touched && editInfoForm.get('idioma')?.invalid) {
                         @if (editInfoForm.get('idioma')?.errors?.['required']) {
                             <p>El idioma es requerido.</p>
