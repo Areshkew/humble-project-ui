@@ -36,7 +36,7 @@
   justify-content: space-between;
 }
 
-.price {
+.price, .pages{
   text-align: center;
 }
 
@@ -65,12 +65,31 @@ font-weight: bolder;;
   
 }
 
+.date__content{
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+
+
+.year__content{
+  padding: 1rem;
+}
+
 .clear-button:hover{
   color: #f48b6b;
 }
 
 :host ::ng-deep .p-inputtext {
   background-color: white;
+  
+}
+
+:host ::ng-deep .p-dropdown {
+  background-color: white;
   box-shadow: 0 4px 2px -2px gray;;
 }
 
+:host ::ng-deep .p-datepicker table{
+  font-size: var(--font-size-sm)
+}

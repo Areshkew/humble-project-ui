@@ -17,7 +17,7 @@
                 </div>
                 <div class="book-actions flex-container" style="--flex-direction: row">
                     @if (role === 'admin'){
-                        <button class="btn"><app-icon icon="edit" [size]="30" color="white"></app-icon>Editar</button>
+                        <button class="btn" (click)="editBook(book.ISSN)"><app-icon icon="edit" [size]="30" color="white" ></app-icon>Editar</button>
                         <button class="btn"><app-icon icon="add" [size]="30" color="white"></app-icon>Agregar Unidades</button>
                     }@else if(role === 'root'){
                     }@else {

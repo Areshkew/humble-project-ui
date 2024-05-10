@@ -25,7 +25,7 @@ export class SearchResultsComponent implements OnChanges {
   @Input() receivedValue!: string;
 
   @Output() mouseenter = new EventEmitter<void>();
-@Output() mouseleave = new EventEmitter<void>();
+  @Output() mouseleave = new EventEmitter<void>();
 
 
   constructor(private bookService: BookService){}

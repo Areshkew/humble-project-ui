@@ -30,8 +30,11 @@ export class AdvancedSearchComponent implements OnInit{
         price_order: params['orden'] || null,
         state: params['estado'] || null,
         language: params['idioma'] || null,
-        publication_date: params['fecha'] || null,
-        
+        start_date: params['fechaInicio'] || null,
+        end_date: params['fechaFinal'] || null,
+        min_page: params['paginaMin'] || null,
+        max_page: params['paginaMax'] || null,
+        year_filter: params['año'] || null,
       };
 
       this.handleFiltersChanged(filters);
@@ -44,6 +47,6 @@ export class AdvancedSearchComponent implements OnInit{
 
   handleFiltersChanged(filters: any) {
     this.filters = {...this.filters, ...filters};
-    this.filters.size = 27
+    this.filters.size = 30
   }
 }
