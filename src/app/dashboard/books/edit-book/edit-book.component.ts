@@ -123,7 +123,7 @@ export class EditBookComponent implements OnInit {
     formData.estado = estado;
     
     const changedData = this.getChangedData(formData);
-    if(changedData.descuento == '' || changedData.descuento > precio)
+    if(!changedData.descuento || changedData.descuento > precio)
         changedData.descuento = precio;
 
     this.bookService.editBook(this.ISSN, changedData).subscribe({

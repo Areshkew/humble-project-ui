@@ -59,7 +59,7 @@ export class AccordionComponent implements OnInit{
   ngOnInit(): void {
     const currentYear = new Date().getFullYear();
     this.years = [];  
-    for (let year = currentYear; year >= 1990; year--) {
+    for (let year = currentYear; year >= 1900; year--) {
         this.years.push({label: year.toString(), value: year});
     }
     
