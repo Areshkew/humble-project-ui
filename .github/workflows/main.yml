@@ -50,6 +50,6 @@ jobs:
           echo "Successfully deployed built."
           
       - name: Cleanup Artifacts
-        uses: actions/delete-artifact@v2
+        uses: GeekyEggo/delete-artifact@v5.0.0
         with:
           name: dist
