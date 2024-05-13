@@ -30,6 +30,7 @@ jobs:
     steps:
       - uses: aochmann/actions-download-artifact@1.0.4
         with:
+          github_token: ${{ secrets.GH_TOKEN }}
           name: dist
           path: dist
           
