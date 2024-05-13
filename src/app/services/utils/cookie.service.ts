@@ -7,7 +7,7 @@ export class CookieService {
 
   constructor() { }
 
-  setCookie(name: string, value: string, hours: number, sameSite: 'Lax' | 'Strict' | 'None' = 'Lax', secure: boolean = true) {
+  setCookie(name: string, value: string, hours: number, sameSite: 'Lax' | 'Strict' | 'None' = 'Lax', secure: boolean = false) {
     let expires = '';
     if (hours) {
       const date = new Date();
