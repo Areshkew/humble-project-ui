@@ -46,7 +46,7 @@ jobs:
           
       - name: Deploy to Server
         run: |
-          rsync -avz --delete dist/lib-hub-ui/browser ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/html/libhub/
+          rsync -avz --delete dist/lib-hub-ui/browser/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/html/libhub/
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "sudo restorecon -Rv /var/www/html/libhub/"
           echo "Successfully deployed built."
           
