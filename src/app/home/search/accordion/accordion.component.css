@@ -1,3 +1,8 @@
+.header-active {
+  color: #f48b6b;;
+}
+
+
 .accordion__title{
   justify-content: space-between;
   align-items: center;
@@ -36,10 +41,37 @@
   justify-content: space-between;
 }
 
-.price, .pages{
+.pages{
   text-align: center;
 }
 
+.price-container {
+  width: 100%;  
+}
+
+.price-block {
+  margin-bottom: 20px; 
+}
+
+h5 {
+  text-align: left;  
+  margin-left: 10px;  
+}
+
+.input-slider {
+  width: 80%;        
+  margin: 0 auto;    
+  display: flex;     
+  flex-direction: column; 
+  gap: 10px;
+}
+
+.price__input{
+  background-color: white;
+  box-shadow: 0 4px 2px -2px gray;
+  border-radius: 100px;
+  border: none;
+}
 .order {
   font-size: 1.25rem;
 padding-left: 1rem;
