@@ -1,0 +1,55 @@
+<p-confirmPopup></p-confirmPopup>
+
+<div class="shops">
+    <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
+
+    <div class="shops__actions flex-container">
+        <div class="add-admin flex-container pointer" (click)="show()">
+            <app-icon icon="add" color="darkgreen"></app-icon>
+            Nueva Tienda
+        </div>
+
+        @if (selectedShops && selectedShops.length > 0) {
+            <div class="remove-admin flex-container pointer" (click)="confirm_multiple_delete($event)">
+                <app-icon icon="delete" color="darkred"></app-icon>
+                Borrar {{ selectedShops.length }} tienda/s
+            </div>
+        }
+
+    </div>
+    
+    <p-table [value]="shops" [paginator]="true" 
+            [rows]="5" [rowHover]="true" selectionMode="multiple" [(selection)]="selectedShops" [metaKeySelection]="false" dataKey="id"
+            [tableStyle]="{ 'min-width': '50rem' }">
+        
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>Ubicacion</th>
+                <th>Nombre</th>
+                <th>Numero de Contacto</th>
+                <th>Correo</th>
+                <th>Hora de apertura</th>
+                <th>Hora de cierre</th>
+                <th></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-shop>
+            <tr [pSelectableRow]="shop">
+                <td>{{ shop.id }}</td>
+                <td>{{ shop.ubicacion }}</td>
+                <td>{{ shop.nombre }}</td>
+                <td>{{ shop.num_contacto }}</td>
+                <td>{{ shop.correo }}</td>
+                <td>{{ shop.hora_apertura }}</td>
+                <td>{{ shop.hora_cierre }}</td>
+                <td class="edit-btns">
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" (click)="editShop(shop.id)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="confirm_single_delete($event, shop.id)"></button>
+                </td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

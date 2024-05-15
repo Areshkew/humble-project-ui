@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DropdownModule } from 'primeng/dropdown';
 import { PAGES } from '@models/bookPages';
+import { SliderModule } from 'primeng/slider';
 
 @Component({
   selector: 'app-accordion',
@@ -20,7 +21,8 @@ import { PAGES } from '@models/bookPages';
     CommonModule,
     CalendarModule,
     FormsModule,
-    DropdownModule
+    DropdownModule,
+    SliderModule
   ],
   templateUrl: './accordion.component.html',
   styleUrl: './accordion.component.css',
@@ -34,11 +36,13 @@ export class AccordionComponent implements OnInit{
   showTooltip = false;
   years: any[] = [];
 
+  minPrice = 0
+  maxPrice = 1000000
+  maxPossiblePrice = 1000000
+
+
   currentGenre: string | null = null;
   currentGenreKey: string | null = null;
-  currentIdPrice: number | null = null;
-  currentMinPrice: number | null = null;
-  currentMaxPrice: number | null = null;
   currentIdPage: number | null = null;
   currentMinPage: number | null = null;
   currentMaxPage: number | null = null;
@@ -54,6 +58,8 @@ export class AccordionComponent implements OnInit{
 
   maxDate: Date = new Date();
 
+  activeIndices: number[] = [0, 1, 2, 3, 4, 5, 6, 7]; 
+
   constructor(private activatedRoute: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
@@ -65,7 +71,7 @@ export class AccordionComponent implements OnInit{
     
     this.activatedRoute.queryParams.subscribe(params => {
       const categoryKey = params['categoria'];
-      const price = params['precioId']
+      const price = params['precioMin']
       const state = params['estado']
       const languaje = params['idioma']
       const endDate = params['fechaFinal']
@@ -78,13 +84,15 @@ export class AccordionComponent implements OnInit{
           this.currentGenreKey = categoryKey;
         }
       } 
-
-      if(price) {
-        this.currentIdPrice = price
-        this.currentMinPrice = params['precioMin']
-        this.currentMaxPrice = params['precioMax']
-        this.sortOrder = params['orden']
-      } 
+      
+      if(price){
+        this.minPrice = price
+        if( params['precioMax']){
+          this.maxPrice = params['precioMax']
+        } else{
+          this.maxPrice = this.maxPossiblePrice
+        }
+      }
 
       if(state){
         this.isNew = state
@@ -126,24 +134,24 @@ export class AccordionComponent implements OnInit{
       queryParams: { categoria: this.currentGenreKey },
       queryParamsHandling: 'merge',
     });
+    this.activeIndices = [1,2,3,4,5,6,7];
     this.emitFilters();
   }
 
-  onPriceSelected(price: any) {
-    this.currentIdPrice = price.id;
-    this.currentMaxPrice = price.maxPrice;
-    this.currentMinPrice = price.minPrice;
+  
+
+  onPriceChange(): void {
     this.router.navigate([], {
-      relativeTo: this.activatedRoute,
-      queryParams: {
-        precioId: this.currentIdPrice,
-        precioMax: this.currentMaxPrice,
-        precioMin: this.currentMinPrice,
-      },
-      queryParamsHandling: 'merge',
+        relativeTo: this.activatedRoute,
+        queryParams: {
+            precioMin: this.minPrice,
+            precioMax: this.maxPrice,
+        },
+        queryParamsHandling: 'merge',
     });
     this.emitFilters();
-  }
+    this.activeIndices = [1,3,4,5,6,7];
+}
 
   onPageSelected(page: any) {
     this.currentIdPage = page.id;
@@ -200,7 +208,7 @@ export class AccordionComponent implements OnInit{
   onYearSelected(year: any) {
     this.selectedYear = year.label;
     this.yearDrop = year;
-    console.log(this.yearDrop);
+    
     
     this.router.navigate([], {
       relativeTo: this.activatedRoute,
@@ -259,14 +267,12 @@ export class AccordionComponent implements OnInit{
     if(event){
       event.stopPropagation();
     }
-    this.currentIdPrice = null;
-    this.currentMinPrice = null;
-    this.currentMaxPrice = null;
+    this.minPrice = 0;
+    this.maxPrice = this.maxPossiblePrice;
     this.sortOrder = null;
     this.router.navigate([], {
       relativeTo: this.activatedRoute,
       queryParams: {
-        precioId: null,
         precioMax: null,
         precioMin: null,
         orden: null,
@@ -356,9 +362,8 @@ export class AccordionComponent implements OnInit{
   clearSelection() {
     this.currentGenre = null;
     this.currentGenreKey = null;
-    this.currentIdPrice = null;
-    this.currentMinPrice = null;
-    this.currentMaxPrice = null;
+    this.minPrice = 0;
+    this.maxPrice = this.maxPossiblePrice;
     this.isNew = null;
     this.currentLanguage = null;
     this.sortOrder = null;
@@ -372,7 +377,6 @@ export class AccordionComponent implements OnInit{
       relativeTo: this.activatedRoute,
       queryParams: {
           categoria: null,
-          precioId: null,
           precioMax: null,
           precioMin: null,
           estado: null,
@@ -394,8 +398,8 @@ export class AccordionComponent implements OnInit{
   emitFilters() {
     const filters = {
       category: this.currentGenreKey,
-      min_price: this.currentMinPrice,
-      max_price: this.currentMaxPrice,
+      min_price: this.minPrice,
+      max_price: this.maxPrice,
       state: this.isNew,
       language: this.currentLanguage,
       price_order: this.sortOrder,
@@ -407,7 +411,7 @@ export class AccordionComponent implements OnInit{
       size: null,
       page: null,
     };
-    console.log(filters);
+    
     
     this.filtersChanged.emit(filters);
     

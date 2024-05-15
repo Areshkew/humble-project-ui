@@ -1,0 +1,100 @@
+<div class="container">
+    <form class="edit-info__form" [formGroup]="editShopForm" (ngSubmit)="onSubmit()">
+        <p class="edit-msg">Editar informacion</p>
+        <div class="form__group flex-container">
+            <div class="form__data flex-container" style="--flex-direction: column">
+                <div class="input__group">
+                    <label>Ubicacion</label>
+                    <input type="text" pInputText formControlName="ubicacion" normalizeSpaces
+                        [ngClass]="{'lib-invalid': editShopForm.get('ubicacion')?.touched && editShopForm.get('ubicacion')?.invalid}">
+                    @if (editShopForm.get('ubicacion')?.touched && editShopForm.get('ubicacion')?.invalid) {
+                    @if (editShopForm.get('ubicacion')?.errors?.['required']) {
+                    <p>La ubicacion es requerido</p>
+                    }
+                    @if (editShopForm.get('ubicacion')?.errors?.['maxlength']){
+                    <p>La ubicacion no debe teener mas de 32 caracteres.</p>
+                    }
+                    }
+                </div>
+                <div class="input__group">
+                    <label>Nombre</label>
+                    <input type="text" pInputText formControlName="nombre" normalizeSpaces
+                        [ngClass]="{'lib-invalid': editShopForm.get('nombre')?.touched && editShopForm.get('nombre')?.invalid}">
+                    @if (editShopForm.get('nombre')?.touched && editShopForm.get('nombre')?.invalid) {
+                    @if (editShopForm.get('nombre')?.errors?.['required']){
+                    <p>El nombre es requerido.</p>
+                    }
+                    @if (editShopForm.get('nombre')?.errors?.['maxlength']){
+                    <p>El nombre no debe teener mas de 32 caracteres.</p>
+                    }
+                    }
+                </div>
+                <div class="input__group">
+                    <label>Numero de contacto</label>
+                    <input type="text" pInputText formControlName="num_contacto" normalizeSpaces
+                        [ngClass]="{'lib-invalid': editShopForm.get('num_contacto')?.touched && editShopForm.get('num_contacto')?.invalid}">
+                    @if (editShopForm.get('num_contacto')?.touched && editShopForm.get('num_contacto')?.invalid) {
+                    @if (editShopForm.get('num_contacto')?.errors?.['required']){
+                    <p>El num_contacto es requerido.</p>
+                    }
+                    @if (editShopForm.get('num_contacto')?.errors?.['maxlength'] || editShopForm.get('num_contacto')?.errors?.['minlength']){
+                    <p>El num_contacto debe tener 10 caracteres.</p>
+                    }
+                    }
+                </div>
+            </div>
+            <div class="form__data flex-container" style="--flex-direction: column">
+                
+                <div class="input__group">
+                    <label>Correo</label>
+                    <input pInputText type="email" formControlName="correo" placeholder="Correo" normalizeSpaces
+                        [ngClass]="{'lib-invalid': editShopForm.get('correo')?.touched && editShopForm.get('correo')?.invalid}">
+                    @if (editShopForm.get('correo')?.touched && editShopForm.get('correo')?.invalid) {
+                    <p>El correo es requerido.</p>
+                    }
+                    @if (editShopForm.get('correo')?.errors?.['pattern']) {
+                        <p>Ingresa un correo que sea valido</p>
+                    }
+                </div>
+                
+
+                <div class="input__group">
+                    <label>Hora de apertura</label>
+                    <input pInputText type="time" placeholder="Hora apertura" formControlName="hora_apertura" normalizeSpaces
+                        [ngClass]="{'lib-invalid': editShopForm.get('hora_apertura')?.touched && editShopForm.get('hora_apertura')?.invalid}">
+                    @if (editShopForm.get('hora_apertura')?.touched && editShopForm.get('hora_apertura')?.invalid) {
+                        @if (editShopForm.get('hora_apertura')?.errors?.['required']){
+                            <p>La hora es requerida.</p>
+                        }
+                        @if (editShopForm.get('hora_apertura')?.errors?.['pattern']) {
+                            <p>La hora debe ser ingresada de la siguiente forma: HH:MM (ejemplo: 23:45) </p>
+                        }
+                    }
+                </div>
+
+                <div class="input__group">
+                    <label>Hora de cierre</label>
+                    <input pInputText type="time" placeholder="Hora cierre" formControlName="hora_cierre" normalizeSpaces
+                        [ngClass]="{'lib-invalid': editShopForm.get('hora_apertura')?.touched && editShopForm.get('hora_cierre')?.invalid}">
+                    @if (editShopForm.get('hora_cierre')?.touched && editShopForm.get('hora_cierre')?.invalid) {
+                        @if (editShopForm.get('hora_cierre')?.errors?.['required']){
+                            <p>La hora es requerida.</p>
+                        }
+                        @if (editShopForm.get('hora_cierre')?.errors?.['pattern']) {
+                            <p>La hora debe ser ingresada de la siguiente forma: HH:MM (ejemplo: 23:45) </p>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="form__submit flex-container" style="--flex-direction: column;">
+            <button class="lib-button" type="submit" [ngClass]="{'lib-button-disabled': !editShopForm.valid}"
+                [disabled]="!editShopForm.valid">
+                Guardar
+            </button>
+        </div>
+    </form>
+
+
+    
+</div>
