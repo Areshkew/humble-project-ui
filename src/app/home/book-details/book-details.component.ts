@@ -49,7 +49,7 @@ export class BookDetailsComponent {
   }
 
   editBook(ISSN: string): void {
-    console.log("hi");
+    
     
     this.ref = this.dialogService.open(EditBookComponent, { 
       header: `Editando libro con ISSN: ${ISSN}`,

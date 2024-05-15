@@ -37,7 +37,7 @@ export class EditShopComponent implements OnInit{
   ngOnInit(): void {
 
     this.ID = this.config.data.ID
-    console.log(this.ID);
+    
     
     this.editShopForm = this.formBuilder.group({
       'ubicacion': ['', [Validators.required, Validators.maxLength(32)]],
@@ -51,7 +51,7 @@ export class EditShopComponent implements OnInit{
     this.shopService.getShop(this.ID, this.shop).subscribe(
       shop => {
         this.shop = shop
-        console.log(shop);
+        
         
 
         this.editShopForm.patchValue({

@@ -79,7 +79,7 @@ export class ShopsComponent implements OnInit, OnDestroy {
   }
 
   confirm_single_delete(event: Event, ID: any) {
-    console.log(typeof(ID));
+  
     
     this.confirmationService.confirm({
         target: (event.target ? event.target : undefined),

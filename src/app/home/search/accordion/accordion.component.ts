@@ -208,7 +208,7 @@ export class AccordionComponent implements OnInit{
   onYearSelected(year: any) {
     this.selectedYear = year.label;
     this.yearDrop = year;
-    console.log(this.yearDrop);
+    
     
     this.router.navigate([], {
       relativeTo: this.activatedRoute,
@@ -411,7 +411,7 @@ export class AccordionComponent implements OnInit{
       size: null,
       page: null,
     };
-    console.log(filters);
+    
     
     this.filtersChanged.emit(filters);
     

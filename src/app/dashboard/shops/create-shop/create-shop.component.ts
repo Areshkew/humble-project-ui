@@ -45,7 +45,7 @@ export class CreateShopComponent implements OnInit{
       return;
     }
     const formData: Shop = Object.assign({}, this.createShopForm.value);
-    console.log(formData);
+    
     
   
     this.shopService.createShop(formData).subscribe({
