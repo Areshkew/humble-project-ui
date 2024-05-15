@@ -1672,7 +1672,7 @@
     height: 1.143rem;
     width: 1.143rem;
     background: #ffffff;
-    border: 2px solid #5e81ac;
+    border: 2px solid #f48b6b;
     border-radius: 50%;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
   }
@@ -1682,11 +1682,11 @@
     box-shadow: 0 0 0 0.2rem #f48b6b;
   }
   .p-slider .p-slider-range {
-    background: #5e81ac;
+    background: #f48b6b;
   }
   .p-slider:not(.p-disabled) .p-slider-handle:hover {
-    background: #5e81ac;
-    border-color: #5e81ac;
+    background: #f48b6b;
+    border-color: #f48b6b;
   }
   .p-slider.p-slider-animate.p-slider-horizontal .p-slider-handle {
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, left 0.2s;

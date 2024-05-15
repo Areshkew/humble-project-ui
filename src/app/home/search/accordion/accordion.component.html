@@ -9,10 +9,10 @@
             </button>
         </div>
         <div class="accordion__categories">
-            <p-accordion [multiple]="true" [activeIndex]="[0, 1, 2, 3, 4, 5, 6, 7]">
+            <p-accordion [multiple]="true" [activeIndex]="activeIndices">
                 <p-accordionTab>
                     <ng-template pTemplate="header">
-                        <div class="custom-header flex-container" style="--flex-direction: row">
+                        <div class="custom-header flex-container" style="--flex-direction: row" [ngClass]="{'header-active': currentGenre}">
                             <div>Categorias</div>
                             <button class="clear-button" (click)="clearCategory($event)">
                                 <abbr title="Limpiar">
@@ -31,7 +31,7 @@
                 </p-accordionTab>
                 <p-accordionTab>
                     <ng-template pTemplate="header">
-                        <div class="custom-header flex-container" style="--flex-direction: row">
+                        <div class="custom-header flex-container" style="--flex-direction: row" [ngClass]="{'header-active': minPrice}">
                             <div>Precio</div>
                             <button class="clear-button" (click)="clearPrice($event)">
                                 <abbr title="Limpiar">
@@ -40,16 +40,22 @@
                             </button>
                         </div>
                     </ng-template>
-                    <ul>
-                        @for (price of booksPrices; track $index) {
-                            <li class="price" (click)="onPriceSelected(price)" [ngClass]="{'selected': price.id == currentIdPrice}">
-                                {{price.minPrice | currency: 'COP' }} - {{price.maxPrice | currency: 'COP' }}
-                                @if (price.maxPrice == null) {
-                                    Maximo
-                                }
-                            </li>
-                        }
-                    </ul>
+                    <div class="price-container">
+                        <div class="price-block">
+                            <h5>Precio Mínimo</h5>
+                            <div class="input-slider">
+                                <input class="price__input" type="number" pInputText [(ngModel)]="minPrice" (ngModelChange)="onPriceChange()"/>
+                                <p-slider [(ngModel)]="minPrice" [min]="0" [max]="maxPossiblePrice" (onSlideEnd)="onPriceChange()"></p-slider>
+                            </div>
+                        </div>
+                        <div class="price-block">
+                            <h5>Precio Máximo</h5>
+                            <div class="input-slider">
+                                <input class="price__input" type="number" pInputText [(ngModel)]="maxPrice" (ngModelChange)="onPriceChange()"/>
+                                <p-slider [(ngModel)]="maxPrice" [min]="0" [max]="maxPossiblePrice" (onSlideEnd)="onPriceChange()"></p-slider>
+                            </div>
+                        </div>
+                    </div>
                     <div class="order">Ordenar por:</div>
                     <ul>
                         <li (click)="onSortSelected('min_max')" [ngClass]="{'selected': sortOrder === 'min_max'}">Menor a Mayor</li>
@@ -58,7 +64,7 @@
                 </p-accordionTab>
                 <p-accordionTab>
                     <ng-template pTemplate="header">
-                        <div class="custom-header flex-container" style="--flex-direction: row">
+                        <div class="custom-header flex-container" style="--flex-direction: row" [ngClass]="{'header-active': currentIdPage}">
                             <div>Numero de paginas</div>
                             <button class="clear-button" (click)="clearPage($event)">
                                 <abbr title="Limpiar">
@@ -80,7 +86,7 @@
                 </p-accordionTab>
                 <p-accordionTab>
                     <ng-template pTemplate="header">
-                        <div class="custom-header flex-container" style="--flex-direction: row">
+                        <div class="custom-header flex-container" style="--flex-direction: row" [ngClass]="{'header-active': isNew}">
                             <div>Estado</div>
                             <button class="clear-button" (click)="clearState($event)">
                                 <abbr title="Limpiar">
@@ -96,7 +102,7 @@
                 </p-accordionTab>
                 <p-accordionTab>
                     <ng-template pTemplate="header">
-                        <div class="custom-header flex-container" style="--flex-direction: row">
+                        <div class="custom-header flex-container" style="--flex-direction: row" [ngClass]="{'header-active': currentLanguage}">
                             <div>Idioma</div>
                             <button class="clear-button" (click)="clearLanguage($event)">
                                 <abbr title="Limpiar">
@@ -112,7 +118,7 @@
                 </p-accordionTab>
                 <p-accordionTab>
                     <ng-template pTemplate="header">
-                        <div class="custom-header flex-container" style="--flex-direction: row">
+                        <div class="custom-header flex-container" style="--flex-direction: row" [ngClass]="{'header-active': yearDrop}">
                             <div>Año de Publicación</div>
                             <button class="clear-button" (click)="clearYear($event)">
                                 <abbr title="Limpiar">
@@ -130,7 +136,7 @@
                 </p-accordionTab>
                 <p-accordionTab>
                     <ng-template pTemplate="header">
-                        <div class="custom-header flex-container" style="--flex-direction: row">
+                        <div class="custom-header flex-container" style="--flex-direction: row" [ngClass]="{'header-active': selectedStartDate}">
                             <div>Fecha Publicacion</div>
                             <button class="clear-button" (click)="clearPublicationDate($event)">
                                 <abbr title="Limpiar">
