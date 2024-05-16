@@ -1,0 +1,101 @@
+.financial-info-container{
+    width: 100%;
+}
+
+.balance{
+    font-size: var(--font-size-xl);
+    color: #002122;
+    font-weight: bolder;
+    text-align: center;
+    margin: 2rem
+}
+
+.actual-cards-container{
+    margin-bottom: 2rem;
+    gap: 1rem;
+}
+
+.cards__title{
+    font-size: var(--font-size-md);
+    color: #002122;
+    font-weight: bolder;
+    border-bottom: 2px solid #002122;
+    margin-bottom: 2rem;
+}
+
+.card__content{
+    width: 100%;
+    gap: 0.5rem;
+    background-color: rgb(240, 240, 240);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 30px;
+}
+
+.card-text{
+    font-weight: bold;
+}
+
+.add-card__form{
+    display: grid;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.form__group {
+    width: 100%;
+    gap: 0;
+  }
+  
+  .form__group {
+    flex-wrap: wrap;
+  }
+  
+  .form__data {
+    width: 50%;
+    min-width: 300px;
+    gap: 1rem;
+  }
+  .input__group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 70%;
+  }
+  
+  .form__group input{
+      box-shadow: 0 4px 2px -2px gray;
+    }
+  
+  .form__group label {
+    font-size: var(--font-size-sm);
+    font-weight: bold;
+    
+  }
+
+  .lib-button{
+    border-radius: 100px;
+    padding: 1rem;
+    width: 30%;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+
+.form__group p{
+  font-size: var(--font-size-sm);
+  color: red;
+  margin: 0;
+}
+
+.lib-invalid__message{
+  font-size: var(--font-size-sm);
+  color: red;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+    .hide-mobile {
+        display: none; /* Oculta el texto en pantallas pequeñas */
+    }
+}

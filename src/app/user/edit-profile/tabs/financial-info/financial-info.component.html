@@ -1,1 +1,105 @@
-<p>financial-info works!</p>
+<p-confirmPopup></p-confirmPopup>
+
+<div class="financial-info-container">
+    <div class="balance">
+      Saldo: {{balance}}
+    </div>
+
+    <div class="actual-cards-container">
+        <div class="cards__title">
+            Tarjetas actuales
+        </div>
+        <div class="cards__content flex-container" style="--flex-direction: column">
+
+            @for (card of cards; track $index) {
+                <div class="card__content flex-container" style="--flex-direction: row; --justify-content: space-between">
+                    <div class="flex-container" style="--flex-direction: column;">
+                        <div class="card-text">Tarjeta terminada en</div>
+                        <div> <span class="hide-mobile">XXXX . XXXX .</span>XXXX .{{card.num_tarjeta.slice(-4)}}</div>
+                    </div>
+
+                    <div class="flex-container" style="--flex-direction: column">
+                        <div class="card-text"> Tipo</div>
+                        <div>{{card.tipo}}</div>
+                    </div>
+
+                    
+                    
+                    <div class="flex-container hide-mobile" style="--flex-direction: column;">
+                        <div class="card-text">Vencimiento</div>
+                        <div>{{card.fec_vencimiento}}</div>
+                    </div>
+            
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="eliminarTarjeta($event,card.num_tarjeta)"> </button>
+                </div>
+            }
+        </div>
+    </div>
+
+    <form class="add-card__form" [formGroup]="tarjetaForm" (ngSubmit)="onSubmit()" >
+        <div class="cards__title">
+            Agregrar Tarjetas
+        </div>
+        <div class="form__group flex-container">
+            <div class="form__data flex-container" style="--flex-direction: column">
+                <div class="input__group">
+                    <label>Numero</label>
+                    <input type="number" pInputText formControlName="num_tarjeta" 
+                    [ngClass]="{'lib-invalid': tarjetaForm.get('num_tarjeta')?.touched && tarjetaForm.get('num_tarjeta')?.invalid}">
+                    @if (tarjetaForm.get('num_tarjeta')?.touched && tarjetaForm.get('num_tarjeta')?.invalid) {
+                        @if (tarjetaForm.get('num_tarjeta')?.errors?.['required']) {
+                            <p>El numero es requerido</p>
+                        }
+                        @if (tarjetaForm.get('num_tarjeta')?.errors?.['pattern']) {
+                            <p>La tarjeta debe tener 12 digitos</p>
+                        }
+                    }
+                </div>
+                <div class="input__group">
+                    <label>Fecha vencimiento </label>
+                    <p-calendar formControlName="fec_vencimiento" view="month" dateFormat="mm/yy" [yearNavigator]="true" placeholder="MM/AA" [minDate]="minDate" 
+                    [ngClass]="{'lib-invalid': tarjetaForm.get('fecha')?.touched && tarjetaForm.get('fecha')?.invalid}"></p-calendar>
+                    @if (tarjetaForm.get('fecha')?.touched && tarjetaForm.get('fecha')?.invalid) {
+                        @if (tarjetaForm.get('fecha')?.errors?.['required']) {
+                            <p>El fecha es requerido</p>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="form__data flex-container" style="--flex-direction: column">
+                
+                <div class="input__group">
+                    <label>CVV</label>
+                    <input type="number" pInputText formControlName="cvv"
+                    [ngClass]="{'lib-invalid': tarjetaForm.get('cvv')?.touched && tarjetaForm.get('cvv')?.invalid}">
+                    @if (tarjetaForm.get('cvv')?.touched && tarjetaForm.get('cvv')?.invalid) {
+                        @if (tarjetaForm.get('cvv')?.errors?.['required']) {
+                            <p>El cvv es requerido</p>
+                        }
+                        @if (tarjetaForm.get('cvv')?.errors?.['pattern']) {
+                            <p>El cvv debe de ser de 3 digitos</p>
+                        }
+                    }
+                </div>
+                <div class="input__group">
+                    <label>Tipo de tarjeta</label>
+                    <p-dropdown [options]="type" pInputText formControlName="tipo"
+                    [ngClass]="{'lib-invalid': tarjetaForm.get('tipo')?.touched && tarjetaForm.get('tipo')?.invalid}"></p-dropdown>
+                    @if (tarjetaForm.get('tipo')?.touched && tarjetaForm.get('tipo')?.invalid) {
+                        @if (tarjetaForm.get('tipo')?.errors?.['required']) {
+                            <p>El tipo de tarjeta es requerido</p>
+                        }
+                    
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="button-container flex-container">
+
+            <button type="submit" class="lib-button" [ngClass]="{'lib-button-disabled': !tarjetaForm.valid}" [disabled]="!tarjetaForm.valid">Agregar tarjeta</button>
+        </div>
+        
+    </form>
+  
+</div>
+  
