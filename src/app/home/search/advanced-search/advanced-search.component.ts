@@ -18,7 +18,7 @@ export class AdvancedSearchComponent implements OnInit{
   filters: any
   
   constructor(private route: ActivatedRoute) { 
-    
+    this.accordionVisible = window.innerWidth > 768
   }
   
   ngOnInit(): void {

@@ -9,11 +9,11 @@
                 <div class="book-info">
                     <div class="card-title">{{ item.titulo }}</div>
                     <div class="card-details">
-                        <div class="icon-text"><app-icon icon="edit" [size]="22" color="gray"></app-icon><span>{{ item.autor }}</span></div>
-                        <div class="icon-text"><app-icon icon="description" [size]="22" color="gray"></app-icon><span>{{ item.num_paginas }}</span></div>
-                        <div class="icon-text"><app-icon icon="calendar_month" [size]="22" color="gray"></app-icon><span>{{ item.fecha_publicacion }}</span></div>
-                        <div class="icon-text"><app-icon [icon]="getLanguageEmoji(item.idioma)" [size]="22" color="gray"></app-icon><span>{{ item.idioma }}</span></div>
-                        <div class="icon-text"><app-icon [icon]="getStateEmoji(item.estado)" [size]="22" color="gray"></app-icon><span>{{ getState(item.estado) }}</span></div>
+                        <div class="icon-text"><app-icon icon="edit" [size]="iconSize" color="gray"></app-icon><span class="book-autor">{{ item.autor }}</span></div>
+                        <div class="icon-text"><app-icon icon="description" [size]="iconSize" color="gray"></app-icon><span>{{ item.num_paginas }}</span></div>
+                        <div class="icon-text"><app-icon icon="calendar_month" [size]="iconSize" color="gray"></app-icon><span>{{ item.fecha_publicacion }}</span></div>
+                        <div class="icon-text"><app-icon [icon]="getLanguageEmoji(item.idioma)" [size]="iconSize" color="gray"></app-icon><span>{{ item.idioma }}</span></div>
+                        <div class="icon-text"><app-icon [icon]="getStateEmoji(item.estado)" [size]="iconSize" color="gray"></app-icon><span>{{ getState(item.estado) }}</span></div>
                     </div>
                     <div class="price-discount-container">
                         @if (item.descuento === item.precio) {

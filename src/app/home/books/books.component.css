@@ -124,3 +124,47 @@
   color: inherit;
   display: block; 
 }
+
+.book-autor{
+  display: -webkit-box;            /* Utiliza el modelo de caja flexible de webkit */
+    -webkit-box-orient: vertical;    /* Orienta el contenido del contenedor verticalmente */
+    -webkit-line-clamp: 1;           /* Limita el texto a dos líneas */
+    overflow: hidden;                /* Oculta el contenido que sobrepasa el contenedor */
+    text-overflow: ellipsis; 
+  }
+
+
+@media (max-width: 768px) {
+  .book-card {
+    width: 325px; /* Ancho fijo para pantallas más grandes */
+    height: 160px;
+    margin: 0 0 20px 0;
+    font-size: var(--font-size-base);
+  }
+
+  .card-image-container, .card-image {
+    width: 100px;  /* Reducir el tamaño de las imágenes en dispositivos pequeños */
+    height: 100%;  /* Mantener la proporción de la imagen */
+  }
+
+  .book-info {
+    padding: 2px; /* Reducir el padding en dispositivos pequeños */
+  }
+
+  .btn {
+    padding: 5px; /* Botones más pequeños */
+  }
+
+  .price-discount-container {
+    font-size: var(--font-size-base);
+
+  }
+  
+  .card-details{
+    font-size: var(--font-size-sm);
+  }
+
+  
+
+
+}

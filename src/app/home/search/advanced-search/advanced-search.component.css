@@ -32,10 +32,16 @@
     background-color: transparent;
     color: #5e5e5e;
     cursor: pointer;
-    padding-top: 2rem;
+    padding-top: 1.5rem;
     padding-left: 1rem;
   }
   .toggle-button:hover {
     color: #f48b6b;
   }
   
+
+  @media (max-width: 768px){
+    .toggle-button {
+      padding-left: 0.5rem;
+    }
+  }

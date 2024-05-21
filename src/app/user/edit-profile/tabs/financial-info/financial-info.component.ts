@@ -54,8 +54,6 @@ export class FinancialInfoComponent implements OnInit{
     this.userService.getCurrentUser(this.balance).subscribe(
       balance => {
         this.balance = balance.saldo
-        
-        
       }
     )
 
@@ -82,14 +80,11 @@ export class FinancialInfoComponent implements OnInit{
     formData.num_tarjeta = formData.num_tarjeta.toString();
 
     
-    console.log(formData);
-    console.log(typeof(formData.num_tarjeta));
-    
     
 
     this.cards.push(formData)
 
-    console.log(this.cards);
+    
     
     this.userService.addCardUser(formData).subscribe({
       next: (response) => {
