@@ -14,7 +14,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
   styleUrl: './advanced-search.component.css'
 })
 export class AdvancedSearchComponent implements OnInit{
-  accordionVisible = true;
+  accordionVisible!: boolean;
   filters: any
   
   constructor(private route: ActivatedRoute) { 
@@ -22,6 +22,9 @@ export class AdvancedSearchComponent implements OnInit{
   }
   
   ngOnInit(): void {
+    if (window.innerWidth <= 768) { 
+      this.accordionVisible = false;
+    }
     this.route.queryParams.subscribe(params => {
       const filters = {
         category: params['categoria'] || null,

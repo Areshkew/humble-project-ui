@@ -40,8 +40,47 @@
   }
   
 
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
+    .accordion-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 10;
+      display: block; 
+    }
+  
+    .mobile.hidden + .sidebar-overlay {
+      display: none; 
+    }
+  
+    app-accordion.mobile {
+      border-radius: 10px;
+      position: absolute;
+      
+      max-width: 100%;
+      width: 80%;
+      z-index: 11;
+      transition: transform 0.3s ease;
+      transform: translateX(-100%);
+      background-color: white;
+      height: 100%; 
+      overflow-y: auto; 
+    }
+  
+    app-accordion.mobile:not(.hidden) {
+      transform: translateX(0);
+    }
+  
     .toggle-button {
       padding-left: 0.5rem;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .accordion-overlay {
+      display: none;
     }
   }
