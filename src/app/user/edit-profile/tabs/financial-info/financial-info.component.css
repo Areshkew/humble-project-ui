@@ -55,6 +55,7 @@
     width: 50%;
     min-width: 300px;
     gap: 1rem;
+    margin-bottom: 1rem;
   }
   .input__group {
     display: flex;
@@ -96,6 +97,9 @@
 
 @media (max-width: 768px) {
     .hide-mobile {
-        display: none; /* Oculta el texto en pantallas pequeñas */
+        display: none; 
+    }
+    .lib-button{
+      width: 60%;
     }
 }

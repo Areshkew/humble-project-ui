@@ -98,10 +98,10 @@ export class BooksComponent implements OnChanges{
   }
 
   private adjustIconSize() {
-    if (window.innerWidth < 768) { // Define el umbral para dispositivos móviles
-      this.iconSize = 16; // Tamaño más pequeño para pantallas menores
+    if (window.innerWidth < 768) { 
+      this.iconSize = 16; 
     } else {
-      this.iconSize = 22; // Tamaño estándar para pantallas más grandes
+      this.iconSize = 22; 
     }
   }
 }

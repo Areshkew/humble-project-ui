@@ -10,6 +10,7 @@ import { UserService } from '@services/user.service';
 import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
+import { PaymentService } from '@services/payment.service';
 
 @Component({
   selector: 'app-financial-info',
@@ -18,7 +19,7 @@ import { DropdownModule } from 'primeng/dropdown';
     CommonModule, ReactiveFormsModule, DropdownModule
   ],
   templateUrl: './financial-info.component.html',
-  styleUrl: './financial-info.component.css'
+  styleUrls: ['./financial-info.component.css']
 })
 export class FinancialInfoComponent implements OnInit{
 
@@ -27,29 +28,36 @@ export class FinancialInfoComponent implements OnInit{
   ]
 
   type = [
-    "Debito",
-    "Credito"
-  ]
-  cards = [
-    { num_tarjeta: '1234 5678 9101 1121', fec_vencimiento: '12/23', cvv: '123', tipo: 'credito' },
-    { num_tarjeta: '1234 5678 9101 1122', fec_vencimiento: '12/23', cvv: '123', tipo: 'credito' }
+    { label: "Debito", value: 0 },
+    { label: "Credito", value: 1 }
   ];
+  cards: any[] = []
   minDate!: Date;
 
   tarjetaForm!: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private confirmationService: ConfirmationService, 
-    private toastService: ToastService, private userService: UserService){}
+    private toastService: ToastService, private userService: UserService, private paymentService: PaymentService){}
 
   ngOnInit() {
     this.tarjetaForm = this.formBuilder.group({
-      'num_tarjeta': ['', [Validators.required,Validators.pattern(/^\d{12}$/)]],
+      'num_tarjeta': ['', [Validators.required,Validators.pattern(/^\d{16}$/)]],
       'fec_vencimiento': ['', [Validators.required]],
       'cvv': ['', [Validators.required, Validators.pattern(/^\d{3}$/)]],
       'tipo': ['',[Validators.required]]
     })
+
     const today = new Date();
-    this.minDate = new Date(today.getFullYear(), today.getMonth(), 1);
+    let nextMonth = today.getMonth() + 1; 
+    let year = today.getFullYear();
+
+    if (nextMonth > 11) {
+      nextMonth = 0;
+      year += 1;
+    }
+
+    this.minDate = new Date(year, nextMonth, 1); 
+
     
     this.userService.getCurrentUser(this.balance).subscribe(
       balance => {
@@ -57,58 +65,61 @@ export class FinancialInfoComponent implements OnInit{
       }
     )
 
-    this.userService.getCardsUser().subscribe({
-      next: (r) => {
-        this.cards = r
-        
-      },
-      error: (error) => {
-        console.error('No hay tarjetas', error);
-        this.toastService.showErrorToast("No se encontraron tarjetas", error.message);
-      }
-    }
-    )
+    this.getUserCards()
   }
 
   onSubmit(){
-
-    
-
-
     const formData = Object.assign({}, this.tarjetaForm.value)
 
     formData.num_tarjeta = formData.num_tarjeta.toString();
+    formData.cvv = formData.cvv.toString();
 
-    
-    
-
-    this.cards.push(formData)
-
-    
-    
-    this.userService.addCardUser(formData).subscribe({
-      next: (response) => {
-        this.toastService.showSuccessToast("Tarjeta Añadida", "Se ha añadido una nueva tarjeta.");
+    this.paymentService.addCard(formData).subscribe({
+      next: (r) => {
+        this.tarjetaForm.reset();
+        if(r.Success){
+          this.toastService.showSuccessToast("Exito", "Se añadio la tarjeta a su cuenta.")
+          this.getUserCards()
+        } 
       },
       error: (error) => {
         this.toastService.showErrorToast("Error", error);
       }
     })
-    
   }
 
-  eliminarTarjeta(event: Event, id: string) {
+  private getUserCards(){
+    this.paymentService.getCards().subscribe({
+      next: (cards) => {
+        this.cards = cards;
+      },
+      error: (error) => {
+        this.toastService.showErrorToast("Error", error);
+      }
+    });
+  }
+
+  deleteCard(event: Event, card_num: string) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: 'Estas seguro?',
+      message: '¿Estás seguro?',
       icon: 'pi pi-exclamation-triangle',
-      acceptLabel: "Si",
+      acceptLabel: "Sí",
       accept: () => {
-        this.cards = this.cards.filter(tarjeta => tarjeta.num_tarjeta !== id);
-        this.toastService.showInfoToast("Tarjeta Eliminada", '')
+        this.paymentService.deleteCard(card_num).subscribe({
+          next: () => {
+            this.toastService.showSuccessToast("Tarjeta Eliminada", "La tarjeta ha sido eliminada con éxito.");
+            this.removeCardFromList(card_num);
+          },
+          error: (error) => {
+            this.toastService.showErrorToast("Error", error);
+          }
+        });
       },
-      
-    })
-    
+    });
+  }
+
+  private removeCardFromList(card_num: string) {
+    this.cards = this.cards.filter(card => card.num_tarjeta !== card_num);
   }
 }

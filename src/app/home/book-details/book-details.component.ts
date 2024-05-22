@@ -60,7 +60,7 @@ export class BookDetailsComponent {
 
     this.ref.onClose.subscribe(() => {
       
-      this.loadBookDetails(ISSN); // Por ejemplo, recargar los detalles del libro
+      this.loadBookDetails(ISSN); // recargar los detalles del libro
     });
   }
 

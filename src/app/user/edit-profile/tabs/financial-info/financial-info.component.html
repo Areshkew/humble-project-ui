@@ -10,7 +10,6 @@
             Tarjetas actuales
         </div>
         <div class="cards__content flex-container" style="--flex-direction: column">
-
             @for (card of cards; track $index) {
                 <div class="card__content flex-container" style="--flex-direction: row; --justify-content: space-between">
                     <div class="flex-container" style="--flex-direction: column;">
@@ -20,7 +19,11 @@
 
                     <div class="flex-container" style="--flex-direction: column">
                         <div class="card-text"> Tipo</div>
-                        <div>{{card.tipo}}</div>
+                        @if (card.tipo) {
+                            <div>Credito</div>
+                        }@else {
+                            <div>Debito</div>
+                        }
                     </div>
 
                     
@@ -30,7 +33,7 @@
                         <div>{{card.fec_vencimiento}}</div>
                     </div>
             
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="eliminarTarjeta($event,card.num_tarjeta)"> </button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteCard($event,card.num_tarjeta)"></button>
                 </div>
             }
         </div>
@@ -51,7 +54,7 @@
                             <p>El numero es requerido</p>
                         }
                         @if (tarjetaForm.get('num_tarjeta')?.errors?.['pattern']) {
-                            <p>La tarjeta debe tener 12 digitos</p>
+                            <p>La tarjeta debe tener 16 digitos</p>
                         }
                     }
                 </div>
