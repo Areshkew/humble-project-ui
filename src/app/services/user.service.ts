@@ -92,23 +92,6 @@ export class UserService {
     );
   }
 
-  getCardsUser(): Observable<any>{
-    return this.http.get(`/api/user/getcards`).pipe(
-      tap(response => this.currentUserSubject.next(response)),
-      shareReplay(1),
-      catchError(error => this.handleError(error, this.currentUserSubject))
-    )
-  }
-
-  addCardUser(card: any): Observable<any>{
-    return this.http.get(`/api/user/addcard`, card).pipe(
-      tap(response => this.currentUserSubject.next(response)),
-      shareReplay(1),
-      catchError(error => this.handleError(error, this.currentUserSubject))
-    )
-
-  }
-
   private handleError(error: any, subject: Subject<any>): Observable<never> {
     subject.error(error);
     subject.next(null);
