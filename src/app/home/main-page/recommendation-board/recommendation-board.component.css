@@ -148,7 +148,7 @@
   }
 
   .carousel-details {
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-md);
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -157,7 +157,7 @@
   }
 
   .icon-text {
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-md);
     margin: 5px 0;
   }
 
