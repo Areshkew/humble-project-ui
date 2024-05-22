@@ -29,6 +29,8 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
     if (window.innerWidth <= 768) { 
       this.sidebarVisible = false;
+    } else {
+      this.sidebarVisible = true
     }
     
     this.route.queryParams.subscribe(params => {
