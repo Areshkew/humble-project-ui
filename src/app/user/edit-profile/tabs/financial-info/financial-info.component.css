@@ -98,6 +98,27 @@
   gap: 1rem;
 }
 
+.add-button{
+  border-radius: 100px;
+  color: gray;
+  border: white;
+  transition: transform 0.3s ease, color 0.3s ease, background 0.3s ease;
+}
+
+.add-button:hover{
+  color: white;
+  background-color: #f48b6b;
+  transform: scale(1.1);
+}
+
+.form-actions{
+  gap: 10px;
+}
+
+.form__group-dialog input{
+  box-shadow: 0 4px 2px -2px gray;
+}
+
 @media (max-width: 768px) {
     .hide-mobile {
         display: none; 

@@ -3,15 +3,9 @@ import { IconComponent } from '../../../../shared/icon/icon.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastService } from '@services/utils/toast.service';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { UserService } from '@services/user.service';
 import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
@@ -21,16 +15,8 @@ import { DialogModule } from 'primeng/dialog';
 @Component({
   selector: 'app-financial-info',
   standalone: true,
-  imports: [
-    IconComponent,
-    InputTextModule,
-    ButtonModule,
-    ConfirmPopupModule,
-    CalendarModule,
-    CommonModule,
-    ReactiveFormsModule,
-    DropdownModule,
-    DialogModule,
+  imports: [IconComponent, InputTextModule, ButtonModule, ConfirmPopupModule, CalendarModule,
+    CommonModule, ReactiveFormsModule,DropdownModule,DialogModule
   ],
   templateUrl: './financial-info.component.html',
   styleUrls: ['./financial-info.component.css'],
@@ -50,13 +36,10 @@ export class FinancialInfoComponent implements OnInit {
   addBalanceDialogVisible: boolean = false;
   addBalanceForm!: FormGroup;
   installments: { label: string; value: number }[] = [];
+  transformedCards: any[] = []
 
   constructor(
-    private formBuilder: FormBuilder,
-    private confirmationService: ConfirmationService,
-    private toastService: ToastService,
-    private userService: UserService,
-    private paymentService: PaymentService
+    private formBuilder: FormBuilder, private confirmationService: ConfirmationService, private toastService: ToastService, private paymentService: PaymentService
   ) {}
 
   ngOnInit() {
@@ -129,7 +112,7 @@ export class FinancialInfoComponent implements OnInit {
   onCardSelect() {
     const selectedCard = this.addBalanceForm.get('card')?.value;
     
-    if (selectedCard && selectedCard.tipo !== 1) {
+    if (selectedCard && selectedCard.tipo !== true) {
       this.addBalanceForm.get('installments')?.reset();
     }
   }
@@ -139,6 +122,11 @@ export class FinancialInfoComponent implements OnInit {
 
     formData.num_tarjeta = formData.num_tarjeta.toString();
     formData.cvv = formData.cvv.toString();
+
+    if (!this.isLuhnValid(formData.num_tarjeta)) {
+      this.toastService.showErrorToast('Error', 'Ingrese una tarjeta válida');
+      return;
+    }
 
     this.paymentService.addCard(formData).subscribe({
       next: (r) => {
@@ -157,6 +145,25 @@ export class FinancialInfoComponent implements OnInit {
     });
   }
 
+  isLuhnValid(cardNumber: string): boolean {   
+    let sum = 0;
+    let shouldDouble = false;
+
+    for (let i = cardNumber.length - 1; i >= 0; i--) {
+      let digit = parseInt(cardNumber.charAt(i), 10);
+
+      if (shouldDouble) {
+        digit *= 2;
+        if (digit > 9) digit -= 9;
+      }
+
+      sum += digit;
+      shouldDouble = !shouldDouble;
+    }
+
+    return (sum % 10 === 0);
+  }
+
   deleteCard(event: Event, card_num: string) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
@@ -171,6 +178,7 @@ export class FinancialInfoComponent implements OnInit {
               'La tarjeta ha sido eliminada con éxito.'
             );
             this.removeCardFromList(card_num);
+            this.transformCards()
           },
           error: (error) => {
             this.toastService.showErrorToast('Error', error);
@@ -184,11 +192,28 @@ export class FinancialInfoComponent implements OnInit {
     this.paymentService.getCards().subscribe({
       next: (cards) => {
         this.cards = cards;
+        this.transformCards();
       },
       error: (error) => {
         this.toastService.showErrorToast('Error', error);
       },
     });
+  }
+
+  private transformCards() {
+    this.transformedCards = this.cards.map(card => {
+      return {
+        ...card,
+        num_tarjeta: 'XXXX . ' + this.getLastFourDigits(card.num_tarjeta)
+      };
+    });
+
+    console.log(this.transformedCards);
+    
+  }
+
+  private getLastFourDigits(cardNumber: string): string {
+    return cardNumber.slice(-4);
   }
 
   private removeCardFromList(card_num: string) {
