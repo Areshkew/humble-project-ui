@@ -7,15 +7,27 @@ import { catchError, shareReplay, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class PaymentService {
+  private getWalletSubject = new Subject<any>();
   private addCardSubject = new Subject<any>();
   private getCardsSubject = new Subject<any>();
   private deleteCardSubject = new Subject<any>();
+  private addBalanceSubject = new Subject<any>();
 
+  getWallet$ = this.getWalletSubject.asObservable();
   addCard$ = this.addCardSubject.asObservable();
   getCards$ = this.getCardsSubject.asObservable();
   deleteCard$ = this.deleteCardSubject.asObservable();
+  addBalance$ = this.addBalanceSubject.asObservable()
 
   constructor(private http: HttpClient) { }
+
+  getWallet(): Observable<any> {
+    return this.http.get(`/api/payment/wallet`).pipe(
+      tap(response => this.getWalletSubject.next(response)),
+      shareReplay(1),
+      catchError(error => this.handleError(error, this.getWalletSubject))
+    );
+  }
 
   addCard(card: any): Observable<any> {
     return this.http.post(`/api/payment/create-card`, card).pipe(
@@ -35,6 +47,14 @@ export class PaymentService {
 
   deleteCard(card_num: string): Observable<any> {
     return this.http.post(`/api/payment/delete-card/${card_num}`, {}).pipe(
+      tap(response => this.deleteCardSubject.next(response)),
+      shareReplay(1),
+      catchError(error => this.handleError(error, this.deleteCardSubject))
+    );
+  }
+
+  addBalance(balance: any): Observable<any> {
+    return this.http.post(`/api/payment/add-balance`, balance).pipe(
       tap(response => this.deleteCardSubject.next(response)),
       shareReplay(1),
       catchError(error => this.handleError(error, this.deleteCardSubject))

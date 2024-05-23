@@ -94,6 +94,9 @@
   color: red;
   margin: 0;
 }
+.form__group-dialog{
+  gap: 1rem;
+}
 
 @media (max-width: 768px) {
     .hide-mobile {
