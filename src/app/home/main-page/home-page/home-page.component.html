@@ -1,9 +1,12 @@
-<div class="home-page flex-container">
+<div class="home-page flex-container"  >
     <div class="home-page__content flex-container" style="--flex-direction: column;">
         <app-recommendation-board></app-recommendation-board>
         <div class="books-category-container flex-container" style="--flex-direction: row">
             <div class="categories flex-container">
-                <app-sidebar [ngClass]="{'hidden': !sidebarVisible}" (filtersChanged)="handleFiltersChanged($event)"></app-sidebar>
+                <app-sidebar [ngClass]="{'hidden': !sidebarVisible, 'mobile': true}" (filtersChanged)="handleFiltersChanged($event)"></app-sidebar>
+                @if (sidebarVisible) {
+                    <div class="sidebar-overlay" (click)="showSidebar()"></div>
+                }
             </div>
             <div>
                 <button class="toggle-button" (click)="showSidebar()">

@@ -1,11 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { SidebarModule } from 'primeng/sidebar';
-import { ButtonModule } from 'primeng/button';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IconComponent } from '../../../shared/icon/icon.component';
-import { CommonModule, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { BooksComponent } from '../../books/books.component';
-import { CarouselModule } from 'primeng/carousel';
 import { RecommendationBoardComponent } from '../recommendation-board/recommendation-board.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 
@@ -13,34 +10,39 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   selector: 'app-home-page',
   standalone: true,
   imports: [
-    SidebarModule,
-    ButtonModule,
     SidebarComponent,
     IconComponent,
     NgClass,
-    CommonModule,
     BooksComponent,
-    CarouselModule,
     RecommendationBoardComponent
   ],
   templateUrl: './home-page.component.html',
-  styleUrl: './home-page.component.css',
+  styleUrls: ['./home-page.component.css'], 
 })
-export class HomePageComponent implements OnInit{
-  sidebarVisible = true;
-  filters: any
+export class HomePageComponent implements OnInit {
+  sidebarVisible!: boolean;
+  filters: any;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private renderer: Renderer2) {
+  }
 
   ngOnInit(): void {
+    if (window.innerWidth <= 768) { 
+      this.sidebarVisible = false;
+    } else {
+      this.sidebarVisible = true
+    }
+    
     this.route.queryParams.subscribe(params => {
       const category = params['categoria'];
       if (category) {
         this.handleFiltersChanged({ category: category });
+        
       } else {
         this.handleFiltersChanged({});
       }
     });
+    
   }
 
   showSidebar() {
@@ -48,8 +50,11 @@ export class HomePageComponent implements OnInit{
   }
 
   handleFiltersChanged(filters: any) {
-    this.filters = filters
-    this.filters.size = 18
-    
+    this.filters = filters;
+    this.filters.size = 18;
+    if (window.innerWidth <= 768) { 
+      this.sidebarVisible = false;
+    }
   }
+
 }

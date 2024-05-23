@@ -1,19 +1,22 @@
 <div class="recommendation-board">
     <div class="recommendation-board__content">
-        <p-carousel [value]="books" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]=3000>
+        <p-carousel [value]="books" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="3000">
             <ng-template let-book pTemplate="item">
                 <a class="book-link"  [routerLink]="['/libro', book.ISSN]">
                 <div class="carousel-content flex-container" style="--flex-direction: row; --align-items: start;">
+                    <div class="recommendation-image-container">
+                        <img class="recommendation-image" [src]="imageUrl +'/' + book.portada"
+                            [alt]="book.titulo">
+                    </div>
                     <div class="book-info">
                         <div class="carousel-title">{{ book.titulo }}</div>
                         <div class="carousel-details">
                             <div class="icon-text"><app-icon icon="edit" [size]="30"color="#002122"></app-icon><span>{{ book.autor }}</span></div>
-                            <div class="icon-text"><app-icon icon="description" [size]="30"color="#002122"></app-icon><span>{{ book.num_paginas }}</span></div>
-                            <div class="icon-text"><app-icon icon="calendar_month" [size]="30"color="#002122"></app-icon><span>{{ book.fecha_publicacion }}</span></div>
-                            <div class="icon-text"><app-icon [icon]="getLanguageEmoji(book.idioma)" [size]="30"color="#002122"></app-icon><span>{{ book.idioma }}</span></div>
-                            <div class="icon-text"><app-icon icon="newspaper" [size]="30"color="#002122"></app-icon><span>{{ book.editorial }}</span></div>
-                            <div class="icon-text"><app-icon [icon]="getStateEmoji(book.estado)" [size]="30"color="#002122"></app-icon><span>{{ getState(book.estado) }}</span></div>
-
+                            <div class="icon-text mobile-hidden"><app-icon icon="description" [size]="30"color="#002122"></app-icon><span>{{ book.num_paginas }}</span></div>
+                            <div class="icon-text mobile-hidden"><app-icon icon="calendar_month" [size]="30"color="#002122"></app-icon><span>{{ book.fecha_publicacion }}</span></div>
+                            <div class="icon-text mobile-hidden"><app-icon [icon]="getLanguageEmoji(book.idioma)" [size]="30"color="#002122"></app-icon><span>{{ book.idioma }}</span></div>
+                            <div class="icon-text mobile-hidden"><app-icon icon="newspaper" [size]="30"color="#002122"></app-icon><span>{{ book.editorial }}</span></div>
+                            <div class="icon-text mobile-hidden"><app-icon [icon]="getStateEmoji(book.estado)" [size]="30"color="#002122"></app-icon><span>{{ getState(book.estado) }}</span></div>
                         </div>
                     </div>
                     <div class="price-discount-container">
@@ -24,14 +27,10 @@
                             <div class="price-discount">{{ book.descuento | currency: 'COP' }}</div>
                         }
                     </div>
-                    <div class="recommendation-image-container">
-                        <img class="recommendation-image" [src]="imageUrl +'/' + book.portada"
-                            [alt]="book.titulo">
-                    </div>
+                    
                 </div>
             </a>
             </ng-template>
-
         </p-carousel>
     </div>
 </div>

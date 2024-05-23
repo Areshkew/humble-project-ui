@@ -73,5 +73,10 @@
   :host ::ng-deep .p-tabmenu-nav {
     gap: 0;
   }
+  .hide-mobile{
+    display: none;
+  }
+
+
 }
 

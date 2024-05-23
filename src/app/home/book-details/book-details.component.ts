@@ -71,6 +71,7 @@ export class BookDetailsComponent {
   }
 
   editBook(ISSN: string): void {
+    
     this.ref = this.dialogService.open(EditBookComponent, { 
       header: `Editando libro con ISSN: ${ISSN}`,
       data: {
@@ -80,7 +81,7 @@ export class BookDetailsComponent {
 
     this.ref.onClose.subscribe(() => {
       
-      this.loadBookDetails(ISSN); // Por ejemplo, recargar los detalles del libro
+      this.loadBookDetails(ISSN); // recargar los detalles del libro
     });
   }
 

@@ -1,0 +1,105 @@
+<div class="create-shop flex-container">
+    <div class="create-shop__content flex-container" style="--justify-content: center; --align-items: center;">
+        <form class="create-shop__form" [formGroup]="createShopForm" (ngSubmit)="onSubmit()">
+
+            <div class="form__group flex-container">
+                <div class="form__data flex-container" style="--flex-direction: column;">
+                    
+                    <div class="input__group">
+                        <label>Ubicacion</label>
+                        <input pInputText type="text" placeholder="Ubicacion" formControlName="ubicacion" normalizeSpaces
+                            [ngClass]="{'lib-invalid': createShopForm.get('ubicacion')?.touched && createShopForm.get('ubicacion')?.invalid}">
+                        @if (createShopForm.get('ubicacion')?.touched && createShopForm.get('ubicacion')?.invalid) {
+                            @if (createShopForm.get('ubicacion')?.errors?.['required']){
+                                <p>La ubicacion es requrida.</p>
+                            }
+                            @if (createShopForm.get('ubicacion')?.errors?.['maxlength']){
+                                <p>La ubicacion no debe tener mas de 32 caracteres.</p>
+                            }
+                        }
+                    </div>
+                    <div class="input__group">
+                        <label>Nombre</label>
+                        <input pInputText type="text" placeholder="Nombre" formControlName="nombre" normalizeSpaces
+                            [ngClass]="{'lib-invalid': createShopForm.get('nombre')?.touched && createShopForm.get('nombre')?.invalid}">
+                        @if (createShopForm.get('nombre')?.touched && createShopForm.get('nombre')?.invalid) {
+                            @if (createShopForm.get('nombre')?.errors?.['required']){
+                                <p>El nombre es requerido.</p>
+                            }
+                            @if (createShopForm.get('nombre')?.errors?.['maxlength']){
+                                <p>El nombre no debe teener mas de 32 caracteres.</p>
+                            }
+                        }
+                    </div>
+                    <div class="input__group">
+                        <label>Numero de contacto</label>
+                        <input pInputText type="text" placeholder="Numero de contacto" formControlName="num_contacto" normalizeSpaces
+                            [ngClass]="{'lib-invalid': createShopForm.get('num_contacto')?.touched && createShopForm.get('num_contacto')?.invalid}">
+                        @if (createShopForm.get('num_contacto')?.touched && createShopForm.get('num_contacto')?.invalid) {
+                            @if (createShopForm.get('num_contacto')?.errors?.['required']){
+                                <p>El numero es requerido.</p>
+                            }
+                            @if (createShopForm.get('num_contacto')?.errors?.['minlength'] || createShopForm.get('num_contacto')?.errors?.['maxlength']) {
+                                <p>El numero de contacto debe tener 10 caracteres </p>
+                            }
+                        }
+                    </div>
+                    
+                    
+                    
+                </div>
+
+                <div class="form__data flex-container" style="--flex-direction: column;">
+
+                    <div class="input__group">
+                        <label>Correo</label>
+                        <input pInputText type="email" formControlName="correo" placeholder="Correo" normalizeSpaces
+                            [ngClass]="{'lib-invalid': createShopForm.get('correo')?.touched && createShopForm.get('correo')?.invalid}">
+                        @if (createShopForm.get('correo')?.touched && createShopForm.get('correo')?.invalid) {
+                        <p>El correo es requerido.</p>
+                        }
+                        @if (createShopForm.get('correo')?.errors?.['pattern']) {
+                            <p>Ingresa un correo que sea valido</p>
+                        }
+                    </div>
+                    
+
+                    <div class="input__group">
+                        <label>Hora de apertura</label>
+                        <input pInputText type="time" placeholder="Hora apertura" formControlName="hora_apertura" normalizeSpaces
+                            [ngClass]="{'lib-invalid': createShopForm.get('hora_apertura')?.touched && createShopForm.get('hora_apertura')?.invalid}">
+                        @if (createShopForm.get('hora_apertura')?.touched && createShopForm.get('hora_apertura')?.invalid) {
+                            @if (createShopForm.get('hora_apertura')?.errors?.['required']){
+                                <p>La hora es requerida.</p>
+                            }
+                            @if (createShopForm.get('hora_apertura')?.errors?.['pattern']) {
+                                <p>La hora debe ser ingresada de la siguiente forma: HH:MM (ejemplo: 23:45) </p>
+                            }
+                        }
+                    </div>
+
+                    <div class="input__group">
+                        <label>Hora de cierre</label>
+                        <input pInputText type="time" placeholder="Hora cierre" formControlName="hora_cierre" normalizeSpaces
+                            [ngClass]="{'lib-invalid': createShopForm.get('hora_apertura')?.touched && createShopForm.get('hora_cierre')?.invalid}">
+                        @if (createShopForm.get('hora_cierre')?.touched && createShopForm.get('hora_cierre')?.invalid) {
+                            @if (createShopForm.get('hora_cierre')?.errors?.['required']){
+                                <p>La hora es requerida.</p>
+                            }
+                            @if (createShopForm.get('hora_cierre')?.errors?.['pattern']) {
+                                <p>La hora debe ser ingresada de la siguiente forma: HH:MM (ejemplo: 23:45) </p>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="form__submit flex-container" style="--flex-direction: column;">
+                <button class="lib-button" type="submit" [ngClass]="{'lib-button-disabled': !createShopForm.valid}"
+                    [disabled]="!createShopForm.valid">
+                    Añadir Tienda
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

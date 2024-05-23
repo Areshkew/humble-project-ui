@@ -40,10 +40,10 @@
 .card-title {
   font-weight: bold;
   font-size: var(--font-size-base);
-  display: -webkit-box;            /* Utiliza el modelo de caja flexible de webkit */
-    -webkit-box-orient: vertical;    /* Orienta el contenido del contenedor verticalmente */
+  display: -webkit-box;          
+    -webkit-box-orient: vertical;    
     -webkit-line-clamp: 2;           /* Limita el texto a dos líneas */
-    overflow: hidden;                /* Oculta el contenido que sobrepasa el contenedor */
+    overflow: hidden;               
     text-overflow: ellipsis; 
     
 }
@@ -123,4 +123,48 @@
   text-decoration: none; 
   color: inherit;
   display: block; 
+}
+
+.book-autor{
+  display: -webkit-box;            
+    -webkit-box-orient: vertical;    
+    -webkit-line-clamp: 1;           /* Limita el texto a una líneas */
+    overflow: hidden;                
+    text-overflow: ellipsis; 
+  }
+
+
+@media (max-width: 768px) {
+  .book-card {
+    width: 325px; 
+    height: 160px;
+    margin: 0 0 20px 0;
+    font-size: var(--font-size-base);
+  }
+
+  .card-image-container, .card-image {
+    width: 100px;  
+    height: 100%;  
+  }
+
+  .book-info {
+    padding: 2px; 
+  }
+
+  .btn {
+    padding: 5px; 
+  }
+
+  .price-discount-container {
+    font-size: var(--font-size-base);
+
+  }
+  
+  .card-details{
+    font-size: var(--font-size-sm);
+  }
+
+  
+
+
 }
