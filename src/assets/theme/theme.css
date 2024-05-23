@@ -2775,6 +2775,7 @@
     box-shadow: 0 0 0 0.2rem #f48b6b;
   }
   .p-carousel .p-carousel-indicators {
+    padding: 0;
     gap: 3rem;
     list-style: none;
     margin: 0;
@@ -2783,7 +2784,7 @@
 
   .p-carousel .p-carousel-indicators .p-carousel-indicator button {
     background-color: #e5e9f0;
-    width: 5rem;
+    width: 3rem;
     height: 0.7rem;
     transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
     border-radius: 50px;

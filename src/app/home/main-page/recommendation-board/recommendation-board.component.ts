@@ -20,6 +20,7 @@ export class RecommendationBoardComponent implements OnInit{
   books: any[] = []
 
 
+
   constructor(private bookService: BookService){}
 
   ngOnInit(): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, HostListener } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { IconComponent } from '../../shared/icon/icon.component';
 import { CommonModule, ViewportScroller } from '@angular/common';
@@ -17,6 +17,7 @@ import { AuthService } from '@services/auth/auth.service';
 })
 export class BooksComponent implements OnChanges{
   imageUrl: string = environment.api_host;
+  public iconSize: number = 22
 
   @Input() filters: any;
 
@@ -30,7 +31,7 @@ export class BooksComponent implements OnChanges{
 
   constructor(private bookService: BookService, private viewportScroller: ViewportScroller, private toastService: ToastService,
     private authService: AuthService
-  ){}
+  ){this.adjustIconSize();}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.role = this.authService.getUserRoleFromToken()
@@ -89,5 +90,18 @@ export class BooksComponent implements OnChanges{
 
     return stateMap[state.toString()] 
     
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.adjustIconSize();
+  }
+
+  private adjustIconSize() {
+    if (window.innerWidth < 768) { 
+      this.iconSize = 16; 
+    } else {
+      this.iconSize = 22; 
+    }
   }
 }

@@ -67,6 +67,7 @@
   width: 100%;
   display: flex;
   gap: 0.5rem;
+  text-align: center;
 } 
 
 .input__group-address{
@@ -85,4 +86,18 @@
   font-size: var(--font-size-sm);
   color: red;
   margin: 0;
+}
+
+@media (max-width: 768px) {
+  .input__field-dropdown{
+    width: 60%;
+  }
+  .input__field-number{
+    width: 100%;
+    text-align: center;
+  }
+
+  .input__field-number .p-inputtext{
+    padding: 0.2rem 0.2rem;
+  }
 }
