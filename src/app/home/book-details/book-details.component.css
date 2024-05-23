@@ -128,4 +128,31 @@
     margin-bottom: 1rem; 
 }
 
+.success-carrito {
+    width: 200px;
+    height: 75px;
+    background-color: rgb(139, 247, 193);
+    border-radius: 15px;
+    position: fixed; 
+    top: 55px; 
+    right: 45px; 
+    z-index: 1000;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 15px
+}
+.triangulo {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent; 
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid rgb(139, 247, 193); 
+    position: absolute; 
+    top: -10px;
+    opacity: 0;
+}
 

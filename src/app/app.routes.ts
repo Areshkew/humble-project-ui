@@ -19,6 +19,11 @@ export const routes: Routes = [
         canActivate: [authGuard]
     }, 
     { 
+        path: 'carrito', 
+        loadComponent: () => import('./user/carts/carts.component').then(m => m.CartsComponent),
+        data: { Guest: true }
+    }, 
+    { 
         path: 'recuperar-contraseña', 
         loadComponent: () => import('./auth/recover/recover.component').then(m => m.RecoverComponent),
         data: { Guest: true }, 

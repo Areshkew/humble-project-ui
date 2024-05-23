@@ -123,4 +123,8 @@ export class MenuComponent implements OnInit, OnDestroy {
   setHoveringOverResults(state: boolean) {
     this.hoveringOverResults = state;
   }
+
+  showCart(){
+    this.router.navigate(['/carrito'])
+  }
 }
