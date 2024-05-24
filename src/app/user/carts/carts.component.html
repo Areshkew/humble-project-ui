@@ -154,6 +154,12 @@
             {{item[0]}}</b> -<b> {{item[1] | currency: 'COP'}}
         </b>
     </div>
-    <p style="font-size: var(--font-size-md);">Total: {{total | currency: 'COP'}}</p>
-    <button class="lib-button" style="width: 20%">Comprar</button>
+    <p style="font-size: var(--font-size-md);">
+        Total: {{total | currency: 'COP'}}
+        <br>
+        Su saldo: {{saldo | currency: 'COP'}}
+    </p>
+    
+    <button class="lib-button" style="width: 20%" (click)="realizarCompra()" [disabled]="total > saldo">Comprar</button>
 </div>
+<p *ngIf="!( books || reservedBooks)" style="color:white; font-size: var(--font-size-xxl);"> <b>Upss... Parece que no tienes libros en el carrito</b></p>
