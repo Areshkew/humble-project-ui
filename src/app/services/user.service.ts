@@ -92,6 +92,29 @@ export class UserService {
     );
   }
 
+  obtenerSaldo(id: string): Observable<any> {
+    return this.http.get(`/api/user/saldo/${id}`)
+      .pipe(
+        catchError((error: any) => {
+          console.error('No se pudo obtener el saldo', error);
+          const message = `No se pudo obtener el saldo: ${error.error.detail}`;
+          return throwError(() => new Error(message));
+        })
+      );
+  }
+
+  realizarCompras(userId: string, booksForShop: [string,string][] ): Observable<any> {
+    const body = { userId, booksForShop };
+    return this.http.post(`/api/user/realizar-compra`, body)
+      .pipe(
+        catchError((error: any) => {
+          console.error('No se pudo realizar la compra', error);
+          const message = `No se pudo realizar la compra: ${error.error.detail}`;
+          return throwError(() => new Error(message));
+        })
+      );
+  }
+
   private handleError(error: any, subject: Subject<any>): Observable<never> {
     subject.error(error);
     subject.next(null);
@@ -99,5 +122,3 @@ export class UserService {
     return throwError(() => new Error(`${error.error.detail}`));
   }
 }
-
-//Comunicacion con el back, donde se envian los datos
