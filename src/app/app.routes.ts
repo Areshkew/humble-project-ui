@@ -21,7 +21,8 @@ export const routes: Routes = [
     { 
         path: 'carrito', 
         loadComponent: () => import('./user/carts/carts.component').then(m => m.CartsComponent),
-        data: { Guest: true }
+        data: { Roles: ['cliente', 'guest'] },
+        canActivate: [authGuard],
     }, 
     { 
         path: 'recuperar-contraseña', 
