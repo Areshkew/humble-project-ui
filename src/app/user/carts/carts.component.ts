@@ -195,23 +195,27 @@ export class CartsComponent {
     if (!this.userId) {
       this.router.navigate(['/ingreso'])
     }
+    else {
 
-    let listSelectShops: string[] = [this.userId]
 
-    for (const key in this.selectedShops) {
-      listSelectShops.push(this.selectedShops[key]);
-    }
-    if (this.completed) {
-      this.bookService.realizarReservas(listSelectShops).subscribe({
-        next: (r) => {
-          if (r.success) this.toastService.showSuccessToast("Exito", "Se realizó la reserva correctamente.");
-          localStorage.setItem('carrito', JSON.stringify([]));
-          location.reload();
-        },
-        error: (error) => {
-          this.toastService.showErrorToast("Error al realizar la reserva", error);
-        }
-      });
+
+      let listSelectShops: string[] = [this.userId]
+
+      for (const key in this.selectedShops) {
+        listSelectShops.push(this.selectedShops[key]);
+      }
+      if (this.completed) {
+        this.bookService.realizarReservas(listSelectShops).subscribe({
+          next: (r) => {
+            if (r.success) this.toastService.showSuccessToast("Exito", "Se realizó la reserva correctamente.");
+            localStorage.setItem('carrito', JSON.stringify([]));
+            location.reload();
+          },
+          error: (error) => {
+            this.toastService.showErrorToast("Error al realizar la reserva", error);
+          }
+        });
+      }
     }
   }
 
@@ -280,19 +284,19 @@ export class CartsComponent {
           }
         }
       }
-      
-      
+
+
       this.userService.realizarCompras(this.userId, booksForShop).subscribe({
         next: (r) => {
-          if(r.success) this.toastService.showSuccessToast("Exito", "Se canceló la compra.");
+          if (r.success) this.toastService.showSuccessToast("Exito", "Se canceló la compra.");
           localStorage.clear();
           location.reload();
         },
         error: (error) => {
-        this.toastService.showErrorToast("Error al realizar la compra", error);
+          this.toastService.showErrorToast("Error al realizar la compra", error);
         }
       });
-      
+
     }
   }
 
