@@ -50,6 +50,7 @@ export class SendEmailComponent {
       },
       error: (error) => {
         this.toastService.showErrorToast("Error", error);
+        this.userService.clearData()
       }
     })
   }
