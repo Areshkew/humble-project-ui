@@ -173,7 +173,7 @@ export class CartsComponent {
       this.carrito.splice(indice, 1);
       localStorage.setItem('carrito', JSON.stringify(this.carrito)); // Actualizar el localStorage
     }
-    location.reload();
+    
   }
 
   allSelectionsMade() {
@@ -288,9 +288,10 @@ export class CartsComponent {
 
       this.userService.realizarCompras(this.userId, booksForShop).subscribe({
         next: (r) => {
-          if (r.success) this.toastService.showSuccessToast("Exito", "Se canceló la compra.");
+
           localStorage.clear();
           location.reload();
+          if (r) this.toastService.showSuccessToast("Exito", "Se canceló la compra.");
         },
         error: (error) => {
           this.toastService.showErrorToast("Error al realizar la compra", error);

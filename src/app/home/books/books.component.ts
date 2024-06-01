@@ -60,6 +60,7 @@ export class BooksComponent implements OnChanges{
     });
   }
 
+  
 
   onPaginateChange(event: any) {
     this.filters.page = event.page + 1; 

@@ -1,165 +1,155 @@
-<div *ngIf="reservedBooks && reservedBooks.length > 0" class="container">
-    <div class="cart-info">
+<div class="main-container">
+    <div *ngIf="reservedBooks && reservedBooks.length > 0" class="container">
+      <div class="cart-info">
         <h1>Libros Reservados</h1>
         <div class="content">
-            <div *ngFor="let item of reservedBooks; let i = index" class="book-card flex-container"
-                style="--flex-direction: row; --align-items: start;">
-                <a class="book-link" [routerLink]="['/libro', item.ISSN]">
-                    <div class="card-image-container">
-                        <img class="card-image" [src]="imageUrl +'/' + item.portada" alt="{{ item.titulo }}">
-                    </div>
-                </a>
-                <div class="book-info">
-                    <div class="card-title"><b> {{ item.titulo }}</b></div>
-                    <div class="card-details">
-                        <div class="icon-text"><app-icon icon="edit" [size]="22" color="gray"></app-icon><span>{{
-                                item.autor }}</span></div>
-                        <div class="icon-text"><app-icon icon="description" [size]="22" color="gray"></app-icon><span>{{
-                                item.num_paginas }}</span></div>
-                        <div class="icon-text"><app-icon icon="calendar_month" [size]="22"
-                                color="gray"></app-icon><span>{{ item.fecha_publicacion }}</span></div>
-                        <div class="icon-text"><app-icon [icon]="getLanguageEmoji(item.idioma)" [size]="22"
-                                color="gray"></app-icon><span>{{ item.idioma }}</span></div>
-                        <div class="icon-text"><app-icon [icon]="getStateEmoji(item.estado)" [size]="22"
-                                color="gray"></app-icon><span>{{ getState(item.estado) }}</span></div>
-                    </div>
-                    <div class="price-discount-container">
-                        <div *ngIf="item.descuento === item.precio">
-                            <div class="price-discount">{{ item.precio | currency: 'COP' }}</div>
-                        </div>
-                        <div *ngIf="item.descuento !== item.precio">
-                            <div class="price-original">{{ item.precio | currency: 'COP' }}</div>
-                            <div class="price-discount">{{ item.descuento | currency: 'COP' }}</div>
-                        </div>
-                    </div>
-                    <div>
-                        <p style="color:red">Este libro esta reservado hasta <b>{{item.fechaFin}}</b> en
-                            <b>{{item.nombreTienda}}</b>
-                        </p>
-                    </div>
-                    <button class="lib-button" (click)="cancelarReserva(item.ISSN, item.fechaFin,item.nombreTienda)"> Cancelar Reserva</button>
+          <div *ngFor="let item of reservedBooks; let i = index" class="book-card">
+            <a class="book-link" [routerLink]="['/libro', item.ISSN]">
+              <div class="card-image-container">
+                <img class="card-image" [src]="imageUrl + '/' + item.portada" alt="{{ item.titulo }}">
+              </div>
+            </a>
+            <div class="book-info">
+              <div class="card-title"><b>{{ item.titulo }}</b></div>
+              <div class="card-details">
+                <div class="icon-text">
+                  <app-icon icon="edit" [size]="22" color="gray"></app-icon><span>{{ item.autor }}</span>
                 </div>
+                <div class="icon-text">
+                  <app-icon icon="description" [size]="22" color="gray"></app-icon><span>{{ item.num_paginas }}</span>
+                </div>
+                <div class="icon-text">
+                  <app-icon icon="calendar_month" [size]="22" color="gray"></app-icon><span>{{ item.fecha_publicacion }}</span>
+                </div>
+                <div class="icon-text">
+                  <app-icon [icon]="getLanguageEmoji(item.idioma)" [size]="22" color="gray"></app-icon><span>{{ item.idioma }}</span>
+                </div>
+                <div class="icon-text">
+                  <app-icon [icon]="getStateEmoji(item.estado)" [size]="22" color="gray"></app-icon><span>{{ getState(item.estado) }}</span>
+                </div>
+              </div>
+              <div class="price-discount-container">
+                <div *ngIf="item.descuento === item.precio">
+                  <div class="price-discount">{{ item.precio | currency: 'COP' }}</div>
+                </div>
+                <div *ngIf="item.descuento !== item.precio">
+                  <div class="price-original">{{ item.precio | currency: 'COP' }}</div>
+                  <div class="price-discount">{{ item.descuento | currency: 'COP' }}</div>
+                </div>
+              </div>
+              <div>
+                <p style="color:red">Este libro está reservado hasta <b>{{item.fechaFin}}</b> en <b>{{item.nombreTienda}}</b></p>
+              </div>
+              <button class="lib-button" (click)="cancelarReserva(item.ISSN, item.fechaFin, item.nombreTienda)">Cancelar Reserva</button>
             </div>
+          </div>
         </div>
-    </div>
-    <div class="cart-total-container">
+      </div>
+      <div class="cart-total-container">
         <div class="cart-total">
-            <div>
-                <b class="cart-title">¡No esperes más!</b>
-                <p>Adquiere ya tus libros por tan solo:</p>
-
-                <p style="color: red"> <b> {{total | currency: 'COP'}}</b> </p>
-            </div>
-            <button class="lib-button" (click)="desplegableCompra()" [disabled]="!allSelectionsMade()"
-                [ngClass]="{'lib-button-disabled': !completed}">
-                Comprar
-            </button>
+          <div>
+            <b class="cart-title">¡No esperes más!</b>
+            <p>Adquiere ya tus libros por tan solo:</p>
+            <p style="color: red"><b>{{total | currency: 'COP'}}</b></p>
+          </div>
+          <button class="lib-button" (click)="desplegableCompra()" [disabled]="!allSelectionsMade()" [ngClass]="{'lib-button-disabled': !completed}">
+            Comprar
+          </button>
         </div>
+      </div>
     </div>
-</div>
-
-<div *ngIf="books && books.length > 0" class="container">
-    <div class="cart-info">
-        <h1>Carrito de Compras</h1>
+  
+    <div *ngIf="books && books.length > 0" class="container">
+      <div class="cart-info">
+        <div class ="cart-info-title">Carrito de Compras</div>
         <div class="content">
-            <div *ngFor="let item of books; let i = index" class="book-card flex-container"
-                style="--flex-direction: row; --align-items: start;">
-                <a class="book-link" [routerLink]="['/libro', item.ISSN]">
-                    <div class="card-image-container">
-                        <img class="card-image" [src]="imageUrl +'/' + item.portada" alt="{{ item.titulo }}">
-                    </div>
-                </a>
-                <div class="book-info">
-                    <div class="card-title"><b> {{ item.titulo }}</b></div>
-                    <div class="card-details">
-                        <div class="icon-text"><app-icon icon="edit" [size]="22" color="gray"></app-icon><span>{{
-                                item.autor }}</span></div>
-                        <div class="icon-text"><app-icon icon="description" [size]="22" color="gray"></app-icon><span>{{
-                                item.num_paginas }}</span></div>
-                        <div class="icon-text"><app-icon icon="calendar_month" [size]="22"
-                                color="gray"></app-icon><span>{{ item.fecha_publicacion }}</span></div>
-                        <div class="icon-text"><app-icon [icon]="getLanguageEmoji(item.idioma)" [size]="22"
-                                color="gray"></app-icon><span>{{ item.idioma }}</span></div>
-                        <div class="icon-text"><app-icon [icon]="getStateEmoji(item.estado)" [size]="22"
-                                color="gray"></app-icon><span>{{ getState(item.estado) }}</span></div>
-                    </div>
-                    <div class="price-discount-container">
-                        <div *ngIf="item.descuento === item.precio">
-                            <div class="price-discount">{{ item.precio | currency: 'COP' }}</div>
-                        </div>
-                        <div *ngIf="item.descuento !== item.precio">
-                            <div class="price-original">{{ item.precio | currency: 'COP' }}</div>
-                            <div class="price-discount">{{ item.descuento | currency: 'COP' }}</div>
-                        </div>
-                    </div>
-                    <div class="shop-desplegable" *ngIf="personalInformation[item.ISSN].length > 0">
-                        <label for="state-select-{{ i }}">Seleccione un libro: </label>
-                        <select id="state-select-{{ i }}" [(ngModel)]="selectedShops[i]">
-                            <option *ngFor="let shop of personalInformation[item.ISSN]" [value]="shop">{{ shop }}
-                            </option>
-                        </select>
-                    </div>
-                    <p style="color:red" *ngIf="personalInformation[item.ISSN].length <= 0"> No existen libros
-                        disponibles en este momento</p>
+          <div *ngFor="let item of books; let i = index" class="book-card">
+            <a class="book-link" [routerLink]="['/libro', item.ISSN]">
+              <div class="card-image-container">
+                <img class="card-image" [src]="imageUrl + '/' + item.portada" alt="{{ item.titulo }}">
+              </div>
+            </a>
+            <div class="book-info">
+              <div class="card-title"><b>{{ item.titulo }}</b></div>
+              <div class="card-details">
+                <div class="icon-text">
+                  <app-icon icon="edit" [size]="22" color="gray"></app-icon><span>{{ item.autor }}</span>
                 </div>
-                <div class="delete-button">
-                    <p-button icon="pi pi-times" [rounded]="true" severity="danger"
-                        (onClick)="borrarLibroLocalStorage(item.ISSN)"></p-button>
+                <div class="icon-text">
+                  <app-icon icon="description" [size]="22" color="gray"></app-icon><span>{{ item.num_paginas }}</span>
                 </div>
+                <div class="icon-text">
+                  <app-icon icon="calendar_month" [size]="22" color="gray"></app-icon><span>{{ item.fecha_publicacion }}</span>
+                </div>
+                <div class="icon-text">
+                  <app-icon [icon]="getLanguageEmoji(item.idioma)" [size]="22" color="gray"></app-icon><span>{{ item.idioma }}</span>
+                </div>
+                <div class="icon-text">
+                  <app-icon [icon]="getStateEmoji(item.estado)" [size]="22" color="gray"></app-icon><span>{{ getState(item.estado) }}</span>
+                </div>
+              </div>
+              <div class="price-discount-container">
+                <div *ngIf="item.descuento === item.precio">
+                  <div class="price-discount">{{ item.precio | currency: 'COP' }}</div>
+                </div>
+                <div *ngIf="item.descuento !== item.precio">
+                  <div class="price-original">{{ item.precio | currency: 'COP' }}</div>
+                  <div class="price-discount">{{ item.descuento | currency: 'COP' }}</div>
+                </div>
+              </div>
+              <div class="shop-desplegable" *ngIf="personalInformation[item.ISSN].length > 0">
+                <label for="state-select-{{ i }}">Seleccione un libro: </label>
+                <select pInputText id="state-select-{{ i }}" [(ngModel)]="selectedShops[i]">
+                  <option *ngFor="let shop of personalInformation[item.ISSN]" [value]="shop">{{ shop }}</option>
+                </select>
+              </div>
+              <p style="color:red" *ngIf="personalInformation[item.ISSN].length <= 0">No existen libros disponibles en este momento</p>
             </div>
+            <div class="delete-button">
+              <p-button icon="pi pi-times" [rounded]="true" severity="danger" (onClick)="borrarLibroLocalStorage(item.ISSN)"></p-button>
+            </div>
+          </div>
         </div>
-    </div>
-    <div class="cart-total-container">
+      </div>
+      <div class="cart-total-container">
         <div class="cart-total" *ngIf="!(reservedBooks && reservedBooks.length > 0)">
-            <div>
-                <b class="cart-title">¡No esperes más!</b>
-                <p>Adquiere ya tus libros por tan solo:</p>
-
-                <p style="color: red"> <b> {{total | currency: 'COP'}}</b> </p>
-            </div>
-            <button class="lib-button" (click)="desplegableCompra()" [disabled]="!allSelectionsMade()"
-                [ngClass]="{'lib-button-disabled': !completed}">
-                Comprar
-            </button>
+          <div>
+            <b class="cart-title">¡No esperes más!</b>
+            <p>Adquiere ya tus libros por tan solo:</p>
+            <p style="color: red"><b>{{total | currency: 'COP'}}</b></p>
+          </div>
+          <button class="lib-button" (click)="desplegableCompra()" [disabled]="!allSelectionsMade()" [ngClass]="{'lib-button-disabled': !completed}">
+            Comprar
+          </button>
         </div>
         <div class="cart-total">
-            <div>
-                <b class="cart-title">¡Reserva ya para que nadie te quite los libros!</b>
-                <p *ngIf="reservedBooks">
-                    Todavía tienes {{ 5 - reservedBooks.length }} espacios para reservar.
-                </p>
-                <p *ngIf="!reservedBooks">
-                    Puedes reservar hasta 5 ejemplares de libros, y hasta 3 veces el mismo libro
-                </p>
-            </div>
-            <button class="lib-button" (click)="solicitarReservar()" [disabled]="!allSelectionsMade()"
-                [ngClass]="{'lib-button-disabled': !completed}">
-                Reservar
-            </button>
+          <div>
+            <b class="cart-title">¡Reserva ya para que nadie te quite los libros!</b>
+            <p *ngIf="reservedBooks">Todavía tienes {{ 5 - reservedBooks.length }} espacios para reservar.</p>
+            <p *ngIf="!reservedBooks">Puedes reservar hasta 5 ejemplares de libros, y hasta 3 veces el mismo libro</p>
+          </div>
+          <button class="lib-button" (click)="solicitarReservar()" [disabled]="!allSelectionsMade()" [ngClass]="{'lib-button-disabled': !completed}">
+            Reservar
+          </button>
         </div>
+      </div>
     </div>
-</div>
-
-<div *ngIf="showMenu" class="overlay" (click)="volverse()"></div>
-<div *ngIf="showMenu" class="pasarelaFinal">
-    <p style="font-size: var(--font-size-lg);">
-        <b>Confirma tu compra</b>
-    </p>
-    <b>Vas a adquirir:</b>
-
-    <hr>
-
-    <div *ngFor="let item of compras">
-        <b>
-            {{item[0]}}</b> -<b> {{item[1] | currency: 'COP'}}
-        </b>
-    </div>
-    <p style="font-size: var(--font-size-md);">
-        Total: {{total | currency: 'COP'}}
-        <br>
+  
+    <div *ngIf="showMenu" class="overlay" (click)="volverse()"></div>
+    <div *ngIf="showMenu" class="pasarelaFinal">
+      <p style="font-size: var(--font-size-lg);"><b>Confirma tu compra</b></p>
+      <b>Vas a adquirir:</b>
+      <hr>
+      <div *ngFor="let item of compras">
+        <b>{{item[0]}}</b> -<b>{{item[1] | currency: 'COP'}}</b>
+      </div>
+      <p style="font-size: var(--font-size-md);">
+        Total: {{total | currency: 'COP'}}<br>
         Su saldo: {{saldo | currency: 'COP'}}
-    </p>
-    
-    <button class="lib-button" style="width: 20%" (click)="realizarCompra()" [disabled]="total > saldo">Comprar</button>
-</div>
-<p *ngIf="(books.length < 1 && !reservedBooks)" style="color:white; font-size: var(--font-size-xxl);"> <b>  Upss... Parece que no tienes libros en el carrito</b></p>
+      </p>
+      <button class="lib-button" style="width: 20%" (click)="realizarCompra()" [disabled]="total > saldo">Comprar</button>
+      <p *ngIf="saldo < total" style="color:red">Su saldo es insuficiente</p>
+    </div>
+    <p *ngIf="(books.length < 1 && !reservedBooks)" style="color:white; font-size: var(--font-size-xxl);"><b>Upss... Parece que no tienes libros en el carrito</b></p>
+  </div>
+  
