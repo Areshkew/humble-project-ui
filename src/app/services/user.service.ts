@@ -49,6 +49,10 @@ export class UserService {
     this.emailSubject.next(data)
   }
 
+  clearData(){
+    this.emailSubject = new BehaviorSubject<any>(null);
+  }
+
   getData() {
     return this.emailSubject.asObservable();
   }

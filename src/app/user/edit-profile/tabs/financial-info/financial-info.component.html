@@ -1,12 +1,14 @@
 <p-confirmPopup></p-confirmPopup>
 
 <div class="financial-info-container">
-    <div class="balance">
-        Saldo: {{balance}}
+    <div class="flex-container" style="--flex-direction:row">
+        <div class="balance">
+            Saldo: {{balance}}
+        </div>
+        
+        <button class=" add-button"
+        (click)="showAddBalanceDialog()"><app-icon icon="add" [size]="30"></app-icon></button>
     </div>
-
-    <button pButton pRipple label="Añadir Saldo" class="p-button p-button-success"
-        (click)="showAddBalanceDialog()"></button>
     <p-dialog header="Añadir Saldo" [(visible)]="addBalanceDialogVisible" [modal]="true" [closable]="false"
         [style]="{width: '350px'}">
         <form [formGroup]="addBalanceForm" (ngSubmit)="onAddBalanceSubmit()">
@@ -17,7 +19,7 @@
                 </div>
                 <div class="input__group">
                     <label for="card">Seleccionar Tarjeta</label>
-                    <p-dropdown [options]="cards" optionLabel="num_tarjeta" formControlName="card"
+                    <p-dropdown [options]="transformedCards" optionLabel="num_tarjeta" formControlName="card"
                         (onChange)="onCardSelect()"></p-dropdown>
                 </div>
                 @if (isCreditCardSelected()) {
@@ -27,7 +29,7 @@
                         formControlName="installments"></p-dropdown>
                 </div>
                 }
-                <div class="form-actions">
+                <div class="form-actions flex-container">
                     <button type="button" pButton label="Cancelar" class="p-button-secondary"
                         (click)="addBalanceDialogVisible=false"></button>
                     <button type="submit" pButton label="Añadir" [disabled]="addBalanceForm.invalid"></button>
@@ -48,7 +50,7 @@
             <div class="card__content flex-container" style="--flex-direction: row; --justify-content: space-between">
                 <div class="flex-container" style="--flex-direction: column;">
                     <div class="card-text">Tarjeta terminada en</div>
-                    <div> <span class="hide-mobile">XXXX . XXXX .</span>XXXX .{{card.num_tarjeta.slice(-4)}}</div>
+                    <div> <span class="hide-mobile">XXXX . XXXX .</span>XXXX . {{card.num_tarjeta.slice(-4)}}</div>
                 </div>
 
                 <div class="flex-container" style="--flex-direction: column">
@@ -81,12 +83,12 @@
                     <input type="number" pInputText formControlName="num_tarjeta"
                         [ngClass]="{'lib-invalid': tarjetaForm.get('num_tarjeta')?.touched && tarjetaForm.get('num_tarjeta')?.invalid}">
                     @if (tarjetaForm.get('num_tarjeta')?.touched && tarjetaForm.get('num_tarjeta')?.invalid) {
-                    @if (tarjetaForm.get('num_tarjeta')?.errors?.['required']) {
-                    <p>El número es requerido</p>
-                    }
-                    @if (tarjetaForm.get('num_tarjeta')?.errors?.['pattern']) {
-                    <p>La tarjeta debe tener 16 dígitos</p>
-                    }
+                        @if (tarjetaForm.get('num_tarjeta')?.errors?.['required']) {
+                            <p>El número es requerido</p>
+                        }
+                        @if (tarjetaForm.get('num_tarjeta')?.errors?.['pattern']) {
+                            <p>La tarjeta debe tener 16 dígitos</p>
+                        }                        
                     }
                 </div>
                 <div class="input__group">
