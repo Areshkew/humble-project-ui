@@ -9,11 +9,12 @@ import { ButtonModule } from 'primeng/button';
 import { AuthService } from '@services/auth/auth.service';
 import { BookService } from '@services/book.service';
 import { UserService } from '@services/user.service';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
   selector: 'app-carts',
   standalone: true,
-  imports: [CommonModule, IconComponent, PaginatorModule, RouterLink, ButtonModule],
+  imports: [CommonModule, IconComponent, PaginatorModule, RouterLink, ButtonModule, SelectButtonModule],
   templateUrl: './carts.component.html',
   styleUrl: './carts.component.css'
 })
@@ -36,6 +37,12 @@ export class CartsComponent {
   compras: [string, string][] = [];
   tiendasBorradas: number = 0;
   saldo: number = 0;
+  selectValue: string = "2"; 
+  stateOptions = [
+    { label: 'Recoger en tienda', value: "3" },
+    { label: 'Enviar a casa', value: "0" }
+  ];
+
 
   constructor(private bookService: BookService, private userService: UserService, private toastService: ToastService, private authService: AuthService, private router: Router,) { }
 
@@ -173,7 +180,7 @@ export class CartsComponent {
       this.carrito.splice(indice, 1);
       localStorage.setItem('carrito', JSON.stringify(this.carrito)); // Actualizar el localStorage
     }
-    
+    location.reload();
   }
 
   allSelectionsMade() {
@@ -285,13 +292,11 @@ export class CartsComponent {
         }
       }
 
-
-      this.userService.realizarCompras(this.userId, booksForShop).subscribe({
+      this.userService.realizarCompras(this.userId, this.selectValue, booksForShop).subscribe({
         next: (r) => {
-
+          if (r.success) this.toastService.showSuccessToast("Exito", "Se canceló la compra.");
           localStorage.clear();
-          location.reload();
-          if (r) this.toastService.showSuccessToast("Exito", "Se canceló la compra.");
+          this.router.navigate(['/compras'])
         },
         error: (error) => {
           this.toastService.showErrorToast("Error al realizar la compra", error);

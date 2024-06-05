@@ -1,0 +1,27 @@
+<div *ngIf="books && books.length > 0" class="container">
+    <h1>Se desean devolver estos libros:</h1>
+    <div class="content">
+        <div *ngFor="let item of books; let i = index" class="book-card flex-container"
+            style="--flex-direction: row; --align-items: start;">
+            <a class="book-link" [routerLink]="['/libro', item.ISSN]">
+                <div class="card-image-container">
+                    <img class="card-image" [src]="imageUrl +'/' + item.portada" alt="{{ item.titulo }}">
+                </div>
+            </a>
+            <div class="book-info">
+                <div class="card-title"><b> {{ item.titulo }}</b></div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <p>Por favor, valide el estado de los libros</p>
+    <p><b> Seleccione en que tienda se encuentra:</b></p>
+    <div style="display: flex; justify-content: center;">
+        <select [(ngModel)]="selectedShop">
+            <option value="" disabled selected hidden>Seleccione una tienda</option>
+            <option *ngFor="let shop of librerias" [value]="shop">{{ shop }}</option>
+        </select>
+
+        <button class="lib-button" (click)="completarDevolucion()" [disabled]="!selectedShop">Aceptar devolucion</button>
+    </div>
+</div>

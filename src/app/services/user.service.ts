@@ -107,13 +107,59 @@ export class UserService {
       );
   }
 
-  realizarCompras(userId: string, booksForShop: [string,string][] ): Observable<any> {
-    const body = { userId, booksForShop };
+  obtenerFacturas(id: string): Observable<any> {
+    return this.http.get(`/api/user/facturas/${id}`)
+      .pipe(
+        catchError((error: any) => {
+          console.error('No se pudieron obtener las facturas', error);
+          const message = `No se pudieron obtener las facturas: ${error.error.detail}`;
+          return throwError(() => new Error(message));
+        })
+      );
+  }
+
+  realizarCompras(userId: string, enviarORecoger: string, booksForShop: [string,string][] ): Observable<any> {
+    const body = { userId, enviarORecoger, booksForShop };
     return this.http.post(`/api/user/realizar-compra`, body)
       .pipe(
         catchError((error: any) => {
           console.error('No se pudo realizar la compra', error);
           const message = `No se pudo realizar la compra: ${error.error.detail}`;
+          return throwError(() => new Error(message));
+        })
+      );
+  }
+
+  generarCodigoDevoluciones(userId: string, selectedISSNs: string[] ): Observable<any> {
+    const body = { userId, selectedISSNs };
+    return this.http.post(`/api/user/generarCodigoDevoluciones`, body)
+      .pipe(
+        catchError((error: any) => {
+          console.error('No se pudo realizar la devolucion', error);
+          const message = `No se pudo realizar la devolucion: ${error.error.detail}`;
+          return throwError(() => new Error(message));
+        })
+      );
+  }
+
+  obtenerInformacionDevolucion(code: string | null): Observable<any> {
+    return this.http.get(`/api/user/devolucion/${code}`)
+      .pipe(
+        catchError((error: any) => {
+          console.error('No se pudieron obtener las devoluciones', error);
+          const message = `No se pudieron obtener las devoluciones: ${error.error.detail}`;
+          return throwError(() => new Error(message));
+        })
+      );
+  }
+
+  generarDevoluciones(code: string | null, selectedShop: string | null ): Observable<any> {
+    const body = code+","+ selectedShop;
+    return this.http.post(`/api/user/generarDevoluciones/${body}`, null)
+      .pipe(
+        catchError((error: any) => {
+          console.error('No se pudo realizar la devolucion', error);
+          const message = `No se pudo realizar la devolucion: ${error.error.detail}`;
           return throwError(() => new Error(message));
         })
       );
