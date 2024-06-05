@@ -194,7 +194,7 @@
     height: auto;
     padding: 1rem;
   }
-
+}
   .overlay {
     position: fixed;
     top: 0;
@@ -204,7 +204,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 9998;
   }
-}
+
 
 .pasarelaFinal {
   width: 90%;
