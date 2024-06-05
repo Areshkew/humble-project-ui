@@ -160,6 +160,14 @@
         Su saldo: {{saldo | currency: 'COP'}}
     </p>
     
-    <button class="lib-button" style="width: 20%" (click)="realizarCompra()" [disabled]="total > saldo">Comprar</button>
+    <p-selectButton 
+    [options]="stateOptions" 
+    [(ngModel)]="selectValue" 
+    optionLabel="label" 
+    optionValue="value" />
+
+    <br>
+
+    <button class="lib-button" style="width: 20%" (click)="realizarCompra()" [disabled]="total > saldo || selectValue == '2'">Comprar</button>
 </div>
 <p *ngIf="(books.length < 1 && !reservedBooks)" style="color:white; font-size: var(--font-size-xxl);"> <b>  Upss... Parece que no tienes libros en el carrito</b></p>

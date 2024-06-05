@@ -1,0 +1,17 @@
+.container{
+    background-color: white;
+    padding: 10px 10px 25px 10px;
+    margin-top: 10px;
+}
+h1{
+    margin-top: 0px;
+}
+.card-title{
+    font-size: var( --font-size-md);
+}
+button{
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 40%;
+    text-align: center;
+}

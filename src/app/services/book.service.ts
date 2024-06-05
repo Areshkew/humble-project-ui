@@ -151,4 +151,15 @@ export class BookService {
         })
       );
   }
+
+  obtenerTiendas(): Observable<any> {
+    return this.http.get(`/api/shop/get/`)
+      .pipe(
+        catchError((error: any) => {
+          console.error('No se pudo obtener las tiendas', error);
+          const message = `No se pudo obtener las tiendas: ${error.error.detail}`;
+          return throwError(() => new Error(message));
+        })
+      );
+  }
 }

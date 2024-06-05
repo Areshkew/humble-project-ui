@@ -25,6 +25,18 @@ export const routes: Routes = [
         canActivate: [authGuard],
     }, 
     { 
+        path: 'compras', 
+        loadComponent: () => import('./user/shopping/shopping.component').then(m => m.ShoppingComponent),
+        data: { Roles: ['cliente'] },
+        canActivate: [authGuard],
+    }, 
+    { 
+        path: 'devolucion/:code', 
+        loadComponent: () => import('./dashboard/devolution/devolution.component').then(m => m.DevolutionComponent),
+        data: { Roles: ['admin'] },
+        canActivate: [authGuard],
+    }, 
+    { 
         path: 'recuperar-contraseña', 
         loadComponent: () => import('./auth/recover/recover.component').then(m => m.RecoverComponent),
         data: { Guest: true }, 
