@@ -1,1 +1,137 @@
-<p>financial-info works!</p>
+<p-confirmPopup></p-confirmPopup>
+
+<div class="financial-info-container">
+    <div class="flex-container" style="--flex-direction:row">
+        <div class="balance">
+            Saldo: {{balance}}
+        </div>
+        
+        <button class=" add-button"
+        (click)="showAddBalanceDialog()"><app-icon icon="add" [size]="30"></app-icon></button>
+    </div>
+    <p-dialog header="Añadir Saldo" [(visible)]="addBalanceDialogVisible" [modal]="true" [closable]="false"
+        [style]="{width: '350px'}">
+        <form [formGroup]="addBalanceForm" (ngSubmit)="onAddBalanceSubmit()">
+            <div class="form__group-dialog flex-container" style="--flex-direction: column">
+                <div class="input__group">
+                    <label for="amount">Cantidad</label>
+                    <input type="number" id="amount" pInputText formControlName="saldo" />
+                </div>
+                <div class="input__group">
+                    <label for="card">Seleccionar Tarjeta</label>
+                    <p-dropdown [options]="transformedCards" optionLabel="num_tarjeta" formControlName="card"
+                        (onChange)="onCardSelect()"></p-dropdown>
+                </div>
+                @if (isCreditCardSelected()) {
+                <div class="input__group">
+                    <label for="installments">Cuotas</label>
+                    <p-dropdown [editable]="true" [options]="installments" optionLabel="label"
+                        formControlName="installments"></p-dropdown>
+                </div>
+                }
+                <div class="form-actions flex-container">
+                    <button type="button" pButton label="Cancelar" class="p-button-secondary"
+                        (click)="addBalanceDialogVisible=false"></button>
+                    <button type="submit" pButton label="Añadir" [disabled]="addBalanceForm.invalid"></button>
+                </div>
+            </div>
+        </form>
+    </p-dialog>
+
+    <div class="actual-cards-container">
+        <div class="cards__title">
+            Tarjetas actuales
+        </div>
+        <div class="cards__content flex-container" style="--flex-direction: column">
+            @if (cards.length === 0) {
+            <div>Todavía no se han agregado tarjetas</div>
+            }
+            @for (card of cards; track $index) {
+            <div class="card__content flex-container" style="--flex-direction: row; --justify-content: space-between">
+                <div class="flex-container" style="--flex-direction: column;">
+                    <div class="card-text">Tarjeta terminada en</div>
+                    <div> <span class="hide-mobile">XXXX . XXXX .</span>XXXX . {{card.num_tarjeta.slice(-4)}}</div>
+                </div>
+
+                <div class="flex-container" style="--flex-direction: column">
+                    <div class="card-text">Tipo</div>
+                    @if (card.tipo) {
+                    <div>Crédito</div>
+                    } @else {
+                    <div>Débito</div>
+                    }
+                </div>
+                <div class="flex-container hide-mobile" style="--flex-direction: column;">
+                    <div class="card-text">Vencimiento</div>
+                    <div>{{card.fec_vencimiento}}</div>
+                </div>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                    (click)="deleteCard($event, card.num_tarjeta)"></button>
+            </div>
+            }
+        </div>
+    </div>
+
+    <form class="add-card__form" [formGroup]="tarjetaForm" (ngSubmit)="onSubmit()">
+        <div class="cards__title">
+            Agregar Tarjetas
+        </div>
+        <div class="form__group flex-container">
+            <div class="form__data flex-container" style="--flex-direction: column">
+                <div class="input__group">
+                    <label>Número</label>
+                    <input type="number" pInputText formControlName="num_tarjeta"
+                        [ngClass]="{'lib-invalid': tarjetaForm.get('num_tarjeta')?.touched && tarjetaForm.get('num_tarjeta')?.invalid}">
+                    @if (tarjetaForm.get('num_tarjeta')?.touched && tarjetaForm.get('num_tarjeta')?.invalid) {
+                        @if (tarjetaForm.get('num_tarjeta')?.errors?.['required']) {
+                            <p>El número es requerido</p>
+                        }
+                        @if (tarjetaForm.get('num_tarjeta')?.errors?.['pattern']) {
+                            <p>La tarjeta debe tener 16 dígitos</p>
+                        }                        
+                    }
+                </div>
+                <div class="input__group">
+                    <label>Fecha vencimiento</label>
+                    <p-calendar formControlName="fec_vencimiento" view="month" dateFormat="mm/yy" [yearNavigator]="true"
+                        placeholder="MM/AA" [minDate]="minDate"
+                        [ngClass]="{'lib-invalid': tarjetaForm.get('fecha')?.touched && tarjetaForm.get('fecha')?.invalid}"></p-calendar>
+                    @if (tarjetaForm.get('fecha')?.touched && tarjetaForm.get('fecha')?.invalid) {
+                    @if (tarjetaForm.get('fecha')?.errors?.['required']) {
+                    <p>La fecha es requerida</p>
+                    }
+                    }
+                </div>
+            </div>
+            <div class="form__data flex-container" style="--flex-direction: column">
+                <div class="input__group">
+                    <label>CVV</label>
+                    <input type="number" pInputText formControlName="cvv"
+                        [ngClass]="{'lib-invalid': tarjetaForm.get('cvv')?.touched && tarjetaForm.get('cvv')?.invalid}">
+                    @if (tarjetaForm.get('cvv')?.touched && tarjetaForm.get('cvv')?.invalid) {
+                    @if (tarjetaForm.get('cvv')?.errors?.['required']) {
+                    <p>El CVV es requerido</p>
+                    }
+                    @if (tarjetaForm.get('cvv')?.errors?.['pattern']) {
+                    <p>El CVV debe de ser de 3 dígitos</p>
+                    }
+                    }
+                </div>
+                <div class="input__group">
+                    <label>Tipo de tarjeta</label>
+                    <p-dropdown [options]="type" formControlName="tipo"
+                        [ngClass]="{'lib-invalid': tarjetaForm.get('tipo')?.touched && tarjetaForm.get('tipo')?.invalid}"></p-dropdown>
+                    @if (tarjetaForm.get('tipo')?.touched && tarjetaForm.get('tipo')?.invalid) {
+                    @if (tarjetaForm.get('tipo')?.errors?.['required']) {
+                    <p>El tipo de tarjeta es requerido</p>
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="button-container flex-container">
+            <button type="submit" class="lib-button" [ngClass]="{'lib-button-disabled': !tarjetaForm.valid}"
+                [disabled]="!tarjetaForm.valid">Agregar tarjeta</button>
+        </div>
+    </form>
+</div>

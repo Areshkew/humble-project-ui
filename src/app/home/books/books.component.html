@@ -2,38 +2,35 @@
 <div class="books flex-container">
     @for (item of books ; track $index) {
         <a class="book-link"  [routerLink]="['/libro', item.ISSN]">
-    <div class="book-card flex-container" style="--flex-direction: row; --align-items: start;">
-        <div class="card-image-container">
-            <img class="card-image" [src]="imageUrl +'/' + item.portada" alt="{{ item.titulo }}">
-        </div>
-        <div class="book-info">
-            <div class="card-title">{{ item.titulo }}</div>
-            <div class="card-details">
-                <div class="icon-text"><app-icon icon="edit" [size]="22" color="gray"></app-icon><span>{{ item.autor }}</span></div>
-                <div class="icon-text"><app-icon icon="description" [size]="22" color="gray"></app-icon><span>{{ item.num_paginas }}</span></div>
-                <div class="icon-text"><app-icon icon="calendar_month" [size]="22" color="gray"></app-icon><span>{{ item.fecha_publicacion }}</span></div>
-                <div class="icon-text"><app-icon [icon]="getLanguageEmoji(item.idioma)" [size]="22" color="gray"></app-icon><span>{{ item.idioma }}</span></div>
-                <div class="icon-text"><app-icon [icon]="getStateEmoji(item.estado)" [size]="22" color="gray"></app-icon><span>{{ getState(item.estado) }}</span></div>
+            <div class="book-card flex-container" style="--flex-direction: row; --align-items: start;">
+                <div class="card-image-container">
+                    <img class="card-image" [src]="imageUrl +'/' + item.portada" alt="{{ item.titulo }}">
+                </div>
+                <div class="book-info">
+                    <div class="card-title">{{ item.titulo }}</div>
+                    <div class="card-details">
+                        <div class="icon-text"><app-icon icon="edit" [size]="iconSize" color="gray"></app-icon><span class="book-autor">{{ item.autor }}</span></div>
+                        <div class="icon-text"><app-icon icon="description" [size]="iconSize" color="gray"></app-icon><span>{{ item.num_paginas }}</span></div>
+                        <div class="icon-text"><app-icon icon="calendar_month" [size]="iconSize" color="gray"></app-icon><span>{{ item.fecha_publicacion }}</span></div>
+                        <div class="icon-text"><app-icon [icon]="getLanguageEmoji(item.idioma)" [size]="iconSize" color="gray"></app-icon><span>{{ item.idioma }}</span></div>
+                        <div class="icon-text"><app-icon [icon]="getStateEmoji(item.estado)" [size]="iconSize" color="gray"></app-icon><span>{{ getState(item.estado) }}</span></div>
+                    </div>
+                    <div class="price-discount-container">
+                        @if (item.descuento === item.precio) {
+                            <div class="price-discount">{{ item.precio | currency: 'COP' }}</div>
+                        }@else {
+                            <div class="price-original">{{ item.precio | currency: 'COP' }}</div>
+                            <div class="price-discount">{{ item.descuento | currency: 'COP' }}</div>
+                        }
+                    </div>
+                </div>
+                @if (role !== 'root' && role !== 'admin') {
+                <div class="card-buttons">
+                    <button class="btn"><app-icon icon="shopping_cart" [size]="30" color="white"></app-icon>Carrito</button>
+                </div>
+            }
             </div>
-            <div class="price-discount-container">
-                @if (item.descuento === item.precio) {
-                    <div class="price-discount">{{ item.precio | currency: 'COP' }}</div>
-                }@else {
-                    <div class="price-original">{{ item.precio | currency: 'COP' }}</div>
-                    <div class="price-discount">{{ item.descuento | currency: 'COP' }}</div>
-                }
-                           
-                
-            </div>
-        </div>
-        @if (role !== 'root' && role !== 'admin') {
-        <div class="card-buttons">
-            <button class="btn"><app-icon icon="shopping_cart" [size]="30" color="white"></app-icon>Carrito</button>
-            <button class="btn"><app-icon icon="payments" [size]="30" color="white"></app-icon>Comprar</button>
-        </div>
-    }
-    </div>
-</a>
+        </a>
     }
 </div>  
 <p-paginator [rows]="filters.size" [first]="first" [totalRecords]="totalRecords" (onPageChange)="onPaginateChange($event)"></p-paginator>

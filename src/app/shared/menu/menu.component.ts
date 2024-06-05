@@ -73,6 +73,12 @@ export class MenuComponent implements OnInit, OnDestroy {
             style: (this.authService.getUserRoleFromToken() === "root" || this.authService.getUserRoleFromToken() === "admin") ? null : {'display': 'none'},
           },
           {
+            label: 'Mis compras',
+            routerLink: 'compras',
+            icon: PrimeIcons.SHOPPING_BAG,
+            style: !(this.authService.getUserRoleFromToken() === "root" || this.authService.getUserRoleFromToken() === "admin") ? null : {'display': 'none'},
+          },
+          {
             label: 'Cerrar Sesión',
             icon: PrimeIcons.SIGN_OUT,
             command: () => this.authService.logout()
@@ -122,5 +128,9 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   setHoveringOverResults(state: boolean) {
     this.hoveringOverResults = state;
+  }
+
+  showCart(){
+    this.router.navigate(['/carrito'])
   }
 }

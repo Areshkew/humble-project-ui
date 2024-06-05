@@ -57,6 +57,18 @@ export class AuthService {
     return isValid;
   }
 
+  getUserIdFromToken(): string | null {
+    const token = this.cookieService.getCookie('Bearer');
+
+    if (!token)
+      return null;
+    
+    const decodedPayload = this.decodeJwtPayload(token);
+    const userId = decodedPayload ? decodedPayload.sub : null;
+   
+    return userId;
+  }
+
   private decodeJwtPayload(token: string) {
     const parts = token.split('.');
     if (parts.length !== 3) {

@@ -1,0 +1,63 @@
+<div *ngIf="facturasAgrupadas.length" class="container">
+    <div class="facturas-info">
+        <h1>Compras realizadas</h1>
+        <div class="content">
+            <div *ngFor="let factura of facturasAgrupadas">
+                <h3>Factura n° {{factura.numero}} </h3>
+                <div class="shopped-list">
+                    <div class="availableSelections" *ngFor="let infoBook of factura.libros; let i = index"
+                        [ngClass]="{'selected': isSelected(factura.numero, i), 'not-selectable': factura.estado !== 2}"
+                        (click)="infoBook.estado === 2 ? toggleSelection(factura.numero, i) : null">
+                        <div class="shopped-books">
+                            <p>{{i+1}}. {{infoBook.titulo}} </p>
+                            <p *ngIf="infoBook.estado == 0" style="color: rgb(253, 173, 1)">Su compra está en
+                                <b>preparación</b>.
+                            </p>
+                            <p *ngIf="infoBook.estado == 1" style="color: rgb(253, 173, 1)">Su compra se está
+                                <b>enviando</b>.
+                            </p>
+                            <p *ngIf="infoBook.estado == 2" style="color: rgb(16, 145, 44)">Su compra ha sido
+                                <b>entregada</b>.
+                            </p>
+                            <p *ngIf="infoBook.estado == 3" style="color: rgb(16, 145, 44)">Su compra está <b>esperando
+                                    Recogida</b>.</p>
+                                    <p *ngIf="infoBook.estado == 4" style="color: rgb(20, 74, 145)">Su compra está <b>esperando Devolucion</b>.</p>
+                            <p *ngIf="infoBook.estado == 5" style="color: rgb(14, 12, 104)">Su compra ha sido <b>devuelta</b>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="shop-total">
+        <b style="font-size: var(--font-size-md);">¿No quedaste satisfecho con tu libro?</b>
+        <p> Devuelvelo en cualquiera de nuestras tiendas</p>
+        <button class="lib-button" style="width: 100%;" (click)="menuDevolucion()"
+            [disabled]="selectedItems.size == 0">Devolver</button>
+    </div>
+</div>
+
+<div *ngIf="showMenu" class="overlay" (click)="menuDevolucion()"></div>
+<div *ngIf="showMenu" class="panelDevoluciones">
+    <p style="font-size: var(--font-size-lg);">
+        <b>¿Por que deseas realizar la devolución?</b>
+    </p>
+    <p>
+        Producto en mal estado
+        <p-checkbox [binary]="true" />
+    </p>
+    <p>
+        No llenó las expectativas
+        <p-checkbox [binary]="true" />
+    </p>
+    <p>
+        El pedido llegó en un tiempo superior al estipulado
+        <p-checkbox [binary]="true" />
+    </p>
+    <h3>Amplianos los detalles:</h3>
+    <textarea placeholder="Describe el motivo (opcional)" maxlength="500"></textarea>
+    <button class="lib-button" style="width: 35%;" (click)="realizarDevolucion()">Realizar la devolución</button>
+</div>
+
+<p *ngIf="!facturasAgrupadas.length" style="color:white; font-size: var(--font-size-xxl);"> <b> Parece que todavía no
+        has comprado nada :( </b></p>
