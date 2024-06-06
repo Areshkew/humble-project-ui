@@ -29,7 +29,13 @@ export const routes: Routes = [
         loadComponent: () => import('./user/shopping/shopping.component').then(m => m.ShoppingComponent),
         data: { Roles: ['cliente'] },
         canActivate: [authGuard],
-    }, 
+    },
+    { 
+        path: 'chats', 
+        loadComponent: () => import('./chats/chats.component').then(m => m.ChatsComponent),
+        data: { Roles: ['cliente', 'admin'] },
+        canActivate: [authGuard],
+    },  
     { 
         path: 'devolucion/:code', 
         loadComponent: () => import('./dashboard/devolution/devolution.component').then(m => m.DevolutionComponent),
