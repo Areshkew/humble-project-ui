@@ -135,6 +135,13 @@
 
 
 @media (max-width: 768px) {
+
+  .books{
+    padding-right: 0;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
   .book-card {
     width: 325px; 
     height: 160px;

@@ -3338,7 +3338,7 @@
     color: #4c566a;
     border: solid #ffffff;
     border-width: 0;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0;
     border-radius: 4px;
   }
   .p-paginator .p-paginator-first,
