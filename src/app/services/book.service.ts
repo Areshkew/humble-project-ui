@@ -162,4 +162,14 @@ export class BookService {
         })
       );
   }
+
+  entregarTodos(): Observable<any> {
+    return this.http.post(`/api/book/entregarTodos/`, null)
+      .pipe(
+        catchError((error: any) => {
+          const message = `No se pudo cancelar la reserva: ${error.error.detail}`;
+          return throwError(() => new Error(message));
+        })
+      );
+  }
 }

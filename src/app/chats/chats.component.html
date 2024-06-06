@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="sidebar">
+        <ul>
+            <button *ngIf=" rol != 'admin'" class="lib-button" (click)="nuevoChat()">+ Nuevo chat</button>
+            <li *ngFor="let chat of chatList" (click)="selectChat(chat.ticket_id)">
+                <b style="margin-right: 35px;">Ticket: #{{ chat.ticket_id }}</b>
+                <p-button *ngIf="rol != 'admin'" size="small" icon="pi pi-times" severity="danger" (click)="borrarChat(chat.ticket_id)"/>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <h2>Asunto:</h2>
+        <div *ngIf="selectedChat !== -1">
+            <div *ngFor="let chat of chatList">
+                <div *ngIf="chat.ticket_id === selectedChat">
+                    <div class="asunto">
+                    <p class="asunto-text" style="background-color: #c8fdff;" > <b>Cliente: </b>{{ chat.ticket_asunto }}</p>
+                </div>
+                    <p *ngIf="chat.mensajes.length != 0"><strong>Respuestas:</strong></p>
+                    <div *ngFor="let mensaje of chat.mensajes">
+                        <p class="asunto-text" style="background-color: #c8d5ff;;"><strong>{{ mensaje.id_usuario }}:</strong> {{ mensaje.mensaje }}</p>
+                        <span style="font-size: var(--font-size-sm);">{{ mensaje.fecha }}</span>
+                        <br><br><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="selectedChat === -1 && rol != 'admin'" >
+            <p>Selecciona un ticket para ver los mensajes.</p>
+                <br><br><br><br><br><br><br><br>
+                <p>O puedes escribir un mensaje nuevo</p>
+                <div class="input-container">
+                    <input [(ngModel)]="message" type="text" class="input-field"
+                        placeholder="¿Dudas? Escribe aquí un mensaje nuevo">
+                    <button [disabled]="!message" (click)="enviarTicket()" class="lib-button">Enviar</button>
+                </div>
+                <p *ngIf="message.length >= 1024" style="color:red">El mensaje no puede exceder los 1024 caracteres</p>
+        </div>
+        <div *ngIf="selectedChat === -1 && rol == 'admin'">
+            <p>Selecciona un ticket para responder los mensajes.</p>
+        </div>
+        <div *ngIf="selectedChat != -1 && rol == 'admin'">
+            <p>Responde a esta conversacion.</p>
+            <div class="input-container">
+                <input [(ngModel)]="message" type="text" class="input-field"
+                    placeholder="Ayuda a nuestros usuarios, responde sus dudas aqui">
+                <button [disabled]="!message" (click)="responderTicket()" class="lib-button">Responder</button>
+            </div>
+            <p *ngIf="message.length >= 1024" style="color:red">El mensaje no puede exceder los 1024 caracteres</p>
+    
+        </div>
+    </div>
+</div>
