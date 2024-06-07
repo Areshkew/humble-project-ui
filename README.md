@@ -36,8 +36,8 @@ El Proyecto Humble es un sistema avanzado de librería en línea, diseñado para
 
 ### Comunicación y Soporte
 
-- **Chat en Vivo:** Funcionalidad de chat para comunicación instantánea entre usuarios y soporte.
-- **Historial de Chats:** Gestión y revisión de conversaciones pasadas.
+- **Tickets:** Funcionalidad de ticket para comunicación instantánea entre usuarios y soporte.
+- **Historial:** Gestión y revisión de conversaciones pasadas.
 
 ### Automatización y Noticias
 
