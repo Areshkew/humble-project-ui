@@ -79,6 +79,12 @@ export class MenuComponent implements OnInit, OnDestroy {
             style: !(this.authService.getUserRoleFromToken() === "root" || this.authService.getUserRoleFromToken() === "admin") ? null : {'display': 'none'},
           },
           {
+            label: 'Foro',
+            routerLink: 'chats',
+            icon: PrimeIcons.INBOX,
+            style: !(this.authService.getUserRoleFromToken() === "root") ? null : {'display': 'none'},
+          },
+          {
             label: 'Cerrar Sesión',
             icon: PrimeIcons.SIGN_OUT,
             command: () => this.authService.logout()

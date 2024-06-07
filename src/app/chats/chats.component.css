@@ -1,0 +1,70 @@
+/* Estilos del contenedor principal */
+.container {
+    display: flex;
+    height: 100vh; 
+    width: 100vw;
+  }
+  
+  .sidebar {
+    width: 18%; 
+    background-color: white;
+    border-right: 2px solid #002122;
+  }
+  
+  .content {
+    width: 80%;
+    flex: 1;
+    padding: 20px;
+    background-color: #f0f0f0;
+    padding-right: 60px;
+  }
+
+  .input-container {
+    display: flex;
+  }
+
+  .input-field {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    cursor: pointer;
+    padding: 15px 16px 15px;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    margin: 8px 0; 
+    background-color: #fff; 
+    text-align: center;
+}
+
+.sidebar li:hover {
+    background-color: #f0f0f0;
+}
+
+.asunto{
+  width: 100%;
+ 
+}
+
+.asunto-text{
+  border-radius: 15px;
+  padding: 8px 20px 8px 20px;
+  border: 1px solid gray;
+  display: inline;
+}
+
+ul .lib-button{
+  width: 100%;
+  padding: 10px 0 10px 0;
+  text-align: center;
+}

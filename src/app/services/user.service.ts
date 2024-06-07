@@ -16,6 +16,7 @@ export class UserService {
   private editInfoSubject = new Subject<any>();
   private editPasswordSubject = new Subject<any>();
   private currentUserSubject = new Subject<any>();
+  private enviarMensajeSubject = new Subject<any>();
   
   userRegistration$ = this.userRegistrationSubject.asObservable();
   userLogin$ = this.userLoginSubject.asObservable();
@@ -25,6 +26,7 @@ export class UserService {
   editInfo$ = this.editInfoSubject.asObservable();
   editPassword$ = this.editPasswordSubject.asObservable();
   currentUser$ = this.currentUserSubject = new Subject<any>();
+  enviarMensaje$ = this.enviarMensajeSubject.asObservable();
   
   
   constructor(private http: HttpClient) { }  
@@ -160,6 +162,53 @@ export class UserService {
         catchError((error: any) => {
           console.error('No se pudo realizar la devolucion', error);
           const message = `No se pudo realizar la devolucion: ${error.error.detail}`;
+          return throwError(() => new Error(message));
+        })
+      );
+  }
+
+  getMessages(userId: any): Observable<any> {
+    return this.http.get(`/api/ticket/obtenerUserTickets/${userId}`)
+      .pipe(
+        catchError((error: any) => {
+          console.error('No se pudieron obtener los mensajes', error);
+          const message = `No se pudieron obtener los mensajes: ${error.error.detail}`;
+          return throwError(() => new Error(message));
+        })
+      );
+  }
+
+  enviarMensaje(userId: any, message: string): Observable<any> {
+    const data = {
+      id_usuario: userId,
+      asunto: message
+    };
+    return this.http.post(`/api/ticket/create`, data).pipe(
+      tap(response => this.enviarMensajeSubject.next(response)),
+      shareReplay(1),
+      catchError(error => this.handleError(error, this.enviarMensajeSubject))
+    );
+  }
+
+  responderMensaje(selectChat: number, userId: any, message: string): Observable<any> {
+    const data = {
+      id_ticket: selectChat,
+      id_usuario: userId,
+      mensaje: message
+    };
+    return this.http.post(`/api/ticket/respond`, data).pipe(
+      tap(response => this.enviarMensajeSubject.next(response)),
+      shareReplay(1),
+      catchError(error => this.handleError(error, this.enviarMensajeSubject))
+    );
+  }
+
+  borrarMensaje(ticket: number): Observable<any> {
+    return this.http.post(`/api/ticket/delete/${ticket}`, null)
+      .pipe(
+        catchError((error: any) => {
+          console.error('No se pudieron obtener los mensajes', error);
+          const message = `No se pudieron obtener los mensajes: ${error.error.detail}`;
           return throwError(() => new Error(message));
         })
       );
